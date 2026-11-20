@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#faf9f7">
+  <meta name="description" content="Felipe Aguiar, desenvolvedor full stack e instrutor. Explore meus apps, ferramentas para desenvolvedores e projetos com IA, com acesso a demos e repositórios.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Felipe Aguiar | Full Stack Developer & AI Builder">
+  <meta property="og:description" content="Aplicações web, ferramentas para devs e projetos com IA. Veja os projetos e seus repositórios.">
+  <title>Felipe Aguiar | Full Stack Developer &amp; AI Builder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;600;650;700;750&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg:#faf9f7; --paper:#ffffff; --ink:#1b1920; --muted:#78757e; --line:#e9e7e7;
+      --accent:#ec168c; --purple:#8137f1; --light:#f3f0f5; --shadow:0 24px 70px rgba(38,24,50,.08);
+      --display:'Space Grotesk',Arial,sans-serif; --text:'DM Sans',Arial,sans-serif;
+    }
+    :root[data-theme="dark"] { color-scheme:dark; --bg:#131217; --paper:#1c1a20; --ink:#f5f2f6; --muted:#aaa4b0; --line:#353038; --light:#201d25; --shadow:0 24px 70px rgba(0,0,0,.24); }
+    *,*::before,*::after { box-sizing:border-box; }
+    html { scroll-behavior:smooth; scroll-padding-top:90px; }
+    body { margin:0; background:var(--bg); color:var(--ink); font-family:var(--text); font-size:15px; -webkit-font-smoothing:antialiased; overflow-x:hidden; transition:background .35s,color .35s; }
+    body.menu-open { overflow:hidden; }
+    ::selection { color:white; background:#ac2acd; }
+    a { color:inherit; text-decoration:none; }
+    button,input { font:inherit; }
+    button { cursor:pointer; }
+    a:focus-visible, button:focus-visible, input:focus-visible { outline:3px solid var(--purple); outline-offset:4px; }
+    .container { max-width:1390px; margin:0 auto; padding:0 clamp(24px,5.5vw,86px); }
+    .skip { position:absolute; z-index:100; left:16px; top:-70px; background:var(--ink); color:var(--bg); padding:12px 18px; border-radius:8px; }
+    .skip:focus { top:12px; }
+    .progress-bar { position:fixed; z-index:100; top:0; left:0; width:0; height:3px; background:linear-gradient(90deg,#f40a77,#8a36ed); }
+    .site-header { height:84px; position:sticky; top:0; z-index:60; display:flex; align-items:center; background:color-mix(in srgb,var(--bg) 92%,transparent); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); border-bottom:1px solid color-mix(in srgb,var(--line) 80%,transparent); }
+    .header-inner { display:flex; width:100%; align-items:center; justify-content:space-between; gap:25px; }
+    .brand { display:inline-flex; align-items:center; gap:11px; flex:none; }
+    .brand-symbol { width:35px; height:35px; display:grid; place-items:center; font:700 19px var(--display); color:#fff; border-radius:12px; background:linear-gradient(137deg,#ff248d 4%,#a029e9 90%); letter-spacing:-3px; transform:rotate(-7deg); padding-right:3px; }
+    .brand-name { font-family:var(--display); font-weight:700; font-size:17px; letter-spacing:-.8px; }
+    .brand-name span { color:var(--muted); font-weight:400; }
+    .main-nav { display:flex; align-items:center; gap:34px; margin-left:auto; margin-right:auto; }
+    .main-nav a { font-size:12px; font-weight:750; transition:color .2s; white-space:nowrap; }
+    .main-nav a:hover,.main-nav a.active { color:var(--accent); }
+    .header-actions { display:flex; align-items:center; gap:11px; }
+    .icon-button { background:transparent; color:var(--ink); border:1px solid var(--line); width:42px; height:42px; border-radius:50%; display:grid; place-items:center; transition:transform .25s,border-color .25s,background .25s; }
+    .icon-button:hover { transform:translateY(-2px); border-color:#a49ca6; background:var(--light); }
+    .icon-button svg { width:17px; height:17px; }
+    .top-cta { display:flex; gap:14px; align-items:center; background:var(--ink); color:var(--bg); font-size:12px; font-weight:750; border-radius:25px; padding:14px 18px; white-space:nowrap; transition:background .2s,transform .2s; }
+    .top-cta:hover { background:#b52da9; color:#fff; transform:translateY(-2px); }
+    .top-cta svg { width:15px; height:15px; }
+    .menu-toggle { display:none; }
+    .eyebrow { display:flex; align-items:center; gap:9px; font-size:10px; font-weight:750; text-transform:uppercase; letter-spacing:2.1px; }
+    .eyebrow::before { content:''; width:7px; height:7px; background:linear-gradient(135deg,var(--accent),var(--purple)); border-radius:100%; }
+    .subtle { color:var(--muted); }
+    .gradient-text { background:linear-gradient(105deg,#f2197b 5%,#e928a6 43%,#8031f1 93%); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .arrow { display:inline-block; transition:transform .2s; }
+    a:hover .arrow, button:hover .arrow { transform:translate(3px,-3px); }
+
+    /* 01: Editorial / motion-led hero (same pink + violet identity) */
+    .hero {position:relative;isolation:isolate;overflow:hidden;background:var(--bg);padding-top:28px;}
+    .hero::before {content:'';pointer-events:none;position:absolute;inset:0 0 8% 0;z-index:-1;background:radial-gradient(ellipse 39% 49% at 74% 44%,rgba(242,58,174,.080),transparent 80%),radial-gradient(ellipse 40% 43% at 87% 55%,rgba(133,53,241,.082),transparent 80%);}
+    .hero-overline {display:flex;align-items:center;justify-content:space-between;gap:20px;}
+    .hero-top-right {display:flex;align-items:center;gap:9px;font-size:11px;color:var(--muted);font-weight:650;}
+    .hero-top-right i {display:inline-block;width:6px;height:6px;background:var(--accent);border-radius:50%;box-shadow:0 0 0 5px rgba(236,22,140,.10);}
+    .hero-main {display:grid;grid-template-columns:minmax(0,1.14fr) minmax(0,.86fr);align-items:center;min-height:clamp(590px,52vw,740px);gap:0;position:relative;}
+    .hero-copy {z-index:5;position:relative;padding:40px 0 64px;}
+    .hero-heading-kicker {font:700 11px var(--text);letter-spacing:2.2px;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:12px;margin:0 0 30px;}
+    .hero-heading-kicker::before{content:'';width:31px;height:1px;background:var(--accent);}
+    .hero-title {font:700 clamp(66px,7.7vw,116px)/.95 var(--display);letter-spacing:-.093em;margin:0;padding:0;white-space:nowrap;position:relative;}
+    .hero-title-line{display:block;overflow:visible;transform-origin:bottom left;animation:heroWordIn 1.05s both cubic-bezier(.18,1,.25,1);}
+    .hero-title-line:nth-child(2){animation-delay:.16s;}
+    .hero-title-line em {font-style:normal;background:linear-gradient(111deg,#ef168a 10%,#e243b5 54%,#7c35eb 100%);-webkit-background-clip:text;background-clip:text;color:transparent;}
+    .hero-title-line .period {color:var(--accent);}
+    .hero-description {color:var(--muted);line-height:1.8;font-size:clamp(14px,1.3vw,17px);max-width:493px;margin:33px 0 29px;animation:heroFadeUp .8s .40s both;}
+    .hero-actions{display:flex;align-items:center;flex-wrap:wrap;gap:13px;animation:heroFadeUp .8s .52s both;}
+    .hero-primary {display:inline-flex;align-items:center;gap:28px;padding:16px 23px;border-radius:100px;background:var(--ink);color:var(--bg);font:750 12px var(--text);transition:transform .25s,background .25s,box-shadow .25s;}
+    .hero-primary:hover{transform:translateY(-3px);background:var(--accent);color:#fff;box-shadow:0 15px 35px #e91f9d30;}
+    .hero-secondary {display:inline-flex;align-items:center;gap:13px;padding:15px 17px;border-radius:100px;border:1px solid var(--line);font:750 12px var(--text);transition:transform .25s,border-color .25s;}
+    .hero-secondary:hover {transform:translateY(-3px);border-color:var(--accent);}
+    .hero-primary svg,.hero-secondary svg{width:16px;height:16px;}
+    .hero-smallprint {display:flex;align-items:center;gap:10px;margin:35px 0 0;color:var(--muted);font:600 10px var(--text);letter-spacing:.2px;animation:heroFadeUp .85s .65s both;}
+    .hero-smallprint span{width:20px;height:1px;background:var(--accent);}
+    .hero-art {position:relative;min-height:640px;min-width:0;perspective:1300px;z-index:2;}
+    .hero-art::before{content:'';position:absolute;z-index:-1;left:7%;top:10%;width:104%;height:85%;border-radius:50%;background:radial-gradient(circle at 48% 50%,rgba(250,102,191,.24),rgba(185,104,244,.12) 42%,transparent 73%);filter:blur(19px);}
+    .hero-art-ring{pointer-events:none;position:absolute;left:3%;top:12%;height:74%;width:94%;border-radius:50%;border:1px solid color-mix(in srgb,var(--accent) 21%,transparent);transform:rotate(-27deg);}
+    .hero-art-ring::before{content:'';position:absolute;top:7%;right:19%;width:9px;height:9px;border-radius:50%;background:#e771cb;box-shadow:0 0 0 11px rgba(239,67,157,.06);}
+    .hero-art-ring.ring-two{left:22%;top:6%;width:67%;height:82%;transform:rotate(35deg);border-color:color-mix(in srgb,var(--purple) 18%,transparent);}
+    .hero-art-grid {position:absolute;z-index:-1;inset:14% -4% 7% -5%;opacity:.55;mask-image:radial-gradient(ellipse at 50% 50%,#000,transparent 68%);background-image:linear-gradient(to right,color-mix(in srgb,var(--ink) 8%,transparent) 1px,transparent 1px),linear-gradient(to bottom,color-mix(in srgb,var(--ink) 8%,transparent) 1px,transparent 1px);background-size:35px 35px;transform:rotate(-10deg);}
+    .hero-art-motion{position:absolute;inset:0;transform:translate3d(var(--hero-x,0px),var(--hero-y,0px),0);transition:transform .36s cubic-bezier(.2,.7,.2,1);transform-style:preserve-3d;}
+    .hero-card{position:absolute;overflow:hidden;box-shadow:0 30px 60px rgba(54,22,71,.19),0 5px 13px rgba(31,22,34,.08);backface-visibility:hidden;}
+    .hero-card-main {z-index:3;left:5%;top:20%;width:75%;height:420px;background:#17151d;color:#fff;border:1px solid #58425c;border-radius:20px;animation:heroFloatMain 7s ease-in-out infinite;}
+    .hero-card-topbar{height:42px;background:#24202a;border-bottom:1px solid #433847;display:flex;align-items:center;gap:7px;padding:0 14px;}
+    .hero-card-topbar i{width:7px;height:7px;border-radius:50%;background:#fc6487;}.hero-card-topbar i:nth-child(2){background:#ffc769;}.hero-card-topbar i:nth-child(3){background:#69dab4;}
+    .hero-card-topbar span{margin:auto;font:600 8px var(--text);letter-spacing:1px;color:#aea0b3;}
+    .hero-ui-body {height:calc(100% - 42px);display:grid;grid-template-columns:27% 73%;}
+    .hero-ui-sidebar{background:#1f1b26;border-right:1px solid #322b36;padding:24px 10px;}
+    .hero-ui-sidebar strong{display:block;font:700 12px var(--display);letter-spacing:-.5px;margin:0 0 28px;color:#eadfee;}
+    .hero-ui-sidebar strong b{color:#e777ce;}
+    .hero-ui-sidebar span{display:block;font:600 9px var(--text);color:#837888;padding:11px 8px;margin:4px 0;border-radius:6px;white-space:nowrap;}
+    .hero-ui-sidebar span.active{background:#3e2b46;color:#ecc5eb;}
+    .hero-ui-content{padding:26px 20px;background:radial-gradient(ellipse at 90% 1%,#5b305e55,transparent 65%),#1c1923;}
+    .hero-ui-kicker {font:700 8px var(--text);color:#c68bc5;letter-spacing:2px;}
+    .hero-ui-content strong{display:block;font:700 35px/1.08 var(--display);letter-spacing:-1.7px;margin:16px 0 10px;}
+    .hero-ui-content strong em{color:#e68ddc;font-style:normal;}
+    .hero-ui-content p{color:#978b9d;font-size:9px;line-height:1.6;margin:0 0 18px;}
+    .hero-ui-agent-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;}
+    .hero-ui-agent{height:115px;border-radius:10px;border:1px solid #4e3f54;background:#2c2433;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;}
+    .hero-ui-agent .agent-initial{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;font:700 22px var(--display);color:#fff;background:linear-gradient(135deg,#db74c1,#8732ce);}
+    .hero-ui-agent:nth-child(2) .agent-initial{background:linear-gradient(135deg,#6d7ccf,#53b2ce);}
+    .hero-ui-agent:nth-child(3) .agent-initial{background:linear-gradient(135deg,#e1a060,#db6f89);}
+    .hero-ui-agent small{font-size:8px;color:#e5d9ea;font-weight:700;}
+    .hero-card-roadmap{z-index:5;right:-9%;top:7%;width:224px;height:250px;border-radius:20px;border:1px solid #f7edf9;background:#f8f3ff;color:#251d2b;padding:22px;animation:heroFloatRoadmap 6.5s ease-in-out infinite;}
+    .hero-card-roadmap .mini-card-label{font:800 10px var(--text);letter-spacing:1.5px;color:#9564ab;}
+    .hero-card-roadmap strong{display:block;font:700 27px/1.03 var(--display);letter-spacing:-1.5px;margin:19px 0;}
+    .hero-roadmap-path{display:flex;align-items:center;gap:0;margin-top:19px;}
+    .hero-roadmap-path span{flex:1;height:7px;border-radius:6px;background:#d8bee9;position:relative;}
+    .hero-roadmap-path span::before{content:'';position:absolute;width:18px;height:18px;border-radius:6px;background:#b75dd3;top:-6px;left:0;box-shadow:0 4px 9px #b75dd32f;transform:rotate(20deg);}
+    .hero-roadmap-path span:last-child{flex:0 0 18px;background:transparent;}
+    .hero-roadmap-path span:nth-child(2)::before{background:#8734db;}.hero-roadmap-path span:nth-child(3)::before{background:#f06fae;}
+    .hero-card-roadmap small{display:block;margin-top:17px;font-size:9px;line-height:1.5;color:#897e91;}
+    .hero-card-game{z-index:4;right:-9%;bottom:4%;width:240px;height:195px;border-radius:18px;color:#fff;background:radial-gradient(circle at 65% 32%,#4562d6 0,#29317e 42%,#171b42 100%);border:1px solid #8c9aed61;padding:19px 19px;animation:heroFloatGame 8s ease-in-out infinite;}
+    .hero-game-overline{display:flex;justify-content:space-between;font-size:9px;font-weight:800;letter-spacing:1.4px;color:#b5c1ff;}
+    .hero-game-shape{position:absolute;top:51px;right:30px;width:127px;height:73px;border:2px solid #b9cfff;background:linear-gradient(140deg,#cbd5fcaa,#6b7bd9c9);border-radius:44% 44% 32% 32%;transform:rotate(-18deg);box-shadow:0 15px 20px #06105055;}
+    .hero-game-shape::before{content:'+';color:#343c88;position:absolute;left:25px;top:21px;font:700 24px var(--display);}
+    .hero-game-shape::after{content:'● ●';color:#303a8d;position:absolute;right:19px;top:22px;font:700 13px var(--display);letter-spacing:1px;}
+    .hero-card-game strong{position:absolute;bottom:17px;left:20px;font:700 18px var(--display);letter-spacing:-.6px;}
+    .hero-art-star{position:absolute;z-index:8;left:-4%;top:12%;width:75px;height:75px;display:grid;place-items:center;color:#d93ba8;font:400 86px/1 var(--display);animation:heroStarTurn 19s linear infinite;pointer-events:none;}
+    .hero-art-pill{z-index:8;position:absolute;left:-9%;bottom:11%;display:flex;align-items:center;gap:8px;color:var(--ink);background:var(--paper);box-shadow:0 16px 35px #3e20301a;border:1px solid var(--line);border-radius:30px;padding:12px 17px;font:800 10px var(--text);letter-spacing:.4px;transform:rotate(-7deg);}
+    .hero-art-pill::before{content:'';width:8px;height:8px;border-radius:100%;background:#e54aac;box-shadow:0 0 0 4px #e54aac1c;}
+    .hero-stats-area{border-top:1px solid var(--line);background:color-mix(in srgb,var(--bg) 95%,var(--paper));}
+    .hero-stats{display:grid;grid-template-columns:minmax(0,1.17fr) minmax(170px,.75fr) minmax(210px,.95fr);gap:0;align-items:stretch;}
+    .hero-stats-caption{display:flex;flex-direction:column;justify-content:center;padding:29px 28px 33px 0;}
+    .hero-stats-caption b{font:800 10px var(--text);letter-spacing:1.9px;color:var(--accent);}
+    .hero-stats-caption p{margin:10px 0 0;max-width:320px;font-size:12px;line-height:1.7;color:var(--muted);}
+    .hero-stat{border-left:1px solid var(--line);padding:25px 30px 27px;display:flex;flex-direction:column;justify-content:center;}
+    .hero-stat .stat-number{font:700 clamp(54px,5.5vw,81px)/1 var(--display);letter-spacing:-5px;white-space:nowrap;font-variant-numeric:tabular-nums;}
+    .hero-stat-label{font-size:11px;color:var(--muted);font-weight:700;margin-top:9px;display:flex;align-items:center;gap:9px;}
+    .hero-stat-label svg{width:15px;height:15px;color:var(--accent);flex:none;}
+    .hero-stat-note{display:block;font-size:10px;color:var(--muted);margin-top:8px;line-height:1.5;max-width:210px;}
+    @keyframes heroWordIn{from{opacity:0;transform:translateY(42px) rotate(2deg);filter:blur(7px);}to{opacity:1;transform:translateY(0) rotate(0);filter:blur(0);}}
+    @keyframes heroFadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes heroFloatMain{0%,100%{transform:rotate(-9deg) translateY(0);}50%{transform:rotate(-7.6deg) translateY(-13px);}}
+    @keyframes heroFloatRoadmap{0%,100%{transform:rotate(12deg) translateY(0);}50%{transform:rotate(9deg) translateY(-15px);}}
+    @keyframes heroFloatGame{0%,100%{transform:rotate(10deg) translateY(0);}50%{transform:rotate(12deg) translateY(11px);}}
+    @keyframes heroStarTurn{to{transform:rotate(360deg);}}
+    @media(max-width:1170px){.hero-main{grid-template-columns:1.12fr .88fr;}.hero-title{font-size:7.7vw;}.hero-card-main{width:86%;height:390px;}.hero-card-roadmap{right:-6%;width:205px;height:234px;}.hero-card-game{right:-6%;width:210px;}.hero-art{min-height:590px;}.hero-ui-content strong{font-size:31px;}}
+    @media(max-width:880px){.hero-main{grid-template-columns:1fr;min-height:0;}.hero-copy{padding:72px 0 0;}.hero-title{font-size:clamp(78px,10.1vw,115px);}.hero-description{max-width:580px;}.hero-art{max-width:600px;width:100%;margin:0 auto;min-height:610px;}.hero-card-main{width:72%;height:415px;left:10%;}.hero-card-roadmap{right:-1%;}.hero-card-game{right:-3%;}.hero-art-pill{left:0;}.hero-stats{grid-template-columns:1fr 1fr;}.hero-stats-caption{grid-column:1/-1;padding:28px 0 16px;}.hero-stat:first-of-type{border-left:none;padding-left:0;}}
+    @media(max-width:620px){.hero{padding-top:23px;}.hero-overline .eyebrow{font-size:8px;letter-spacing:1px;}.hero-top-right{font-size:9px;white-space:nowrap;}.hero-copy{padding-top:54px;}.hero-heading-kicker{font-size:9px;letter-spacing:1.4px;margin-bottom:22px;}.hero-title{font-size:clamp(46px,11.7vw,73px);letter-spacing:-.095em;}.hero-description{font-size:13px;margin:23px 0 22px;}.hero-actions{gap:9px;}.hero-primary{font-size:11px;padding:14px 16px;gap:14px;}.hero-secondary{font-size:11px;padding:13px 15px;}.hero-smallprint{font-size:9px;margin-top:23px;}.hero-art{min-height:470px;max-width:410px;margin-top:20px;}.hero-art::before{left:0;width:100%;}.hero-art-grid{inset:10% -5% 0;}.hero-card-main{left:6%;top:20%;width:80%;height:325px;border-radius:14px;}.hero-card-topbar{height:29px;padding:0 9px;gap:4px;}.hero-card-topbar i{width:5px;height:5px;}.hero-card-topbar span{font-size:6px;}.hero-ui-body{height:calc(100% - 29px);}.hero-ui-sidebar{padding:15px 5px;}.hero-ui-sidebar strong{font-size:8px;margin-bottom:16px;}.hero-ui-sidebar span{font-size:6px;padding:7px 4px;margin:2px 0;}.hero-ui-content{padding:18px 11px;}.hero-ui-kicker{font-size:6px;}.hero-ui-content strong{font-size:26px;letter-spacing:-1px;margin:11px 0 7px;}.hero-ui-content p{font-size:7px;margin-bottom:13px;}.hero-ui-agent-grid{gap:5px;}.hero-ui-agent{height:84px;gap:7px;}.hero-ui-agent .agent-initial{width:33px;height:33px;font-size:17px;border-radius:9px;}.hero-ui-agent small{font-size:6px;}.hero-card-roadmap{right:-1%;top:6%;width:142px;height:174px;padding:13px;border-radius:14px;}.hero-card-roadmap .mini-card-label{font-size:7px;}.hero-card-roadmap strong{font-size:19px;margin:14px 0;letter-spacing:-1px;}.hero-roadmap-path{margin-top:12px;}.hero-roadmap-path span{height:5px;}.hero-roadmap-path span::before{width:12px;height:12px;top:-4px;}.hero-card-roadmap small{font-size:6px;margin-top:13px;}.hero-card-game{right:-3%;bottom:4%;width:169px;height:137px;padding:12px;border-radius:13px;}.hero-game-overline{font-size:6px;}.hero-game-shape{width:90px;height:51px;right:20px;top:34px;}.hero-game-shape::before{font-size:17px;left:17px;top:15px;}.hero-game-shape::after{font-size:9px;right:14px;top:16px;}.hero-card-game strong{font-size:12px;left:13px;bottom:12px;}.hero-art-star{font-size:55px;width:50px;left:0;top:12%;}.hero-art-pill{font-size:8px;padding:9px 12px;left:0;bottom:5%;}.hero-stats{grid-template-columns:1fr 1fr;}.hero-stats-caption{padding:23px 0 12px;}.hero-stats-caption p{font-size:11px;margin-top:8px;}.hero-stat{padding:20px 14px 24px;}.hero-stat:first-of-type{padding-left:0;}.hero-stat .hero-stat-label{font-size:9px;gap:6px;}.hero-stat-label svg{width:12px;height:12px;}.hero-stat-note{font-size:9px;}}
+    @media(max-width:370px){.hero-title{font-size:11.2vw;}.hero-art{min-height:425px;}.hero-card-main{height:294px;}.hero-ui-content strong{font-size:22px;}.hero-card-roadmap{width:130px;height:158px;}.hero-card-game{width:146px;height:125px;}}
+    @media(prefers-reduced-motion:reduce){.hero-title-line,.hero-description,.hero-actions,.hero-smallprint,.hero-card-main,.hero-card-roadmap,.hero-card-game,.hero-art-star{animation:none!important;}.hero-art-motion{transition:none;}}
+    .section { padding:116px 0; }.section-topline { display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:30px;}.section-index { font:600 11px var(--display);letter-spacing:1.6px;color:var(--muted); }.section-index strong {color:var(--accent);font-weight:700;}
+    .section-title { font:600 clamp(43px,5.1vw,76px)/1.06 var(--display);letter-spacing:-4.6px;margin:0;max-width:820px; }.section-title span {color:var(--accent);}.section-copy {font-size:14px;color:var(--muted);line-height:1.8;max-width:410px;margin:12px 0 0;}
+    #projetos {background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+    .projects-title-row {display:flex;align-items:end;justify-content:space-between;gap:24px;}
+    .filter-bar {display:flex;justify-content:space-between;gap:18px;align-items:center;border-bottom:1px solid var(--line);margin:50px 0 34px;padding-bottom:18px;}
+    .filters {display:flex;gap:7px;flex-wrap:wrap;}
+    .filter-btn {background:transparent;color:var(--muted);border:1px solid transparent;border-radius:99px;font-size:12px;font-weight:700;padding:11px 16px;transition:all .25s;white-space:nowrap;}
+    .filter-btn:hover {color:var(--ink);background:var(--light);}.filter-btn.is-active {color:#fff;background:#201d25;box-shadow:0 9px 18px rgba(0,0,0,.08);}
+    :root[data-theme=dark] .filter-btn.is-active {background:#f4f0f7;color:#141216;}
+    .filter-btn small{font-size:9px;opacity:.64;margin-left:4px;}
+    .search-wrap {height:38px;min-width:175px;max-width:215px;display:flex;gap:9px;align-items:center;border-bottom:1px solid var(--line);color:var(--muted);}.search-wrap svg{width:15px;height:15px;flex:none;}.search-wrap input{min-width:0;border:0;outline:none!important;background:transparent;color:var(--ink);width:100%;font-size:12px;}.search-wrap input::placeholder{color:var(--muted);opacity:.85;}
+    .project-grid { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px;align-items:stretch; }
+    .project-card {background:var(--bg);border:1px solid var(--line);border-radius:24px;overflow:hidden;transition:transform .45s cubic-bezier(.18,.8,.25,1),box-shadow .45s,border-color .3s;min-width:0;}
+    .project-card:hover {transform:translateY(-7px);box-shadow:var(--shadow);border-color:#d7cddc;}
+    .project-card.is-wide {grid-column:span 2;display:grid;grid-template-columns:1.2fr .8fr;align-items:stretch;}
+    .project-media {display:block;position:relative;height:291px;margin:11px 11px 0;border-radius:15px;overflow:hidden;isolation:isolate;}
+    .project-card.is-wide .project-media {height:390px;margin:11px 0 11px 11px;}
+    .project-media::after {content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,transparent 70%,rgba(0,0,0,.07));}
+    .project-media .view-bubble {position:absolute;z-index:12;right:17px;top:17px;width:43px;height:43px;background:#fff;color:#221e29;border-radius:100%;display:grid;place-items:center;transform:translateY(-70px) rotate(-20deg);transition:transform .4s cubic-bezier(.19,1,.22,1);box-shadow:0 10px 30px rgba(0,0,0,.16);}.view-bubble svg{width:17px;height:17px;}.project-card:hover .view-bubble,.project-media:focus-visible .view-bubble{transform:translateY(0) rotate(0);}
+    .project-content {padding:22px 26px 25px;display:flex;flex-direction:column;justify-content:space-between;}
+    .project-card.is-wide .project-content {padding:44px 42px;justify-content:center;}
+    .project-super {display:flex;align-items:center;justify-content:space-between;gap:15px;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:1.35px;font-weight:750;}.project-super .live-dot{display:inline-flex;align-items:center;gap:6px;}.live-dot::before{content:'';width:5px;height:5px;border-radius:50%;background:#20b988;}
+    .project-content h3 {font:600 clamp(24px,2.55vw,35px)/1.13 var(--display);letter-spacing:-1.1px;margin:13px 0 9px;}.project-card.is-wide .project-content h3{font-size:clamp(33px,3.4vw,50px);letter-spacing:-2px;margin-top:24px;}
+    .project-desc{color:var(--muted);font-size:13px;line-height:1.8;margin:0;max-width:420px;}.project-card.is-wide .project-desc{font-size:14px;}
+    .project-foot {display:flex;align-items:end;justify-content:space-between;gap:14px;margin-top:22px;}.project-card.is-wide .project-foot{margin-top:33px;}
+    .project-tags {display:flex;gap:6px;flex-wrap:wrap;}.tag {border:1px solid var(--line);padding:7px 10px;border-radius:14px;font-size:10px;color:var(--muted);font-weight:600;white-space:nowrap;}
+    .project-links {display:flex;align-items:center;gap:8px;}.project-link {width:35px;height:35px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;transition:background .2s,color .2s;}.project-link:hover{background:var(--ink);color:var(--bg);}.project-link svg{width:15px;height:15px;}
+    .empty-state{grid-column:1/-1;text-align:center;padding:70px 20px;background:var(--bg);border:1px dashed var(--line);border-radius:20px;}.empty-state strong{display:block;font:600 24px var(--display);margin-bottom:10px;}.empty-state p{color:var(--muted);}
+    .projects-end {display:flex;align-items:center;justify-content:space-between;gap:15px;margin-top:36px;}.projects-end p{font-size:12px;color:var(--muted);}.inline-link{display:inline-flex;align-items:center;gap:14px;font-weight:750;font-size:12px;padding:12px 0;border-bottom:1px solid var(--ink);}.inline-link svg{width:15px;height:15px;}
+    /* Each project has an original CSS-rendered illustrative UI, not an embedded third-party screenshot. */
+    .thumb {width:100%;height:100%;position:relative;overflow:hidden;display:grid;place-items:center;}
+    .thumb-agent{background:radial-gradient(circle at 70% 35%,#453153 0%,#221a2d 47%,#141119 100%);}.thumb-agent::before{content:'STUDIO';position:absolute;font:700 130px var(--display);letter-spacing:-12px;color:#ffffff08;right:-35px;top:25px;transform:rotate(-15deg);}
+    .mock-agent-app{width:82%;height:80%;min-width:300px;background:#17151d;border:1px solid #55455a;border-radius:12px;display:grid;grid-template-columns:25% 75%;overflow:hidden;box-shadow:0 30px 52px #0006;transform:rotate(-4deg) translateY(20px);transition:transform .55s;}.project-card:hover .mock-agent-app{transform:rotate(-1deg) translateY(8px) scale(1.03);}
+    .mock-agent-side{background:#1e1b25;border-right:1px solid #443747;padding:14px 10px;color:#8c7d94;font-size:7px;}.mock-agent-side strong{display:block;color:white;font:700 10px var(--display);margin:0 0 18px 4px;}.mock-agent-side b{display:block;padding:8px 7px;border-radius:5px;margin-bottom:5px;}.mock-agent-side b:first-of-type{background:#5f366a;color:#e9cdec;}
+    .mock-agent-main{padding:16px 18px;}.mock-agent-main .mock-breadcrumb{font-size:7px;color:#908397;}.mock-agent-main h4{font:600 22px var(--display);color:white;margin:20px 0 6px;letter-spacing:-.8px;}.mock-agent-main small{font-size:7px;color:#9b90a2;}.mock-avatars{display:flex;gap:11px;margin-top:21px;}.mock-avatar{flex:1;height:78px;border:1px solid #56415d;border-radius:7px;background:linear-gradient(140deg,#755a87,#221c2b);position:relative;overflow:hidden;}.mock-avatar:nth-child(2){background:linear-gradient(140deg,#537a79,#252c30);}.mock-avatar:nth-child(3){background:linear-gradient(140deg,#916774,#30202b);}.mock-avatar::before{content:'';position:absolute;width:27px;height:32px;border-radius:50% 50% 40% 40%;background:#e6baab;top:17px;left:50%;translate:-50%;box-shadow:0 -13px 0 7px #302438;}.mock-avatar::after{content:'';position:absolute;width:70px;height:45px;border-radius:50% 50% 0 0;background:#2e293d;bottom:-20px;left:50%;translate:-50%;}
+    .thumb-roadmap{background:#eef0f4;}.roadmap-stage{position:absolute;width:90%;height:85%;background:#fdfdfd;border-radius:13px;box-shadow:0 22px 38px #3d4b6420;border:1px solid #e3e6eb;top:14%;left:5%;transform:rotate(3deg);transition:transform .5s;}.project-card:hover .roadmap-stage{transform:rotate(0) scale(1.02);}.map-top{height:34px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid #e9eaf0;font:700 9px var(--display);color:#232737;}.map-top span{color:#8e929f;font-size:7px;}.mindmap{position:relative;height:calc(100% - 34px);}.map-line{position:absolute;left:10%;top:45%;width:76%;height:1px;background:#c5d1dc;}.map-line::after{content:'';width:1px;height:87px;background:#c5d1dc;position:absolute;left:40%;top:-43px;}.map-root{position:absolute;left:9%;top:37%;padding:13px 15px;border-radius:7px;background:#252c3c;color:white;font:700 10px var(--display);}.map-nodes{position:absolute;left:49%;top:8%;width:43%;height:85%;display:grid;grid-template-columns:1fr 1fr;gap:15px;}.map-node{border:1px solid #c9d6ea;border-radius:8px;padding:11px 7px;display:flex;align-items:center;background:#f5f8ff;color:#415977;font:600 8px var(--display);box-shadow:0 5px 9px #3452a40a;}.map-node:nth-child(2){background:#eff8f5;border-color:#bddccf;color:#347665;}.map-node:nth-child(3){background:#fff5ea;border-color:#ebd1b2;color:#a9723e;}.map-node:nth-child(4){background:#fbf0fa;border-color:#e8c3e6;color:#996092;}
+    .thumb-ps5{background:radial-gradient(ellipse at 76% 49%,#3869d0,#142657 47%,#070d24 100%);}.thumb-ps5:before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(120deg,#ffffff04 0 1px,transparent 1px 20px);}.console-ui{width:94%;height:86%;position:absolute;bottom:-13%;left:6%;padding:18px 22px;border:1px solid #7ca0ff52;border-radius:14px 0 0 0;background:linear-gradient(150deg,#101d42cb,#081129eb);transform:rotate(-4deg);box-shadow:0 15px 35px #0009;}.console-navbar{display:flex;gap:13px;color:#c1cdf1;font:700 8px var(--display);letter-spacing:.5px;}.console-navbar strong{margin-right:auto;font-size:12px;color:#fff;}.console-ui h4{font:600 25px var(--display);margin:20px 0 2px;color:#fff;letter-spacing:-1px;}.console-ui p{font-size:8px;color:#b8c8ec;margin:0 0 15px;}.game-covers{display:flex;gap:11px;}.game-cover{height:88px;flex:1;border-radius:6px 6px 0 0;background:linear-gradient(135deg,#df774b,#3a244e);position:relative;overflow:hidden;}.game-cover:nth-child(2){background:linear-gradient(140deg,#5e8dd1,#172b6f);}.game-cover:nth-child(3){background:linear-gradient(140deg,#90bfab,#163c50);}.game-cover:nth-child(4){background:linear-gradient(140deg,#b07b8c,#2d2649);}.game-cover::after{content:'◈';position:absolute;left:50%;top:20%;translate:-50%;font-size:42px;color:#ffffff6e;}
+    .thumb-angular{background:#ebeeee;}.angular-stage{width:80%;height:76%;display:grid;grid-template-columns:44% 56%;background:#fafcfc;border:1px solid #e2e5e7;border-radius:12px;overflow:hidden;box-shadow:0 22px 36px #262e3326;transform:rotate(4deg) translateY(18px);transition:transform .4s;}.project-card:hover .angular-stage{transform:rotate(1deg) translateY(9px);}.angular-brand{background:#c52950;display:grid;place-items:center;position:relative;}.angular-mark{font:700 120px var(--display);color:#fff;letter-spacing:-12px;line-height:1;}.angular-side{padding:30px 21px;background:#fff;}.angular-side span{color:#9a9fa8;font-size:8px;font-weight:700;letter-spacing:1px;}.angular-side h4{font:700 24px/1.1 var(--display);color:#2b2a34;letter-spacing:-1.4px;margin:13px 0 16px;}.angular-code{height:10px;border-radius:4px;background:#eae7ee;margin:9px 0;}.angular-code:nth-child(3){width:70%;background:#f3d5df;}.angular-code:nth-child(5){width:60%;}
+    .thumb-node{background:#101d28;}.node-terminal{width:79%;height:80%;background:#152a34;border:1px solid #46606b;border-radius:10px;overflow:hidden;box-shadow:0 25px 45px #0008;transform:rotate(-5deg) translateY(15px);transition:transform .4s;}.project-card:hover .node-terminal{transform:rotate(-2deg) translateY(6px);}.terminal-header{height:35px;padding:12px 13px;background:#233a46;display:flex;gap:6px;}.terminal-header i{width:7px;height:7px;background:#65838f;border-radius:50%;}.terminal-code{font:10px/2.2 ui-monospace,SFMono-Regular,Consolas,monospace;color:#cfebee;padding:20px 25px;white-space:nowrap;}.terminal-code b{color:#69cfb9;}.terminal-code em{font-style:normal;color:#d99ae8;}.terminal-code small{color:#748d99;}
+    .thumb-blog{background:#efe9df;}.blog-page{width:82%;height:88%;background:#fffaf1;box-shadow:0 22px 45px #4c423a27;position:absolute;top:11%;left:9%;transform:rotate(5deg);padding:20px;transition:transform .4s;}.project-card:hover .blog-page{transform:rotate(1deg);}.blog-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #d1c7b7;padding-bottom:12px;color:#665a4e;font:700 8px var(--display);}.blog-head strong{font:700 19px Georgia,serif;letter-spacing:-1px;color:#2d2821;}.blog-hero{height:53%;margin-top:14px;background:linear-gradient(145deg,#c6bdad,#6b655c);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}.blog-hero::before{content:'';position:absolute;width:140px;height:180px;top:13px;left:35%;background:#e8dbc6;border-radius:100px 100px 12px 12px;transform:rotate(20deg);box-shadow:23px 18px 0 #555c5c;}.blog-page h4{font:500 20px/1.05 Georgia,serif;margin:13px 0;color:#3a332b;}.blog-page p{font-size:7px;color:#766d60;}
+    .thumb-tail{background:linear-gradient(130deg,#f0dcfa,#c6bbf5);}.tail-stage{width:80%;height:81%;border-radius:15px;background:#ffffffb8;border:1px solid #ffffffcf;padding:28px 26px;transform:rotate(-7deg) translateY(16px);box-shadow:0 18px 37px #674dba38;transition:transform .4s;}.project-card:hover .tail-stage{transform:rotate(-2deg) translateY(6px);}.tail-stage h4{font:700 45px var(--display);letter-spacing:-4px;margin:0 0 5px;color:#6a3ac2;}.tail-stage p{font-size:10px;color:#76628a;}.tail-blocks{display:flex;gap:7px;margin:22px 0 10px;}.tail-blocks i{flex:1;height:41px;border-radius:8px;background:linear-gradient(135deg,#914bea,#dc8af7);}.tail-blocks i:nth-child(2){background:linear-gradient(135deg,#f3b0d8,#ce86e8);}.tail-blocks i:nth-child(3){background:linear-gradient(135deg,#cda6f3,#8b7bf3);}.tail-pills{display:flex;gap:8px;}.tail-pills span{background:#e4d4f8;border-radius:20px;height:10px;width:54px;}
+    .thumb-orkut{background:#d4e6f5;}.orkut-browser{width:83%;height:79%;background:#f5f8fc;border:1px solid #a2bfde;border-radius:10px 10px 0 0;overflow:hidden;box-shadow:0 20px 36px #4169953b;transform:rotate(4deg) translateY(16px);transition:transform .4s;}.project-card:hover .orkut-browser{transform:rotate(1deg) translateY(5px);}.orkut-top{height:38px;display:flex;align-items:center;justify-content:space-between;background:#e9f0f8;padding:0 17px;color:#d3298a;font:700 18px Georgia,serif;}.orkut-top span{font:600 7px var(--text);color:#6886a9;}.orkut-panels{display:grid;grid-template-columns:30% 70%;gap:9px;padding:12px;}.orkut-profile{background:#fff;border:1px solid #d3e1ed;padding:12px 8px;}.orkut-face{width:53px;height:53px;border-radius:6px;background:linear-gradient(135deg,#88a9c9,#e6cad9);margin:0 auto;position:relative;}.orkut-face::before{content:'◡';position:absolute;top:3px;left:14px;font-size:34px;color:#704f6f;}.orkut-profile p{text-align:center;font-size:7px;color:#54718e;}.orkut-feed{background:white;border:1px solid #d3e1ed;padding:12px 14px;}.orkut-feed h4{font:700 16px var(--display);margin:3px 0;color:#5b7ca0;}.orkut-feed small{color:#7f96ad;font-size:8px;}.orkut-badges{display:flex;gap:7px;margin:22px 0;}.orkut-badges i{width:36px;height:28px;background:#f3dcea;border-radius:5px;}.orkut-badges i:nth-child(2){background:#d9e7f3;}.orkut-badges i:nth-child(3){background:#eee8c7;}
+    #destaque {padding-top:119px;padding-bottom:123px;overflow:hidden;}
+    .featured-wrap {margin-top:48px;background:linear-gradient(125deg,#1c1828 1%,#34223d 70%,#432652 100%);border-radius:29px;color:#fff;display:grid;grid-template-columns:.85fr 1.15fr;min-height:540px;position:relative;overflow:hidden;}
+    .featured-wrap::before{content:'';position:absolute;right:-180px;bottom:-260px;width:670px;height:670px;border-radius:100%;background:radial-gradient(circle,#d137c43b,transparent 65%);pointer-events:none;}
+    .feature-copy{padding:clamp(36px,5.1vw,70px);z-index:2;display:flex;flex-direction:column;align-items:flex-start;}.feature-copy .eyebrow{color:#d4b5d7;}.feature-copy h3{font:600 clamp(37px,4.2vw,62px)/1.07 var(--display);letter-spacing:-3px;margin:45px 0 15px;}.feature-copy h3 span{color:#f097e2;}.feature-copy p{color:#bcb2c5;font-size:13px;line-height:1.86;max-width:350px;}.feature-bullets{display:grid;gap:13px;margin:26px 0 33px;padding:0;list-style:none;}.feature-bullets li{display:flex;align-items:center;gap:11px;font-size:12px;font-weight:650;}.feature-bullets li svg{width:16px;height:16px;color:#e98cd8;}
+    .light-btn{background:#fff;color:#271d29;border:0;border-radius:30px;display:inline-flex;align-items:center;gap:30px;padding:16px 21px;font-size:12px;font-weight:800;transition:transform .2s,box-shadow .2s;}.light-btn:hover{transform:translateY(-3px);box-shadow:0 14px 22px #0003;}.light-btn svg{width:15px;height:15px;}
+    .feature-visual{position:relative;z-index:1;min-height:540px;display:grid;place-items:center;}
+    .feature-glow{position:absolute;width:420px;height:420px;top:15%;left:20%;border-radius:50%;background:radial-gradient(circle,#af50b857,transparent 70%);filter:blur(20px);}
+    .feature-product{position:relative;width:min(89%,650px);height:370px;border-radius:18px;background:#15151d;border:1px solid #7f637f;box-shadow:0 36px 70px #0e071d9e;transform:perspective(900px) rotateY(-11deg) rotateX(6deg) rotate(2deg);transition:transform .8s cubic-bezier(.2,.8,.2,1);overflow:hidden;}.featured-wrap:hover .feature-product{transform:perspective(900px) rotateY(-5deg) rotateX(2deg) rotate(0deg);}
+    .feature-window-head{height:39px;border-bottom:1px solid #3b3543;background:#201d28;display:flex;align-items:center;gap:7px;padding:0 15px;}.feature-window-head i{width:7px;height:7px;background:#6c6274;border-radius:50%;}.feature-window-head span{margin-left:auto;color:#9e8ca6;font-size:8px;}
+    .feature-product-inner{display:grid;grid-template-columns:28% 72%;height:calc(100% - 39px);}.feature-nav{padding:25px 14px;border-right:1px solid #35303d;color:#92859a;font-size:9px;}.feature-nav strong{color:#fff;display:block;margin-bottom:30px;font:700 12px var(--display);}.feature-nav div{padding:10px;margin-bottom:5px;border-radius:7px;}.feature-nav div:nth-of-type(2){background:#513259;color:#fff;}.feature-edit{padding:23px 26px;}.feature-edit .breadcrumb{font-size:9px;color:#8d7e93;}.feature-edit h4{color:white;font:600 24px var(--display);letter-spacing:-1px;margin:20px 0 17px;}.feature-edit .field{margin:10px 0;}.feature-edit label{display:block;font-size:9px;color:#a398ac;margin-bottom:7px;}.feature-edit .fake-input{height:32px;border:1px solid #4e4555;border-radius:7px;background:#24202a;color:#d8cbdf;padding:8px 11px;font-size:9px;}.feature-edit .fake-input.purple{background:#433049;border-color:#89598c;}.feature-save{margin-top:17px;display:inline-block;background:#e48cda;color:#271928;padding:9px 18px;border-radius:7px;font-size:9px;font-weight:800;}
+    .feature-switcher{display:flex;gap:8px;align-items:center;position:absolute;z-index:8;bottom:23px;right:40px;background:#ffffff18;border:1px solid #ffffff24;padding:6px;border-radius:25px;backdrop-filter:blur(5px);}.feature-switcher button{color:#c7b4ca;background:none;border:0;border-radius:20px;padding:9px 15px;font-size:10px;font-weight:750;}.feature-switcher button.active{background:#fff;color:#2c1d2c;}
+    .about-section {background:#17141b;color:#fff;padding:100px 0 38px;position:relative;overflow:hidden;}.about-section::before{content:'';position:absolute;right:-100px;top:-350px;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,#75357439,transparent 68%);pointer-events:none;}.about-section .section-index{color:#a29ba4;}
+    .about-main{display:grid;grid-template-columns:1.05fr .95fr;gap:75px;align-items:center;padding-top:30px;padding-bottom:95px;}
+    .about-main h2{font:600 clamp(47px,5.8vw,86px)/1.05 var(--display);letter-spacing:-5px;margin:20px 0 25px;max-width:670px;}.about-main h2 em{font-style:normal;color:#f487d8;}.about-main p{font-size:15px;line-height:1.95;color:#b7b0bd;max-width:550px;}.about-stack{margin-top:23px;display:flex;flex-wrap:wrap;gap:7px;}.about-stack span{border:1px solid #49404d;color:#d1c7d6;border-radius:22px;padding:8px 12px;font-size:11px;}
+    .about-profile{display:flex;align-items:center;justify-content:center;position:relative;min-height:420px;}.avatar-outline{width:min(100%,385px);aspect-ratio:1;border-radius:50%;border:1px solid #675168;display:grid;place-items:center;position:relative;}.avatar-outline::before{content:'';position:absolute;inset:18px;border:1px dashed #685468;border-radius:50%;}.avatar-outline::after{content:'DESIGN  ·  CODE  ·  CURIOSITY  ·';position:absolute;top:8%;left:-16%;color:#957d9a;font:700 10px var(--display);letter-spacing:3px;transform:rotate(-36deg);}
+    .avatar-photo{width:76%;height:76%;border-radius:50%;background:linear-gradient(135deg,#553955,#211d26);display:grid;place-items:center;font:600 90px var(--display);color:#f5d3ef;overflow:hidden;}.avatar-photo img{width:100%;height:100%;object-fit:cover;display:block;}.avatar-photo img.is-hidden{display:none;}
+    .profile-sticker{position:absolute;bottom:18%;right:-7%;background:#f2d5ef;color:#452541;border:1px solid #ffffff59;box-shadow:0 15px 26px #0006;border-radius:13px;padding:13px 16px;transform:rotate(8deg);font:700 10px var(--display);}.profile-sticker strong{display:block;font-size:17px;letter-spacing:-.5px;margin-top:5px;}
+    .about-contact{border-top:1px solid #403741;display:flex;align-items:center;justify-content:space-between;gap:30px;padding:45px 0 37px;}.about-contact .contact-label{color:#c3b8c5;font-size:12px;}.email-link{font:600 clamp(22px,3vw,36px) var(--display);letter-spacing:-1px;display:block;margin-top:9px;transition:color .2s;}.email-link:hover{color:#eb8bda;}
+    .social-links{display:flex;gap:10px;flex-wrap:wrap;}.social-links a{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:#ffffff09;border:1px solid #4b414f;padding:14px 15px;border-radius:30px;font-size:11px;font-weight:700;transition:transform .2s,background .2s;}.social-links a:hover{background:#ffffff1e;transform:translateY(-3px);}.social-links svg{width:16px;height:16px;}
+    .site-footer{border-top:1px solid #403741;color:#8d8490;padding:27px 0 0;display:flex;align-items:center;justify-content:space-between;gap:15px;font-size:10px;}.site-footer strong{color:#eee1ef;}
+    .reveal{opacity:0;transform:translateY(25px);transition:opacity .75s ease,transform .75s cubic-bezier(.17,.75,.3,1);}.reveal.in-view{opacity:1;transform:translateY(0);}
+    .scroll-indicator{position:fixed;left:24px;bottom:22px;z-index:20;font:700 9px var(--display);letter-spacing:2px;writing-mode:vertical-rl;color:var(--muted);opacity:.7;pointer-events:none;}
+    .scroll-indicator::after{content:'';display:block;width:1px;height:35px;background:var(--accent);margin:12px auto 0;}
+    @media (max-width:1150px) {
+      .main-nav{gap:19px;}
+      .project-card.is-wide .project-content{padding:31px;}
+    }
+    @media (max-width:880px) {
+      .site-header{height:72px;}.top-cta{display:none;}.menu-toggle{display:grid;}.main-nav{position:fixed;top:71px;left:0;right:0;display:flex;flex-direction:column;align-items:stretch;gap:0;background:var(--paper);padding:13px 24px 22px;border-bottom:1px solid var(--line);box-shadow:0 24px 30px #0002;opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity .2s,visibility .2s,transform .2s;}.main-nav.open{opacity:1;visibility:visible;transform:translateY(0);}.main-nav a{padding:15px 8px;font-size:15px;}
+      .projects-title-row{align-items:start;flex-direction:column;}.section-title{letter-spacing:-3px;}.filter-bar{align-items:stretch;flex-direction:column;}.search-wrap{max-width:unset;}.project-card.is-wide{grid-template-columns:1fr 1fr;}.project-card.is-wide .project-media{height:350px;}.project-card.is-wide .project-content h3{font-size:31px;}.featured-wrap{grid-template-columns:1fr;}.feature-copy{padding-bottom:10px;}.feature-copy h3{margin-top:25px;}.feature-visual{min-height:410px;}.feature-switcher{right:30px;}.about-main{grid-template-columns:1fr;gap:15px;}.about-profile{min-height:390px;}.about-contact{align-items:start;flex-direction:column;}
+    }
+    @media (max-width:620px) {
+      .container{padding:0 21px;}.brand-name{font-size:15px;}.brand-symbol{width:32px;height:32px;}.header-actions{gap:6px;}.icon-button{width:38px;height:38px;}
+      .hero-overline{align-items:start;}.hero-overline .right-mark{font-size:9px;}.hero-overline .eyebrow{font-size:9px;letter-spacing:1.4px;}
+      
+      
+      .section{padding:78px 0;}.section-title{font-size:42px;letter-spacing:-2.5px;}.section-topline{margin-bottom:22px;}.filter-bar{margin:30px 0 24px;}.filters{gap:4px;}.filter-btn{font-size:11px;padding:9px 12px;}.project-grid{grid-template-columns:1fr;gap:16px;}.project-card.is-wide{grid-column:auto;grid-template-columns:1fr;}.project-card.is-wide .project-media{height:255px;margin:11px 11px 0;}.project-card.is-wide .project-content{padding:22px 23px 25px;}.project-card.is-wide .project-content h3{font-size:27px;margin-top:13px;}.project-card.is-wide .project-foot{margin-top:22px;}.project-media{height:245px;}.project-content{padding:20px 22px;}.project-content h3{font-size:26px;}.projects-end{align-items:start;flex-direction:column;}.thumb-agent .mock-agent-app{width:90%;}.mock-agent-app{min-width:0;}
+      .featured-wrap{margin-top:30px;border-radius:19px;}.feature-copy{padding:34px 28px 2px;}.feature-copy h3{font-size:41px;letter-spacing:-2px;}.feature-copy p{font-size:12px;}.feature-visual{min-height:320px;}.feature-product{width:87%;height:255px;}.feature-window-head{height:28px;}.feature-product-inner{height:calc(100% - 28px);}.feature-nav{padding:13px 7px;font-size:6px;}.feature-nav strong{font-size:8px;margin-bottom:15px;}.feature-nav div{padding:7px 5px;}.feature-edit{padding:13px;}.feature-edit .breadcrumb{font-size:6px;}.feature-edit h4{font-size:16px;margin:15px 0 10px;}.feature-edit .field{margin:6px 0;}.feature-edit label{font-size:6px;}.feature-edit .fake-input{font-size:7px;height:23px;padding:5px;}.feature-save{font-size:6px;padding:7px 10px;margin-top:7px;}.feature-switcher{bottom:10px;right:15px;}.feature-switcher button{font-size:9px;padding:7px 11px;}
+      .about-section{padding:75px 0 25px;}.about-main{padding-top:10px;padding-bottom:50px;}.about-main h2{font-size:50px;letter-spacing:-3px;}.about-main p{font-size:13px;}.about-profile{min-height:320px;}.avatar-outline{width:275px;}.avatar-outline::after{font-size:7px;}.profile-sticker{right:0;}.about-contact{padding:30px 0;}.email-link{font-size:22px;}.social-links{gap:7px;}.social-links a{font-size:10px;padding:11px 12px;}.site-footer{align-items:start;flex-direction:column;gap:8px;}.scroll-indicator{display:none;}
+    }
+    @media (prefers-reduced-motion:reduce) {
+      *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important;}
+      .reveal{opacity:1;transform:none;}
+    }
+
+    /* 04: Catalog-style footer, adapted from the reference hierarchy. */
+    .about-section{padding-bottom:0;}
+    .about-main{padding-bottom:75px;}
+    .about-social-zone{margin-top:36px;}
+    .about-social-label{display:block;font:800 10px var(--text);letter-spacing:1.9px;color:#c4a2cc;margin-bottom:16px;}
+    .about-social-zone .social-links{max-width:570px;}
+    .about-social-zone .social-links a{background:#ffffff0b;border-color:#524259;padding:12px 15px;}
+    .about-social-zone .social-links a:hover{background:#d844a236;border-color:#af62b5;}
+    .about-contact{padding:32px 0 36px;}
+    .about-contact-caption{font-size:12px;line-height:1.8;color:#9d8ea2;text-align:right;margin:0;}
+    .avatar-photo{background:linear-gradient(145deg,#422849,#201924);box-shadow:0 15px 50px #0008;}
+    .avatar-photo img{object-position:50% 50%;}
+    .portfolio-footer{background:#17141b;color:#f3eef5;position:relative;overflow:hidden;border-top:1px solid #3e3444;}
+    .portfolio-footer::before{content:'';position:absolute;pointer-events:none;right:-380px;top:-340px;height:700px;width:700px;border-radius:50%;background:radial-gradient(circle,#aa42aa0d,transparent 70%);}
+    .footer-grid{display:grid;grid-template-columns:1.45fr .8fr .92fr .9fr;gap:clamp(28px,3.2vw,67px);padding:69px 0 75px;}
+    .footer-brand{display:inline-flex;align-items:center;gap:12px;font:700 21px var(--display);letter-spacing:-.9px;}
+    .footer-brand .brand-symbol{flex:none;}
+    .footer-brand-muted{color:#918a96;font-weight:500;}
+    .footer-brand-block p{font-size:13px;line-height:1.9;color:#a9a0ae;max-width:282px;margin:23px 0 24px;}
+    .footer-origin{display:inline-flex;align-items:center;gap:9px;font:800 9px var(--text);letter-spacing:1.7px;color:#b3a8b5;}
+    .footer-origin i{width:7px;height:7px;border-radius:50%;background:#ec58b2;box-shadow:0 0 0 5px #ec58b215;}
+    .footer-col h3{font:800 12px var(--text);letter-spacing:.2px;color:#f1edf2;margin:5px 0 24px;}
+    .footer-col a{display:block;width:fit-content;margin:0 0 15px;color:#a9a0ad;font:500 12px/1.5 var(--text);transition:color .2s,transform .2s;}
+    .footer-col a:hover{color:#f5a9df;transform:translateX(3px);}
+    .footer-bottom{min-height:83px;padding:25px 0;display:flex;justify-content:space-between;align-items:center;gap:16px;border-top:1px solid #3e3444;font:500 11px var(--text);color:#99909c;}
+    .footer-bottom strong{color:#e8dfea;}
+    .footer-bottom a{font-weight:750;color:#eee4ef;transition:color .2s;white-space:nowrap;}
+    .footer-bottom a:hover{color:#f18ed7;}
+    .footer-bottom a span{font-size:17px;margin-left:5px;}
+    @media(max-width:900px){.footer-grid{grid-template-columns:1.3fr 1fr 1fr;gap:37px;}.footer-brand-block{grid-column:1/-1;}.footer-brand-block p{max-width:450px;}.footer-grid{padding:60px 0;}.about-main{padding-bottom:55px;}}
+    @media(max-width:620px){.footer-grid{grid-template-columns:1fr 1fr;column-gap:20px;row-gap:32px;padding:48px 0 33px;}.footer-brand-block{grid-column:1/-1;}.footer-col:last-child{grid-column:1/-1;}.footer-col h3{font-size:12px;margin:0 0 18px;}.footer-col a{font-size:11px;margin-bottom:12px;}.footer-bottom{flex-wrap:wrap;align-items:flex-start;gap:9px;font-size:10px;}.footer-bottom span:nth-child(2){display:none;}.footer-bottom a{margin-left:auto;}.about-contact{padding:29px 0 34px;}.about-contact-caption{display:none;}.about-social-zone{margin-top:27px;}.about-social-zone .social-links{gap:7px;}.about-social-zone .social-links a{font-size:10px;padding:11px 12px;}.about-section{padding-bottom:0;}}
+
+    /* V3. Brand-aware scrollbar (Firefox and WebKit). */
+    html { scrollbar-color:var(--accent) var(--bg); scrollbar-width:thin; }
+    ::-webkit-scrollbar { width:11px; height:11px; }
+    ::-webkit-scrollbar-track { background:var(--bg); }
+    ::-webkit-scrollbar-thumb { background:linear-gradient(180deg,var(--accent),var(--purple)); border:3px solid var(--bg); border-radius:30px; min-height:52px; }
+    ::-webkit-scrollbar-thumb:hover { background:linear-gradient(180deg,#ff3ca7,#9d51ff); }
+    ::-webkit-scrollbar-corner { background:var(--bg); }
+
+    /* V3. Content is closer to the top; positioning copy leads the hero. */
+    .hero { padding-top:16px; }
+    .hero-main { align-items:start; min-height:clamp(520px,45.5vw,640px); }
+    .hero-copy { padding:44px 0 48px; }
+    .hero-heading-kicker { margin-bottom:20px; }
+    .hero-title { letter-spacing:-.089em; font-size:clamp(65px,7.25vw,108px); }
+    .hero-description { max-width:510px; margin-top:26px; margin-bottom:26px; line-height:1.78; }
+    .hero-smallprint { margin-top:26px; }
+    .hero-art { min-height:566px; }
+    .hero-art-ring { top:9%; }
+    .hero-card-main { top:14%; }
+    .hero-card-roadmap { top:3%; }
+    .hero-card-game { bottom:6%; }
+
+    /* V3. About: direct social links, no skill chips or floating sticker. */
+    .about-main { gap:58px; padding-bottom:67px; }
+    .about-main h2 { font-size:clamp(46px,5.35vw,77px); letter-spacing:-4.6px; }
+    .about-social-zone { margin-top:33px; }
+    .about-social-zone .social-links { max-width:590px; }
+    .avatar-outline::after { display:none; }
+    .avatar-outline::before { border-style:solid; opacity:.55; }
+    .avatar-photo { width:81%;height:81%; }
+
+    /* V3. Footer follows the reference's 4-column catalog hierarchy. */
+    .portfolio-footer { background:#17141b; border-top:1px solid #392f3e; }
+    .portfolio-footer::before { display:none; }
+    .footer-grid { grid-template-columns:1.53fr .8fr 1.05fr .86fr; column-gap:clamp(30px,3.8vw,70px); padding:68px 0 65px; }
+    .footer-brand { font-size:22px; }
+    .footer-brand-block p { max-width:300px; margin:21px 0 0; line-height:1.9; font-size:13px; }
+    .footer-col h3 { margin:6px 0 22px; font-size:12px; }
+    .footer-col a { font-size:12px; margin-bottom:15px; line-height:1.6; }
+    .footer-bottom { min-height:unset; padding:24px 0 29px; justify-content:flex-start; }
+
+    @media(max-width:1170px){
+      .hero-title { font-size:7.55vw; }
+      .hero-art { min-height:542px; }
+    }
+    @media(max-width:900px){
+      .footer-grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:32px; padding:53px 0 50px; }
+      .footer-brand-block { grid-column:1/-1; }
+      .footer-brand-block p { max-width:510px; }
+    }
+    @media(max-width:880px){
+      .hero-main { min-height:0; }
+      .hero-copy { padding:46px 0 5px; }
+      .hero-title { font-size:clamp(67px,10vw,98px); }
+      .hero-art { min-height:525px; }
+      .hero-card-main { top:16%; }
+      .about-main { padding-bottom:55px; }
+    }
+    @media(max-width:620px){
+      .hero { padding-top:13px; }
+      .hero-copy { padding:36px 0 7px; }
+      .hero-heading-kicker { font-size:9px; letter-spacing:1.2px; margin-bottom:21px; }
+      .hero-title { font-size:clamp(52px,12.1vw,75px); letter-spacing:-.09em; }
+      .hero-description { font-size:13px; line-height:1.8; margin:22px 0 21px; }
+      .hero-smallprint { font-size:9px; margin-top:22px; }
+      .hero-art { min-height:435px; margin-top:5px; }
+      .hero-card-main { top:18%; }
+      .hero-card-roadmap { top:6%; }
+      .hero-card-game { bottom:4%; }
+      .about-main h2 { font-size:clamp(43px,10.5vw,55px); letter-spacing:-3px; }
+      .about-social-zone { margin-top:28px; }
+      .footer-grid { grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:22px; row-gap:34px; padding:48px 0 35px; }
+      .footer-brand-block { grid-column:1/-1; }
+      .footer-col:last-child { grid-column:1/-1; }
+      .footer-col h3 { margin:0 0 17px; }
+      .footer-col a { margin-bottom:13px; }
+      .footer-bottom { padding:25px 0 29px; }
+    }
+    @media(max-width:390px){
+      .hero-title { font-size:11.8vw; }
+      .hero-art { min-height:405px; }
+      .hero-description { font-size:12.7px; }
+      .hero-secondary { font-size:10px; }
+      .about-main h2 { font-size:42px; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#conteudo">Pular para o conteúdo</a>
+  <div class="progress-bar" id="scrollProgress" aria-hidden="true"></div>
+  <header class="site-header" id="inicio">
+    <div class="container header-inner">
+      <a class="brand" href="#inicio" aria-label="Felipe Aguiar, voltar ao início">
+        <span class="brand-symbol" aria-hidden="true">fa.</span>
+        <span class="brand-name">felipe<span> / dev</span></span>
+      </a>
+      <nav class="main-nav" id="mainNav" aria-label="Menu principal">
+        <a href="#inicio" class="active">Início</a>
+        <a href="#projetos">Projetos</a>
+        <a href="#destaque">Em destaque</a>
+        <a href="#sobre">Sobre mim</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-button" id="themeToggle" type="button" aria-label="Ativar tema escuro" title="Alternar tema">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </button>
+        <a class="top-cta" href="https://github.com/felipeAguiarCode" target="_blank" rel="noopener noreferrer">Ver GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 19 19 5M8 5h11v11"/></svg></a>
+        <button class="icon-button menu-toggle" id="menuToggle" type="button" aria-controls="mainNav" aria-expanded="false" aria-label="Abrir menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 8h16M4 16h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <!-- 01 / HERO -->
+    <section class="hero" id="hero" aria-labelledby="heroTitle">
+      <div class="container hero-overline">
+        <span class="eyebrow">FELIPE AGUIAR <span aria-hidden="true">/</span> DEVELOPER &amp; CREATOR</span>
+        <span class="hero-top-right"><i aria-hidden="true"></i> Full stack &nbsp;&middot;&nbsp; IA aplicada</span>
+      </div>
+      <div class="container hero-main">
+        <div class="hero-copy">
+          <p class="hero-heading-kicker">DESENVOLVIMENTO FULL STACK / PRODUTOS DIGITAIS</p>
+          <h1 class="hero-title" id="heroTitle"><span class="hero-title-line">Do c&oacute;digo</span><span class="hero-title-line">ao <em>produto.</em></span></h1>
+          <p class="hero-description">Sou Felipe Aguiar, desenvolvedor full stack e instrutor. Crio aplica&ccedil;&otilde;es web, ferramentas para devs e projetos com intelig&ecirc;ncia artificial. Aqui voc&ecirc; encontra os produtos, as tecnologias e o c&oacute;digo por tr&aacute;s deles.</p>
+          <div class="hero-actions">
+            <a class="hero-primary" href="#projetos">Explorar projetos <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16m-7-7 7 7-7 7"/></svg></a>
+            <a class="hero-secondary" href="https://github.com/felipeAguiarCode" target="_blank" rel="noopener noreferrer">Ver c&oacute;digo no GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+          </div>
+          <p class="hero-smallprint"><span aria-hidden="true"></span> Projetos para testar. Reposit&oacute;rios para analisar.</p>
+        </div>
+        <div class="hero-art" id="heroScene" aria-hidden="true">
+          <div class="hero-art-grid"></div><div class="hero-art-ring"></div><div class="hero-art-ring ring-two"></div>
+          <div class="hero-art-motion" id="heroStage">
+            <div class="hero-card hero-card-main">
+              <div class="hero-card-topbar"><i></i><i></i><i></i><span>MY AGENT STUDIO / WORKSPACE</span></div>
+              <div class="hero-ui-body"><div class="hero-ui-sidebar"><strong>agent<b>/studio</b></strong><span class="active">&#9636; Dashboard</span><span>&#9671; Meus agentes</span><span>&#9672; Skills &amp; tools</span><span>&#8857; Equipes</span></div><div class="hero-ui-content"><div class="hero-ui-kicker">WORKSPACE DE AGENTES</div><strong>Monte seu<br><em>time de IA.</em></strong><p>Configure agentes e organize o trabalho.</p><div class="hero-ui-agent-grid"><div class="hero-ui-agent"><span class="agent-initial">N</span><small>Nova</small></div><div class="hero-ui-agent"><span class="agent-initial">A</span><small>Atlas</small></div><div class="hero-ui-agent"><span class="agent-initial">E</span><small>Echo</small></div></div></div></div>
+            </div>
+            <div class="hero-card hero-card-roadmap"><div class="mini-card-label">AI ENGINEERING</div><strong>Estude.<br>Pratique.<br>Crie.</strong><div class="hero-roadmap-path"><span></span><span></span><span></span></div><small>Uma trilha visual para estudar engenharia de IA.</small></div>
+            <div class="hero-card hero-card-game"><div class="hero-game-overline"><span>PLAY / CREATE</span><span>&#10022;</span></div><div class="hero-game-shape"></div><strong>PS5 EmuShell.</strong></div>
+          </div>
+          <span class="hero-art-star">&#10035;</span><span class="hero-art-pill">IDEIA &rarr; C&Oacute;DIGO &rarr; APP</span>
+        </div>
+      </div>
+      <div class="hero-stats-area">
+        <div class="container hero-stats" id="statsWrap">
+          <div class="hero-stats-caption"><b>MEU TRABALHO EM PROJETOS</b><p>Aplicativos, estudos e ferramentas que mostram como eu penso, desenvolvo e compartilho software.</p></div>
+          <div class="hero-stat"><span class="stat-number" id="projectCount" aria-label="Contador de aplicativos e projetos">00</span><span class="hero-stat-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg> Apps &amp; projetos</span></div>
+          <div class="hero-stat"><span class="stat-number" id="starCount" aria-label="Estrelas recebidas no GitHub, aguardando atualiza&ccedil;&atilde;o">...</span><span class="hero-stat-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.67 6.26.91-4.53 4.42 1.07 6.23L12 17.29l-5.6 2.94 1.07-6.23-4.53-4.42 6.26-.91L12 3z"/></svg> Estrelas no GitHub</span><span class="hero-stat-note" id="starNote">Consultando os reposit&oacute;rios p&uacute;blicos...</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 / PROJETOS -->
+    <section class="section" id="projetos" aria-labelledby="projectsTitle">
+      <div class="container">
+        <div class="section-topline reveal"><span class="section-index"><strong>01</strong> / PROJETOS</span><span class="section-index">APPS, FERRAMENTAS E C&Oacute;DIGO <span aria-hidden="true">✳</span></span></div>
+        <div class="projects-title-row reveal"><h2 class="section-title" id="projectsTitle">Projetos reais.<br><span>C&oacute;digo para explorar.</span></h2><p class="section-copy">Uma sele&ccedil;&atilde;o de apps, ferramentas e estudos. Descubra o objetivo de cada projeto, veja as tecnologias utilizadas e acesse o reposit&oacute;rio.</p></div>
+        <div class="filter-bar reveal">
+          <div class="filters" id="filters" role="group" aria-label="Filtrar projetos">
+            <button class="filter-btn is-active" type="button" data-filter="todos" aria-pressed="true">Todos <small>08</small></button>
+            <button class="filter-btn" type="button" data-filter="ia" aria-pressed="false">IA & Agentes</button>
+            <button class="filter-btn" type="button" data-filter="web" aria-pressed="false">Web</button>
+            <button class="filter-btn" type="button" data-filter="ferramentas" aria-pressed="false">Ferramentas</button>
+            <button class="filter-btn" type="button" data-filter="games" aria-pressed="false">Jogos</button>
+            <button class="filter-btn" type="button" data-filter="opensource" aria-pressed="false">Open source</button>
+          </div>
+          <label class="search-wrap" aria-label="Buscar projetos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input id="projectSearch" type="search" placeholder="Buscar por app ou tecnologia..." autocomplete="off" aria-label="Buscar projeto"></label>
+        </div>
+        <div class="project-grid" id="projectGrid" aria-live="polite"></div>
+        <div class="projects-end reveal"><p id="projectResults">Exibindo 8 projetos selecionados.</p><a class="inline-link" href="https://github.com/felipeAguiarCode?tab=repositories" target="_blank" rel="noopener noreferrer">Explorar todos os reposit&oacute;rios <span class="arrow" aria-hidden="true">↗</span></a></div>
+      </div>
+    </section>
+
+    <!-- 03 / EM DESTAQUE (seção 3) -->
+    <section id="destaque" aria-labelledby="featuredTitle">
+      <div class="container">
+        <div class="section-topline reveal"><span class="section-index"><strong>02</strong> / EM DESTAQUE</span><span class="section-index">CONSTRUTOR VISUAL DE AGENTES DE IA</span></div>
+        <h2 class="section-title reveal" id="featuredTitle">Não é só código.<br>É <span>experimentação.</span></h2>
+        <div class="featured-wrap reveal">
+          <div class="feature-copy"><span class="eyebrow">PROJETO EM DESTAQUE</span><h3>My Agent<br><span>Studio.</span></h3><p>Um editor visual para definir agentes de IA, configurar comportamento e ferramentas, organizar equipes e preparar configura&ccedil;&otilde;es para o Claude Code.</p><ul class="feature-bullets"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m5 12 5 5L20 7"/></svg> Defina identidade, miss&atilde;o e instru&ccedil;&otilde;es</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m5 12 5 5L20 7"/></svg> Organize equipes, skills e ferramentas</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m5 12 5 5L20 7"/></svg> Exporte configura&ccedil;&otilde;es para Claude Code</li></ul><a class="light-btn" href="https://felipeaguiarcode.github.io/my-agent-studio/" target="_blank" rel="noopener noreferrer">Testar My Agent Studio <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 19 19 5M8 5h11v11"/></svg></a></div>
+          <div class="feature-visual"><div class="feature-glow"></div><div class="feature-product">
+            <div class="feature-window-head"><i></i><i></i><i></i><span>my-agent-studio / editor</span></div>
+            <div class="feature-product-inner"><div class="feature-nav"><strong>AGENT / STUDIO</strong><div>◫ &nbsp; Dashboard</div><div>◈ &nbsp; Criar agente</div><div>◉ &nbsp; Ferramentas</div><div>◇ &nbsp; Times</div></div><div class="feature-edit" id="featureEditor"><div class="breadcrumb">AGENTES / NOVO AGENTE / CONSTRUTOR</div><h4>Seu próximo agente.</h4><div class="field"><label>Nome do agente</label><div class="fake-input" id="featureField1">Nova | AI Architect</div></div><div class="field"><label id="featureLabel2">Missão principal</label><div class="fake-input purple" id="featureField2">Arquitetar solu&ccedil;&otilde;es com IA</div></div><div class="field"><label id="featureLabel3">Perfil</label><div class="fake-input" id="featureField3">Rigoroso · Analítico · Criativo</div></div><span class="feature-save" id="featureSave">Criar agente →</span></div></div>
+          </div><div class="feature-switcher" role="group" aria-label="Visualização do estúdio"><button type="button" class="active" data-feature="criar" aria-pressed="true">Criar</button><button type="button" data-feature="personalizar" aria-pressed="false">Personalizar</button><button type="button" data-feature="exportar" aria-pressed="false">Exportar</button></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 / QUEM SOU EU -->
+    <section class="about-section" id="sobre" aria-labelledby="aboutTitle">
+      <div class="container">
+        <div class="section-topline reveal"><span class="section-index"><strong>03</strong> / QUEM SOU EU</span><span class="section-index">DESENVOLVIMENTO &amp; CONTE&Uacute;DO T&Eacute;CNICO</span></div>
+        <div class="about-main">
+          <div class="about-copy reveal">
+            <span class="eyebrow" style="color:#d4bad5">POR TR&Aacute;S DOS PROJETOS</span>
+            <h2 id="aboutTitle">Oi, sou o<br>Felipe Aguiar.<br><em>Dev e instrutor.</em></h2>
+            <p>Sou desenvolvedor full stack e instrutor de tecnologia. Trabalho com TypeScript, Node.js, interfaces web e IA aplicada. Gosto de entender o problema, pensar na arquitetura e transformar a solu&ccedil;&atilde;o em algo que as pessoas possam usar.</p>
+            <p>No GitHub e no YouTube, compartilho c&oacute;digo, experimentos e conte&uacute;do t&eacute;cnico. O objetivo &eacute; mostrar o que constru&iacute;, explicar as escolhas e trocar conhecimento com outros desenvolvedores.</p>
+            <div class="about-social-zone"><span class="about-social-label">ONDE ME ENCONTRAR</span>
+              <div class="social-links" aria-label="Redes sociais">
+          <a href="https://www.instagram.com/felipeaguiar.exe/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg> Instagram <span>↗</span></a>
+          <a href="https://www.linkedin.com/in/felipeaguiar-exe/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.7 8.6H2.8V21h2.9V8.6ZM4.25 2a1.7 1.7 0 1 0 0 3.4 1.7 1.7 0 0 0 0-3.4ZM21 13.4c0-3.3-1.8-4.9-4.2-4.9-2 0-3 1.1-3.5 1.8V8.6h-2.9V21h2.9v-6.9c0-1.8.9-2.8 2.3-2.8 1.4 0 2.5 1 2.5 2.8V21H21v-7.6Z"/></svg> LinkedIn <span>↗</span></a>
+          <a href="https://github.com/felipeAguiarCode" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .9a11.1 11.1 0 0 0-3.5 21.6c.56.1.76-.24.76-.54v-2.1c-3.1.67-3.76-1.33-3.76-1.33-.5-1.26-1.24-1.6-1.24-1.6-1.02-.7.08-.68.08-.68 1.12.08 1.7 1.15 1.7 1.15 1 .1.77 1.77 3.3 1.35.1-.73.4-1.23.74-1.51-2.47-.28-5.06-1.24-5.06-5.49 0-1.2.44-2.2 1.15-2.98-.12-.28-.5-1.41.11-2.94 0 0 .94-.3 3.06 1.14A10.6 10.6 0 0 1 12 6.42c.94 0 1.88.13 2.76.37 2.12-1.44 3.06-1.14 3.06-1.14.61 1.53.23 2.66.11 2.94.72.78 1.15 1.78 1.15 2.98 0 4.26-2.6 5.2-5.08 5.48.42.36.8 1.05.8 2.13v2.78c0 .3.2.65.77.54A11.1 11.1 0 0 0 12 .9Z"/></svg> GitHub <span>↗</span></a>
+          <a href="https://www.youtube.com/@devaguia/videos" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 7.1a2.5 2.5 0 0 0-1.8-1.8C18.3 4.9 12 4.9 12 4.9s-6.3 0-7.8.4a2.5 2.5 0 0 0-1.8 1.8C2 8.6 2 12 2 12s0 3.4.4 4.9a2.5 2.5 0 0 0 1.8 1.8c1.5.4 7.8.4 7.8.4s6.3 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8c.4-1.5.4-4.9.4-4.9s0-3.4-.4-4.9ZM10 15.3V8.7l5.8 3.3-5.8 3.3Z"/></svg> YouTube <span>↗</span></a>
+        </div>
+            </div>
+          </div>
+          <div class="about-profile reveal"><div class="avatar-outline"><div class="avatar-photo">FA<img src="https://avatars.githubusercontent.com/u/37452836?v=4&amp;size=640" alt="Foto de perfil de Felipe Aguiar no GitHub" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.classList.add('is-hidden')"></div></div></div>
+        </div>
+        <div class="about-contact reveal"><div><span class="contact-label">Tem um projeto, uma vaga ou uma oportunidade de colabora&ccedil;&atilde;o?</span><a class="email-link" href="mailto:felipeaguiar.social@gmail.com">felipeaguiar.social@gmail.com <span class="arrow" aria-hidden="true">&#8599;</span></a></div><p class="about-contact-caption">Vamos conversar sobre engenharia de software,<br>produtos digitais e intelig&ecirc;ncia artificial.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="portfolio-footer" aria-label="Rodap&eacute; do portf&oacute;lio">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand-block">
+          <a class="footer-brand" href="#inicio" aria-label="Felipe Aguiar, voltar ao in&iacute;cio"><span class="brand-symbol" aria-hidden="true">fa.</span><span>felipe<span class="footer-brand-muted"> / apps</span></span></a>
+          <p>Meus aplicativos, ferramentas e projetos de c&oacute;digo aberto em um s&oacute; lugar. Criados no Brasil, para aprender, usar e compartilhar.</p>
+        </div>
+        <nav class="footer-col" aria-label="Cat&aacute;logo">
+          <h3>Cat&aacute;logo</h3>
+          <a href="#projetos" data-footer-filter="todos">Todos os projetos</a>
+          <a href="#projetos" data-footer-filter="ia">IA e agentes</a>
+          <a href="#projetos" data-footer-filter="web">Web e interfaces</a>
+          <a href="#projetos" data-footer-filter="ferramentas">Ferramentas para devs</a>
+          <a href="#projetos" data-footer-filter="games">Jogos e experimentos</a>
+          <a href="#sobre">Sobre mim</a>
+        </nav>
+        <nav class="footer-col" aria-label="Projetos em destaque">
+          <h3>Apps</h3>
+          <a href="https://felipeaguiarcode.github.io/my-agent-studio/" target="_blank" rel="noopener noreferrer">My Agent Studio</a>
+          <a href="https://github.com/felipeAguiarCode/ai-engineering-roadmap" target="_blank" rel="noopener noreferrer">AI Engineering Roadmap</a>
+          <a href="https://github.com/felipeAguiarCode/PS5EmuShell" target="_blank" rel="noopener noreferrer">PS5 EmuShell</a>
+          <a href="https://github.com/felipeAguiarCode/TwinTailCSS" target="_blank" rel="noopener noreferrer">TwinTailCSS</a>
+          <a href="https://github.com/felipeAguiarCode/angular-playground" target="_blank" rel="noopener noreferrer">Angular Playground</a>
+          <a href="https://github.com/felipeAguiarCode/node-blue-boilerplate" target="_blank" rel="noopener noreferrer">Node Blue Boilerplate</a>
+        </nav>
+        <nav class="footer-col" aria-label="Outros canais do Felipe">
+          <h3>Mais do Felipe</h3>
+          <a href="https://www.youtube.com/@devaguia/videos" target="_blank" rel="noopener noreferrer">YouTube / Dev &Aacute;guia</a>
+          <a href="https://www.instagram.com/felipeaguiar.exe/" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="https://www.linkedin.com/in/felipeaguiar-exe/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://github.com/felipeAguiarCode" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="mailto:felipeaguiar.social@gmail.com">Contato por e-mail</a>
+        </nav>
+      </div>
+      <div class="footer-bottom"><span>&copy; <span id="year">2026</span> <strong>Felipe Aguiar</strong>. Todos os direitos reservados.</span></div>
+    </div>
+  </footer>
+  <noscript><div style="padding:25px;text-align:center">Ative o JavaScript para visualizar os projetos e filtros interativos.</div></noscript>
+  <script>
+  'use strict';
+  // ================================================================
+  // SEUS PROJETOS: adicione/edite cards aqui. `categories` controla
+  // as abas; `live` é opcional. Não é necessário alterar o HTML/CSS.
+  // ================================================================
+  const PROJECTS = [
+    { name:'My Agent Studio', type:'AI / AGENT BUILDER', year:'2026', description:'Editor visual para criar agentes de IA, definir comportamento e ferramentas, organizar equipes e exportar configurações para Claude Code.', categories:['ia','web','opensource'], tags:['IA & Agentes','JavaScript','Open source'], theme:'agent', repo:'https://github.com/felipeAguiarCode/my-agent-studio', live:'https://felipeaguiarcode.github.io/my-agent-studio/', wide:true },
+    { name:'AI Engineering Roadmap', type:'EDUCATION / INTERACTIVE', year:'2026', description:'Trilha de estudos visual sobre engenharia de IA. Organiza LLMs, agentes, harness, avaliações e operação em uma navegação interativa.', categories:['ia','web','opensource'], tags:['AI Engineering','HTML','Educação'], theme:'roadmap', repo:'https://github.com/felipeAguiarCode/ai-engineering-roadmap' },
+    { name:'PS5 EmuShell', type:'DESKTOP / GAMING', year:'2026', description:'Launcher desktop inspirado na interface do PS5 para reunir emuladores e jogos em uma biblioteca visual.', categories:['games'], tags:['Desktop','Gaming','Launcher'], theme:'ps5', repo:'https://github.com/felipeAguiarCode/PS5EmuShell' },
+    { name:'Angular Playground', type:'FRONT-END / LEARNING', year:'2023', description:'Laboratório open source com exemplos de componentes, roteamento e serviços Angular. Um repositório para estudar e consultar.', categories:['web','ferramentas','opensource'], tags:['Angular','TypeScript','Open source'], theme:'angular', repo:'https://github.com/felipeAguiarCode/angular-playground' },
+    { name:'Node Blue Boilerplate', type:'DEV TOOL / BACKEND', year:'2024', description:'Estrutura inicial para aplicações Node.js com TypeScript e ferramentas de desenvolvimento configuradas.', categories:['ferramentas','opensource'], tags:['Node.js','TypeScript','Template'], theme:'node', repo:'https://github.com/felipeAguiarCode/node-blue-boilerplate' },
+    { name:'Angular Blog', type:'WEB APP / FRONT-END', year:'2022', description:'Blog construído em Angular para praticar componentização, navegação e interfaces para publicação de conteúdo.', categories:['web','opensource'], tags:['Angular','Blog','Web'], theme:'blog', repo:'https://github.com/felipeAguiarCode/angular-blog' },
+    { name:'TwinTailCSS', type:'DESIGN SYSTEM / CSS', year:'2025', description:'Biblioteca CSS modular que combina classes utilitárias, componentes e estilos personalizáveis para compor interfaces.', categories:['ferramentas','web','opensource'], tags:['CSS','SCSS','Framework'], theme:'tail', repo:'https://github.com/felipeAguiarCode/TwinTailCSS' },
+    { name:'Orkut Clone', type:'WEB / EXPERIMENT', year:'2022', description:'Recriação das telas clássicas do Orkut com HTML e CSS, focada em composição, Flexbox e responsividade.', categories:['web','opensource'], tags:['HTML & CSS','UI','Experimento'], theme:'orkut', repo:'https://github.com/felipeAguiarCode/orkut-clone-front-end' }
+  ];
+
+  const ICONS = {
+    arrow:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 19 19 5M8 5h11v11"/></svg>',
+    github:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1.3a10.7 10.7 0 0 0-3.38 20.85c.54.1.74-.23.74-.52v-2.04c-3.02.66-3.65-1.3-3.65-1.3-.49-1.22-1.2-1.55-1.2-1.55-.98-.67.08-.66.08-.66 1.09.08 1.65 1.12 1.65 1.12.97.11 1.73-.59 2.12-1.18-2.39-.27-4.9-1.2-4.9-5.32 0-1.18.42-2.14 1.12-2.9-.12-.28-.49-1.37.1-2.85 0 0 .91-.29 2.97 1.11A10.1 10.1 0 0 1 12 6.65c.9 0 1.82.12 2.67.36 2.06-1.4 2.97-1.11 2.97-1.11.59 1.48.22 2.57.1 2.85.7.76 1.12 1.72 1.12 2.9 0 4.13-2.52 5.04-4.93 5.31.39.35.76 1.02.76 2.06v2.61c0 .3.2.63.75.52A10.7 10.7 0 0 0 12 1.3Z"/></svg>'
+  };
+  const escapeHTML = (value) => String(value).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const visuals = {
+    agent:`<div class="thumb thumb-agent"><div class="mock-agent-app"><div class="mock-agent-side"><strong>AGENT / STUDIO</strong><b>◫ &nbsp; Visão geral</b><b>◇ &nbsp; Agentes</b><b>◈ &nbsp; Times</b></div><div class="mock-agent-main"><span class="mock-breadcrumb">MY WORKSPACE / AGENTES</span><h4>Configure seus agentes.</h4><small>Crie e organize agentes para o seu fluxo de trabalho.</small><div class="mock-avatars"><div class="mock-avatar"></div><div class="mock-avatar"></div><div class="mock-avatar"></div></div></div></div></div>`,
+    roadmap:`<div class="thumb thumb-roadmap"><div class="roadmap-stage"><div class="map-top">AI ENGINEERING <span>ROADMAP / INTERACTIVE</span></div><div class="mindmap"><div class="map-line"></div><div class="map-root">AI ENGINEERING</div><div class="map-nodes"><div class="map-node">LLM Fundamentals</div><div class="map-node">AI Agents</div><div class="map-node">Prompt Design</div><div class="map-node">Harness & Evals</div></div></div></div></div>`,
+    ps5:`<div class="thumb thumb-ps5"><div class="console-ui"><div class="console-navbar"><strong>EmuShell / PS5</strong><span>GAMES</span><span>LIBRARY</span><span>SETTINGS</span></div><h4>Sua biblioteca de jogos.</h4><p>Sua coleção, uma nova experiência.</p><div class="game-covers"><div class="game-cover"></div><div class="game-cover"></div><div class="game-cover"></div><div class="game-cover"></div></div></div></div>`,
+    angular:`<div class="thumb thumb-angular"><div class="angular-stage"><div class="angular-brand"><span class="angular-mark">A</span></div><div class="angular-side"><span>FRONT-END LAB</span><h4>Angular<br>Playground.</h4><div class="angular-code"></div><div class="angular-code"></div><div class="angular-code"></div></div></div></div>`,
+    node:`<div class="thumb thumb-node"><div class="node-terminal"><div class="terminal-header"><i></i><i></i><i></i></div><div class="terminal-code"><small>// node-blue-boilerplate</small><br><b>import</b> { createServer } <b>from</b> <em>'node:http'</em>;<br><b>const</b> app = createServer();<br><b>await</b> app.listen(3000);<br><span style="color:#8ee0ab">✓ ready on localhost:3000</span></div></div></div>`,
+    blog:`<div class="thumb thumb-blog"><div class="blog-page"><div class="blog-head"><span>JOURNAL / 01</span><strong>the.blog</strong><span>MENU ☰</span></div><div class="blog-hero"></div><h4>Um espa&ccedil;o para<br>publicar ideias.</h4><p>DESIGN &nbsp; / &nbsp; WEB &nbsp; / &nbsp; INSIGHTS</p></div></div>`,
+    tail:`<div class="thumb thumb-tail"><div class="tail-stage"><h4>twintail.</h4><p>Utilit&aacute;rios e componentes CSS.</p><div class="tail-blocks"><i></i><i></i><i></i></div><div class="tail-pills"><span></span><span></span><span></span></div></div></div>`,
+    orkut:`<div class="thumb thumb-orkut"><div class="orkut-browser"><div class="orkut-top">orkut <span>início &nbsp; perfil &nbsp; comunidades</span></div><div class="orkut-panels"><div class="orkut-profile"><div class="orkut-face"></div><p>meu perfil</p></div><div class="orkut-feed"><h4>Bem-vindo, dev!</h4><small>É bom ter você aqui de novo :)</small><div class="orkut-badges"><i></i><i></i><i></i></div></div></div></div></div>`
+  };
+
+  let activeFilter = 'todos';
+  const grid = document.getElementById('projectGrid');
+  const search = document.getElementById('projectSearch');
+  const resultLabel = document.getElementById('projectResults');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let revealObserver;
+
+  function projectCard(project, index, total) {
+    const wide = project.wide && activeFilter === 'todos' && !search.value.trim();
+    const href = project.live || project.repo;
+    const buttons = `<a class="project-link" href="${project.repo}" title="Código no GitHub: ${escapeHTML(project.name)}" aria-label="Código no GitHub: ${escapeHTML(project.name)}" target="_blank" rel="noopener noreferrer">${ICONS.github}</a>${project.live ? `<a class="project-link" href="${project.live}" title="Abrir aplicativo: ${escapeHTML(project.name)}" aria-label="Abrir aplicativo: ${escapeHTML(project.name)}" target="_blank" rel="noopener noreferrer">${ICONS.arrow}</a>` : ''}`;
+    return `<article class="project-card${wide ? ' is-wide':''} reveal" style="transition-delay:${Math.min(index % 4,3)*65}ms"><a class="project-media" href="${href}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHTML(project.live ? 'Abrir aplicativo' : 'Ver projeto')}: ${escapeHTML(project.name)}">${visuals[project.theme]}<span class="view-bubble">${ICONS.arrow}</span></a><div class="project-content"><div><div class="project-super"><span>${escapeHTML(project.type)}</span>${project.live?'<span class="live-dot">DEMO ONLINE</span>':`<span>${escapeHTML(project.year)}</span>`}</div><h3>${escapeHTML(project.name)}</h3><p class="project-desc">${escapeHTML(project.description)}</p></div><div class="project-foot"><div class="project-tags">${project.tags.map(t=>`<span class="tag">${escapeHTML(t)}</span>`).join('')}</div><div class="project-links">${buttons}</div></div></div></article>`;
+  }
+  function renderProjects() {
+    const q=search.value.trim().toLocaleLowerCase('pt-BR');
+    const shown=PROJECTS.filter(p=>(activeFilter==='todos'||p.categories.includes(activeFilter))&&[p.name,p.type,p.description,...p.tags].join(' ').toLocaleLowerCase('pt-BR').includes(q));
+    grid.innerHTML=shown.length?shown.map((p,i)=>projectCard(p,i,shown.length)).join(''):`<div class="empty-state"><strong>Nenhum resultado por aqui.</strong><p>Experimente buscar por tecnologia ou escolha outra categoria.</p><button type="button" class="filter-btn is-active" id="clearSearch">Limpar filtros</button></div>`;
+    resultLabel.textContent=shown.length===1?'1 projeto encontrado.':`Mostrando ${shown.length} de ${PROJECTS.length} projetos.`;
+    document.querySelectorAll('#projectGrid .reveal').forEach(el=>{revealObserver?.observe(el);if(!revealObserver)el.classList.add('in-view');});
+    document.getElementById('clearSearch')?.addEventListener('click',()=>{search.value='';setFilter('todos');});
+  }
+  function setFilter(value) {
+    activeFilter=value;
+    document.querySelectorAll('.filter-btn[data-filter]').forEach(btn=>{const selected=btn.dataset.filter===value;btn.classList.toggle('is-active',selected);btn.setAttribute('aria-pressed',String(selected));});
+    renderProjects();
+  }
+  document.getElementById('filters').addEventListener('click',e=>{const button=e.target.closest('[data-filter]');if(button)setFilter(button.dataset.filter);});
+  search.addEventListener('input',renderProjects);
+
+  // Scroll reveal.
+  if('IntersectionObserver' in window&&!reducedMotion){
+    revealObserver=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting){entry.target.classList.add('in-view');revealObserver.unobserve(entry.target);}}},{threshold:.08,rootMargin:'0px 0px -22px 0px'});
+    document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
+  } else document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in-view'));
+  renderProjects();
+  document.getElementById('projectCount').textContent='00';
+  document.getElementById('projectCount').setAttribute('aria-label',`${PROJECTS.length} projetos selecionados`);
+  document.querySelector('[data-filter="todos"] small').textContent=String(PROJECTS.length).padStart(2,'0');
+
+  // Real count-up effect, with a live GitHub value (never a made-up fallback).
+  const starNode=document.getElementById('starCount');
+  const starNote=document.getElementById('starNote');
+  let countersStarted=false;
+  let exactStars=null;
+  const counterFrames=new WeakMap();
+  function countUp(element,finalValue,{duration=1750,pad=0}={}){
+    if(counterFrames.has(element))cancelAnimationFrame(counterFrames.get(element));
+    const format=value=>String(Math.round(value)).padStart(pad,'0').replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+    if(reducedMotion){element.textContent=format(finalValue);return;}
+    const startValue=Number(element.dataset.current||0);
+    const start=performance.now();
+    function frame(now){
+      const fraction=Math.min((now-start)/duration,1);
+      const eased=1-Math.pow(1-fraction,4);
+      const value=startValue+(finalValue-startValue)*eased;
+      element.textContent=format(value);
+      if(fraction<1){counterFrames.set(element,requestAnimationFrame(frame));}
+      else{element.dataset.current=String(finalValue);counterFrames.delete(element);}
+    }
+    counterFrames.set(element,requestAnimationFrame(frame));
+  }
+  const startCounters=()=>{
+    if(countersStarted)return;
+    countersStarted=true;
+    countUp(document.getElementById('projectCount'),PROJECTS.length,{duration:1700,pad:2});
+    if(exactStars!==null)countUp(starNode,exactStars,{duration:2300});
+  };
+  if('IntersectionObserver' in window){
+    const counterObserver=new IntersectionObserver(entries=>{
+      if(entries.some(e=>e.isIntersecting)){startCounters();counterObserver.disconnect();}
+    },{threshold:.1});
+    counterObserver.observe(document.getElementById('statsWrap'));
+  } else startCounters();
+  async function updateGitHubStats(){
+    const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),9000);
+    try{
+      let total=0,page=1;
+      while(page<=6){
+        const response=await fetch(`https://api.github.com/users/felipeAguiarCode/repos?per_page=100&page=${page}&type=owner`,{signal:controller.signal,headers:{Accept:'application/vnd.github+json'}});
+        if(!response.ok)throw new Error('GitHub API unavailable');
+        const repos=await response.json();if(!Array.isArray(repos))throw new Error('Unexpected GitHub response');
+        total+=repos.filter(repo=>!repo.fork).reduce((sum,repo)=>sum+Number(repo.stargazers_count||0),0);
+        if(repos.length<100)break;page++;
+      }
+      exactStars=total;
+      starNode.setAttribute('aria-label',`${total} estrelas recebidas em reposit\u00f3rios p\u00fablicos pr\u00f3prios`);
+      starNote.textContent='Total de estrelas recebidas nos reposit\u00f3rios p\u00fablicos.';
+      if(countersStarted)countUp(starNode,total,{duration:2300});
+      else starNode.textContent='0';
+    }catch(e){
+      starNode.textContent='...';
+      starNote.textContent='N\u00e3o foi poss\u00edvel consultar o GitHub agora.';
+    }finally{clearTimeout(timeout);}
+  }
+  updateGitHubStats();
+
+  // Feature tabs are functional visual states, not links or placeholders.
+  const featureStates={
+    criar:['AGENTES / NOVO AGENTE / CONSTRUTOR','Defina seu agente.','Nome do agente','Nova | AI Architect','Missão principal','Arquitetar soluções com IA','Perfil','Rigoroso · Analítico · Criativo','Criar agente →'],
+    personalizar:['AGENTES / COMPORTAMENTO / IDENTIDADE','Configure o comportamento.','Tom de voz','Direto · Didático · Criativo','Ferramentas','MCP · Browser · Code Runner','Memória','Contexto · Conhecimento · Regras','Salvar identidade →'],
+    exportar:['AGENTES / EXPORTAR / CLAUDE CODE','Prepare a exportação.','Formato de exportação','Claude Code · Agent Kit','Arquivos gerados','CLAUDE.md · agents/*.md','Pronto para utilizar','Skills · Tools · Guardrails','Exportar agente ↗']
+  };
+  document.querySelectorAll('[data-feature]').forEach(button=>button.addEventListener('click',()=>{
+    document.querySelectorAll('[data-feature]').forEach(b=>{const active=b===button;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});
+    const v=featureStates[button.dataset.feature];
+    document.querySelector('#featureEditor .breadcrumb').textContent=v[0];document.querySelector('#featureEditor h4').textContent=v[1];
+    const labels=document.querySelectorAll('#featureEditor label');labels[0].textContent=v[2];document.getElementById('featureField1').textContent=v[3];labels[1].textContent=v[4];document.getElementById('featureField2').textContent=v[5];labels[2].textContent=v[6];document.getElementById('featureField3').textContent=v[7];document.getElementById('featureSave').textContent=v[8];
+  }));
+
+  document.querySelectorAll('[data-footer-filter]').forEach(link=>link.addEventListener('click',()=>{
+    const button=document.querySelector(`#filters [data-filter="${link.dataset.footerFilter}"]`);
+    if(button)button.click();
+  }));
+
+  const themeToggle=document.getElementById('themeToggle');
+  const moon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20.2 15.5A8.5 8.5 0 0 1 8.5 3.8 8.5 8.5 0 1 0 20.2 15.5Z"/></svg>';
+  const sun='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>';
+  function applyTheme(theme){const dark=theme==='dark';document.documentElement.dataset.theme=dark?'dark':'light';themeToggle.innerHTML=dark?moon:sun;themeToggle.setAttribute('aria-label',dark?'Ativar tema claro':'Ativar tema escuro');document.querySelector('meta[name="theme-color"]').setAttribute('content',dark?'#131217':'#faf9f7');try{localStorage.setItem('fa-portfolio-theme',theme);}catch(e){}}
+  let savedTheme='light';try{savedTheme=localStorage.getItem('fa-portfolio-theme')||'light';}catch(e){}applyTheme(savedTheme);
+  themeToggle.addEventListener('click',()=>applyTheme(document.documentElement.dataset.theme==='dark'?'light':'dark'));
+
+  const nav=document.getElementById('mainNav'),menuToggle=document.getElementById('menuToggle');
+  function closeMenu(){nav.classList.remove('open');menuToggle.setAttribute('aria-expanded','false');menuToggle.setAttribute('aria-label','Abrir menu');document.body.classList.remove('menu-open');}
+  menuToggle.addEventListener('click',()=>{const open=!nav.classList.contains('open');nav.classList.toggle('open',open);menuToggle.setAttribute('aria-expanded',String(open));menuToggle.setAttribute('aria-label',open?'Fechar menu':'Abrir menu');document.body.classList.toggle('menu-open',open);});
+  nav.querySelectorAll('a').forEach(link=>link.addEventListener('click',closeMenu));document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu();});
+  document.getElementById('year').textContent=String(new Date().getFullYear());
+  let ticking=false;
+  const updateScroll=()=>{
+    const max=document.documentElement.scrollHeight-innerHeight;document.getElementById('scrollProgress').style.width=`${max>0?(scrollY/max)*100:0}%`;
+    const sections=['inicio','projetos','destaque','sobre'];let current='inicio';for(const id of sections){const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<=150)current=id;}
+    nav.querySelectorAll('a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')===`#${current}`));ticking=false;
+  };
+  window.addEventListener('scroll',()=>{if(!ticking){requestAnimationFrame(updateScroll);ticking=true;}},{passive:true});updateScroll();
+  if(!reducedMotion){const scene=document.getElementById('heroScene'),stage=document.getElementById('heroStage');scene.addEventListener('pointermove',e=>{if(e.pointerType==='touch')return;const r=scene.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;stage.style.setProperty('--hero-x',`${x*20}px`);stage.style.setProperty('--hero-y',`${y*17}px`);},{passive:true});scene.addEventListener('pointerleave',()=>{stage.style.setProperty('--hero-x','0px');stage.style.setProperty('--hero-y','0px');});}
+  </script>
+</body>
+</html>
