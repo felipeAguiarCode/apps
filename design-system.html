@@ -1,0 +1,1685 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Design system completo para landing pages inspirado em interfaces de consoles portáteis, com componentes, vídeos, animações, documentação, chat, tipografia, gráficos e exemplos responsivos." />
+  <title>Orbit OS — Design System para Landing Pages</title>
+  <style>
+    :root {
+      --mint-50:#effdf8;
+      --mint-100:#d8faec;
+      --mint-200:#aef4d8;
+      --mint-300:#7ce9bf;
+      --mint-400:#52dba7;
+      --mint-500:#2cc88f;
+      --mint-600:#16a875;
+      --mint-700:#11865f;
+      --mint-800:#116b4f;
+      --mint-900:#105842;
+
+      --sky-50:#f0f8ff;
+      --sky-100:#dcefff;
+      --sky-200:#b8ddff;
+      --sky-300:#83c4ff;
+      --sky-400:#51a9f8;
+      --sky-500:#2f8de9;
+      --sky-600:#2070ca;
+      --sky-700:#1e5aa3;
+      --sky-800:#204d82;
+      --sky-900:#213f69;
+
+      --orange-50:#fff7ed;
+      --orange-100:#ffead0;
+      --orange-200:#ffd39a;
+      --orange-300:#ffb95d;
+      --orange-400:#ff9b2d;
+      --orange-500:#f77d13;
+      --orange-600:#dc5d09;
+      --orange-700:#b7440b;
+      --orange-800:#933611;
+      --orange-900:#783013;
+
+      --pink-50:#fff1f6;
+      --pink-100:#ffe1ec;
+      --pink-200:#ffc3d8;
+      --pink-300:#ff96ba;
+      --pink-400:#ff6196;
+      --pink-500:#f83c79;
+      --pink-600:#e51f5f;
+      --pink-700:#c2124c;
+      --pink-800:#a01242;
+      --pink-900:#86133c;
+
+      --cyan-100:#cffafe;
+      --cyan-400:#22d3ee;
+      --cyan-600:#0891b2;
+
+      --indigo-100:#e0e7ff;
+      --indigo-400:#818cf8;
+      --indigo-600:#4f46e5;
+
+      --violet-100:#ede9fe;
+      --violet-400:#a78bfa;
+      --violet-600:#7c3aed;
+
+      --coral-100:#ffe1db;
+      --coral-400:#ff7a6b;
+      --coral-600:#d94841;
+
+      --amber-100:#fff3c4;
+      --amber-400:#f8c84a;
+      --amber-600:#c58a00;
+
+      --lime-50:#f4ffed;
+      --lime-100:#e4ffd6;
+      --lime-200:#c7ffae;
+      --lime-300:#9df978;
+      --lime-400:#72e843;
+      --lime-500:#50cf25;
+      --lime-600:#38a91a;
+      --lime-700:#2d811a;
+      --lime-800:#286619;
+      --lime-900:#235519;
+
+      --ink-950:#1e252b;
+      --ink-900:#2b333a;
+      --ink-800:#404952;
+      --ink-700:#59636d;
+      --ink-600:#727d87;
+      --ink-500:#8d97a1;
+      --ink-400:#aab2ba;
+      --ink-300:#c5cbd1;
+      --ink-200:#dde1e5;
+      --ink-150:#e8ebee;
+      --ink-100:#f0f2f4;
+      --ink-50:#f8f9fa;
+      --white:#ffffff;
+
+      --accent:var(--mint-400);
+      --accent-strong:var(--mint-600);
+      --accent-soft:var(--mint-100);
+      --accent-rgb:82,219,167;
+
+      --bg:#eef0f2;
+      --surface:#f8f9fb;
+      --surface-strong:#ffffff;
+      --surface-muted:#eef1f3;
+      --border:#d5dade;
+      --border-strong:#bcc4ca;
+      --text:var(--ink-950);
+      --text-muted:var(--ink-600);
+
+      --radius-xs:10px;
+      --radius-sm:14px;
+      --radius-md:20px;
+      --radius-lg:28px;
+      --radius-xl:38px;
+      --radius-pill:999px;
+
+      --shadow-xs:0 1px 0 rgba(255,255,255,.95) inset, 0 2px 5px rgba(43,51,58,.12);
+      --shadow-sm:0 1px 0 rgba(255,255,255,.98) inset, 0 3px 0 rgba(39,47,54,.08), 0 8px 18px rgba(39,47,54,.10);
+      --shadow-md:0 2px 0 rgba(255,255,255,.9) inset, 0 5px 0 rgba(39,47,54,.08), 0 18px 40px rgba(39,47,54,.14);
+      --shadow-glow:0 0 0 5px rgba(var(--accent-rgb),.18), 0 10px 24px rgba(var(--accent-rgb),.22);
+
+      --font-display:"Trebuchet MS","Arial Rounded MT Bold",system-ui,sans-serif;
+      --font-body:"Trebuchet MS",Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      --max-width:1280px;
+      --sidebar:270px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--text);
+      font-family:var(--font-body);
+      line-height:1.55;
+      background:
+        linear-gradient(135deg,rgba(255,255,255,.68) 25%,transparent 25%) 0 0/36px 36px,
+        linear-gradient(315deg,rgba(255,255,255,.34) 25%,transparent 25%) 0 0/36px 36px,
+        linear-gradient(135deg,transparent 75%,rgba(217,222,226,.38) 75%) 0 0/36px 36px,
+        #e9ecef;
+    }
+
+    a{color:inherit}
+    button,input,select,textarea{font:inherit}
+    button{cursor:pointer}
+    img,svg{display:block;max-width:100%}
+    ::selection{background:var(--accent-soft);color:var(--ink-950)}
+
+    .icon{width:1.2em;height:1.2em;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+    .icon-fill{fill:currentColor;stroke:none}
+
+    .app-shell{min-height:100vh}
+    .sidebar{
+      position:fixed;
+      inset:18px auto 18px 18px;
+      width:var(--sidebar);
+      z-index:50;
+      display:flex;
+      flex-direction:column;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.95);
+      border-radius:32px;
+      background:rgba(247,249,250,.92);
+      backdrop-filter:blur(16px);
+      box-shadow:var(--shadow-md);
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:18px 18px 16px;
+      border-bottom:1px solid var(--border);
+      background:linear-gradient(#fff,#f5f7f8);
+    }
+    .brand-mark{
+      width:46px;height:46px;border-radius:15px;
+      display:grid;place-items:center;
+      color:white;
+      background:linear-gradient(145deg,var(--accent),var(--accent-strong));
+      border:3px solid #fff;
+      box-shadow:0 2px 0 rgba(35,42,47,.18),0 8px 20px rgba(var(--accent-rgb),.28);
+    }
+    .brand-copy strong{display:block;font-size:1.04rem;letter-spacing:-.02em}
+    .brand-copy span{font-size:.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.12em;font-weight:800}
+
+    .nav-scroll{padding:14px 12px;overflow:auto;flex:1}
+    .nav-label{padding:12px 12px 7px;font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-500);font-weight:900}
+    .nav-link{
+      display:flex;align-items:center;gap:10px;
+      padding:10px 12px;margin:3px 0;
+      border-radius:13px;text-decoration:none;
+      color:var(--ink-700);font-size:.88rem;font-weight:800;
+      transition:.18s ease;
+    }
+    .nav-link:hover{background:#fff;color:var(--text);box-shadow:var(--shadow-xs);transform:translateX(2px)}
+    .nav-link.active{background:linear-gradient(180deg,var(--accent-soft),#fff);color:var(--accent-strong);box-shadow:var(--shadow-xs);border:1px solid rgba(var(--accent-rgb),.28)}
+    .nav-link .icon{width:17px;height:17px}
+
+    .sidebar-footer{padding:13px;border-top:1px solid var(--border);background:#f3f5f6}
+    .mini-status{display:flex;align-items:center;justify-content:space-between;gap:8px;background:white;border:1px solid var(--border);border-radius:15px;padding:9px 10px;box-shadow:var(--shadow-xs);font-size:.74rem;font-weight:800}
+    .status-dot{width:9px;height:9px;border-radius:50%;background:var(--lime-400);box-shadow:0 0 0 4px var(--lime-100)}
+
+    .main{margin-left:calc(var(--sidebar) + 36px);padding:18px 18px 100px;min-width:0}
+    .topbar{
+      position:sticky;top:18px;z-index:40;
+      max-width:var(--max-width);margin:0 auto 18px;
+      display:flex;align-items:center;justify-content:space-between;gap:14px;
+      padding:10px 12px 10px 16px;
+      border:1px solid rgba(255,255,255,.96);border-radius:22px;
+      background:rgba(248,250,251,.88);backdrop-filter:blur(18px);
+      box-shadow:var(--shadow-sm);
+    }
+    .topbar-title{display:flex;align-items:center;gap:10px;min-width:0}
+    .topbar-title .eyebrow{font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--text-muted);font-weight:900}
+    .topbar-title h1{font-size:.98rem;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .topbar-actions{display:flex;align-items:center;gap:8px}
+    .mobile-menu{display:none}
+
+    .status-cluster{display:flex;align-items:center;gap:6px;padding:5px;background:#e5e8eb;border-radius:16px;box-shadow:inset 0 2px 3px rgba(50,57,64,.12),0 1px 0 #fff}
+    .status-pill{display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:12px;background:linear-gradient(#fff,#f5f6f7);box-shadow:0 2px 3px rgba(48,56,63,.12);font-size:.72rem;font-weight:900;color:var(--ink-700)}
+    .status-pill .icon{width:15px;height:15px;color:var(--accent-strong)}
+
+    .page{max-width:var(--max-width);margin:0 auto}
+    .section{scroll-margin-top:105px;margin-bottom:28px}
+    .section-panel{
+      border:1px solid rgba(255,255,255,.98);
+      border-radius:var(--radius-xl);
+      background:rgba(247,249,250,.94);
+      box-shadow:var(--shadow-md);
+      overflow:hidden;
+    }
+    .section-header{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;padding:28px 30px 18px;border-bottom:1px solid var(--border)}
+    .section-kicker{margin:0 0 6px;color:var(--accent-strong);font-weight:900;letter-spacing:.08em;text-transform:uppercase;font-size:.72rem}
+    .section-title{font-family:var(--font-display);font-size:clamp(1.55rem,2.3vw,2.35rem);letter-spacing:-.045em;line-height:1.05;margin:0}
+    .section-description{max-width:690px;color:var(--text-muted);margin:9px 0 0;font-size:.95rem}
+    .section-body{padding:26px 30px 32px}
+
+    .hero{
+      position:relative;
+      min-height:540px;
+      display:grid;grid-template-columns:1.08fr .92fr;gap:38px;align-items:center;
+      padding:48px;
+      border-radius:44px;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 90% 20%,rgba(123,235,196,.55),transparent 28%),
+        radial-gradient(circle at 18% 85%,rgba(119,188,255,.35),transparent 30%),
+        linear-gradient(135deg,#fbfcfd 0%,#eef3f2 52%,#e7f7f0 100%);
+      border:1px solid rgba(255,255,255,.98);
+      box-shadow:var(--shadow-md);
+    }
+    .hero:before{
+      content:"";position:absolute;inset:0;opacity:.38;pointer-events:none;
+      background-image:linear-gradient(120deg,transparent 0 48%,rgba(255,255,255,.7) 49% 51%,transparent 52% 100%);
+      background-size:42px 42px;
+    }
+    .hero-copy,.hero-visual{position:relative;z-index:1}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:#fff;border:1px solid var(--border);box-shadow:var(--shadow-xs);font-weight:900;font-size:.78rem;color:var(--accent-strong)}
+    .hero h2{font-family:var(--font-display);font-size:clamp(2.8rem,6vw,5.8rem);line-height:.93;letter-spacing:-.075em;margin:20px 0 18px;max-width:760px}
+    .hero h2 span{color:var(--accent-strong)}
+    .hero p{font-size:1.05rem;color:var(--ink-700);max-width:660px;margin:0 0 26px}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:12px}
+    .hero-meta{display:flex;align-items:center;gap:16px;margin-top:24px;color:var(--ink-600);font-size:.8rem;font-weight:800}
+    .avatar-stack{display:flex;padding-left:8px}
+    .avatar-stack .avatar{margin-left:-8px;border:3px solid white}
+
+    .device-card{
+      position:relative;
+      width:min(100%,520px);margin:auto;
+      padding:14px;border-radius:36px;
+      background:linear-gradient(150deg,#fff,#dfe4e7);
+      border:1px solid #fff;
+      box-shadow:0 8px 0 #c8ced2,0 26px 60px rgba(39,48,55,.24),inset 0 2px 0 #fff;
+      transform:rotate(1.2deg);
+    }
+    .device-screen{min-height:410px;padding:18px;border-radius:25px;background:linear-gradient(160deg,#f8fafb,#e9edef);border:2px solid #d4dadd;box-shadow:inset 0 3px 8px rgba(49,59,66,.12)}
+    .device-status{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+    .device-mini{font-size:.72rem;font-weight:900;color:var(--ink-600)}
+    .game-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .game-tile{
+      aspect-ratio:1;
+      display:grid;place-items:center;
+      border-radius:22px;
+      border:3px solid white;
+      box-shadow:0 4px 0 rgba(57,66,72,.14),0 10px 18px rgba(57,66,72,.11),inset 0 1px 0 rgba(255,255,255,.95);
+      font-size:2rem;color:white;
+      transition:.2s ease;
+    }
+    .game-tile:hover{transform:translateY(-5px) scale(1.02)}
+    .game-tile.active{box-shadow:0 0 0 5px var(--mint-300),0 4px 0 rgba(57,66,72,.15),0 14px 22px rgba(44,200,143,.26)}
+    .tile-pink{background:linear-gradient(145deg,#ff86ab,#ef3c76)}
+    .tile-orange{background:linear-gradient(145deg,#ffc06b,#ff8f21)}
+    .tile-blue{background:linear-gradient(145deg,#8dc9ff,#4e98ef)}
+    .tile-mint{background:linear-gradient(145deg,#8cebc9,#3ec792)}
+    .tile-purple{background:linear-gradient(145deg,#9aa5ff,#6877ef)}
+    .tile-lime{background:linear-gradient(145deg,#9bf06b,#54d22d)}
+    .device-dock{display:flex;gap:8px;align-items:center;justify-content:center;margin-top:17px;padding:8px 10px;border-radius:16px;background:#fff;box-shadow:var(--shadow-xs)}
+    .dock-dot{width:34px;height:34px;border-radius:11px;background:var(--ink-150);display:grid;place-items:center;font-size:.8rem;font-weight:900;box-shadow:inset 0 1px 0 #fff,0 2px 3px rgba(40,50,58,.15)}
+
+    .grid{display:grid;gap:18px}
+    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .grid-auto{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+
+    .card{
+      position:relative;
+      border:1px solid var(--border);
+      border-radius:var(--radius-md);
+      background:linear-gradient(180deg,#fff,#f5f7f8);
+      box-shadow:var(--shadow-sm);
+      overflow:hidden;
+    }
+    .card-body{padding:20px}
+    .card-title{font-family:var(--font-display);font-size:1.07rem;line-height:1.15;margin:0 0 7px;letter-spacing:-.025em}
+    .card-copy{font-size:.85rem;color:var(--text-muted);margin:0}
+    .card-topline{height:5px;background:var(--accent)}
+    .card-hover{transition:.2s ease}
+    .card-hover:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+
+    .swatch{min-height:138px;display:flex;flex-direction:column;justify-content:flex-end;padding:14px;border-radius:18px;color:white;box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 4px 0 rgba(43,51,58,.12),0 9px 18px rgba(43,51,58,.13)}
+    .swatch strong{font-size:.93rem}
+    .swatch code{font-size:.7rem;background:rgba(20,28,33,.18);border-radius:7px;padding:3px 6px;width:max-content;margin-top:5px}
+    .swatch-light{color:var(--ink-900)}
+
+    .token-row{display:grid;grid-template-columns:150px 1fr 110px;align-items:center;gap:14px;padding:12px 0;border-bottom:1px dashed var(--border)}
+    .token-row:last-child{border-bottom:0}
+    .token-name{font-weight:900;font-size:.82rem}
+    .token-preview{height:38px;background:#fff;border:1px solid var(--border);box-shadow:var(--shadow-xs)}
+    .token-value{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.72rem;color:var(--text-muted);text-align:right}
+
+    .type-sample{padding:18px 0;border-bottom:1px solid var(--border)}
+    .type-sample:last-child{border-bottom:0}
+    .type-meta{display:flex;justify-content:space-between;gap:16px;margin-bottom:8px;font-size:.72rem;color:var(--text-muted);font-weight:800}
+    .display-xl{font-family:var(--font-display);font-size:clamp(3.2rem,7vw,6.8rem);line-height:.88;letter-spacing:-.075em;font-weight:900}
+    .display-lg{font-family:var(--font-display);font-size:clamp(2.4rem,5vw,4.8rem);line-height:.95;letter-spacing:-.06em;font-weight:900}
+    .heading-1{font-family:var(--font-display);font-size:2.7rem;line-height:1;letter-spacing:-.05em;font-weight:900}
+    .heading-2{font-family:var(--font-display);font-size:2rem;line-height:1.08;letter-spacing:-.04em;font-weight:900}
+    .heading-3{font-family:var(--font-display);font-size:1.4rem;line-height:1.15;letter-spacing:-.03em;font-weight:900}
+    .body-lg{font-size:1.06rem;color:var(--ink-700)}
+    .body-md{font-size:.92rem;color:var(--ink-700)}
+    .body-sm{font-size:.78rem;color:var(--ink-600)}
+    .caption{font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;font-weight:900;color:var(--ink-500)}
+
+    .component-stage{padding:22px;border-radius:22px;background:var(--surface-muted);border:1px solid var(--border);box-shadow:inset 0 2px 6px rgba(53,62,68,.08)}
+    .component-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;font-weight:900;color:var(--ink-500);margin:0 0 14px}
+    .row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .column{display:flex;flex-direction:column;gap:10px}
+
+    .btn{
+      min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding:0 17px;border-radius:14px;border:1px solid transparent;
+      font-weight:900;font-size:.86rem;text-decoration:none;
+      transition:transform .16s ease,box-shadow .16s ease,filter .16s ease;
+      user-select:none;
+    }
+    .btn:hover{transform:translateY(-2px);filter:saturate(1.05)}
+    .btn:active{transform:translateY(1px)}
+    .btn .icon{width:17px;height:17px}
+    .btn-primary{color:#fff;background:linear-gradient(180deg,var(--accent),var(--accent-strong));border-color:rgba(17,107,79,.2);box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 4px 0 color-mix(in srgb,var(--accent-strong) 78%,#000),0 9px 16px rgba(var(--accent-rgb),.24)}
+    .btn-secondary{color:var(--ink-900);background:linear-gradient(#fff,#edf0f2);border-color:var(--border-strong);box-shadow:inset 0 1px 0 #fff,0 4px 0 #c4cbd0,0 8px 14px rgba(43,51,58,.13)}
+    .btn-ghost{color:var(--accent-strong);background:rgba(var(--accent-rgb),.10);border-color:rgba(var(--accent-rgb),.22)}
+    .btn-danger{color:#fff;background:linear-gradient(#ff6d9e,#e51f5f);box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 4px 0 #b31549,0 9px 16px rgba(229,31,95,.2)}
+    .btn-icon{width:44px;padding:0;border-radius:14px}
+    .btn-sm{min-height:36px;padding:0 13px;border-radius:11px;font-size:.76rem}
+    .btn-lg{min-height:54px;padding:0 23px;border-radius:17px;font-size:.94rem}
+    .btn:disabled{opacity:.45;cursor:not-allowed;filter:grayscale(.5);transform:none}
+
+    .field{display:flex;flex-direction:column;gap:7px}
+    .field label{font-size:.75rem;font-weight:900;color:var(--ink-700)}
+    .input-wrap{position:relative}
+    .input,.select,.textarea{
+      width:100%;border:1px solid var(--border-strong);border-radius:14px;background:#fff;color:var(--text);
+      box-shadow:inset 0 2px 5px rgba(52,60,67,.08),0 1px 0 #fff;
+      outline:none;transition:.16s ease;
+    }
+    .input,.select{height:46px;padding:0 14px}
+    .textarea{min-height:110px;padding:12px 14px;resize:vertical}
+    .input:focus,.select:focus,.textarea:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(var(--accent-rgb),.16),inset 0 2px 4px rgba(52,60,67,.06)}
+    .input-icon .input{padding-left:42px}
+    .input-icon > .icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--ink-500);width:17px;height:17px}
+    .helper{font-size:.68rem;color:var(--text-muted)}
+    .error-text{font-size:.68rem;color:var(--pink-600);font-weight:800}
+    .input.error{border-color:var(--pink-400);box-shadow:0 0 0 4px var(--pink-100)}
+
+    .checkbox,.radio,.switch{display:inline-flex;align-items:center;gap:9px;font-size:.83rem;font-weight:800;color:var(--ink-700)}
+    .checkbox input,.radio input,.switch input{position:absolute;opacity:0;pointer-events:none}
+    .control-box{width:22px;height:22px;display:grid;place-items:center;border-radius:7px;background:#fff;border:1px solid var(--border-strong);box-shadow:inset 0 1px 0 #fff,0 2px 3px rgba(46,54,60,.12);color:white}
+    .checkbox input:checked + .control-box{background:linear-gradient(var(--accent),var(--accent-strong));border-color:var(--accent-strong)}
+    .radio .control-box{border-radius:50%}
+    .radio input:checked + .control-box:after{content:"";width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 2px rgba(var(--accent-rgb),.15)}
+    .switch-track{width:48px;height:27px;padding:3px;border-radius:999px;background:#d9dde1;box-shadow:inset 0 2px 4px rgba(42,50,57,.16);transition:.2s}
+    .switch-knob{width:21px;height:21px;border-radius:50%;background:#fff;box-shadow:0 2px 4px rgba(43,51,58,.25);transition:.2s}
+    .switch input:checked + .switch-track{background:var(--accent)}
+    .switch input:checked + .switch-track .switch-knob{transform:translateX(21px)}
+
+    .badge{display:inline-flex;align-items:center;gap:6px;min-height:27px;padding:0 10px;border-radius:999px;font-size:.7rem;font-weight:900;background:#fff;border:1px solid var(--border);box-shadow:var(--shadow-xs);color:var(--ink-700)}
+    .badge-success{background:var(--mint-100);color:var(--mint-800);border-color:var(--mint-200)}
+    .badge-info{background:var(--sky-100);color:var(--sky-800);border-color:var(--sky-200)}
+    .badge-warning{background:var(--orange-100);color:var(--orange-800);border-color:var(--orange-200)}
+    .badge-danger{background:var(--pink-100);color:var(--pink-800);border-color:var(--pink-200)}
+    .badge-dot:before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+
+    .alert{display:flex;align-items:flex-start;gap:12px;padding:15px;border-radius:16px;background:#fff;border:1px solid var(--border);box-shadow:var(--shadow-xs);font-size:.82rem;color:var(--ink-700)}
+    .alert-icon{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;flex:0 0 auto}
+    .alert-title{font-weight:900;color:var(--text);margin-bottom:2px}
+    .alert-info .alert-icon{background:var(--sky-100);color:var(--sky-700)}
+    .alert-success .alert-icon{background:var(--mint-100);color:var(--mint-700)}
+    .alert-warning .alert-icon{background:var(--orange-100);color:var(--orange-700)}
+    .alert-danger .alert-icon{background:var(--pink-100);color:var(--pink-700)}
+
+    .tabs{display:flex;gap:7px;padding:6px;background:#dfe3e6;border-radius:16px;box-shadow:inset 0 2px 4px rgba(45,53,59,.14);overflow:auto}
+    .tab{white-space:nowrap;border:0;background:transparent;color:var(--ink-600);font-weight:900;font-size:.78rem;padding:8px 13px;border-radius:11px}
+    .tab.active{background:#fff;color:var(--accent-strong);box-shadow:0 2px 5px rgba(44,52,58,.16)}
+
+    .breadcrumb{display:flex;align-items:center;gap:7px;font-size:.75rem;font-weight:800;color:var(--ink-500)}
+    .breadcrumb a{text-decoration:none;color:var(--ink-700)}
+    .breadcrumb .icon{width:13px;height:13px}
+
+    .pagination{display:flex;align-items:center;gap:7px}
+    .page-btn{width:38px;height:38px;border-radius:12px;border:1px solid var(--border);background:#fff;box-shadow:var(--shadow-xs);font-weight:900;color:var(--ink-700)}
+    .page-btn.active{background:var(--accent);color:#fff;border-color:var(--accent-strong);box-shadow:0 4px 0 var(--accent-strong)}
+
+    .navbar-demo{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 12px 10px 15px;border-radius:20px;background:#fff;border:1px solid var(--border);box-shadow:var(--shadow-sm)}
+    .navbar-brand{display:flex;align-items:center;gap:9px;font-weight:900}
+    .navbar-logo{width:34px;height:34px;border-radius:11px;background:var(--accent);display:grid;place-items:center;color:#fff;box-shadow:0 3px 0 var(--accent-strong)}
+    .navbar-links{display:flex;gap:4px;align-items:center}
+    .navbar-links a{padding:8px 10px;text-decoration:none;font-size:.76rem;font-weight:900;color:var(--ink-600);border-radius:10px}
+    .navbar-links a:hover{background:var(--ink-100);color:var(--text)}
+
+    .stat-card{padding:20px;border-radius:20px;background:#fff;border:1px solid var(--border);box-shadow:var(--shadow-sm)}
+    .stat-head{display:flex;justify-content:space-between;gap:12px;align-items:center}
+    .stat-icon{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent-strong);box-shadow:inset 0 1px 0 #fff,0 3px 5px rgba(50,60,66,.12)}
+    .stat-value{font-family:var(--font-display);font-size:2.2rem;letter-spacing:-.06em;line-height:1;margin:18px 0 5px}
+    .stat-label{font-size:.75rem;color:var(--text-muted);font-weight:800}
+    .trend{font-size:.68rem;font-weight:900;color:var(--mint-700);background:var(--mint-100);padding:4px 8px;border-radius:999px}
+
+    .feature-card{padding:23px;text-align:left}
+    .feature-icon{width:54px;height:54px;border-radius:17px;display:grid;place-items:center;color:white;background:linear-gradient(145deg,var(--accent),var(--accent-strong));box-shadow:0 4px 0 var(--accent-strong),0 10px 20px rgba(var(--accent-rgb),.23);margin-bottom:18px}
+    .feature-icon .icon{width:25px;height:25px}
+
+    .media-card .media{height:180px;background:linear-gradient(135deg,var(--sky-200),var(--mint-200));position:relative;overflow:hidden}
+    .media-card .media:before,.media-card .media:after{content:"";position:absolute;border-radius:50%;filter:blur(2px)}
+    .media-card .media:before{width:180px;height:180px;background:var(--sky-400);right:-35px;top:-50px;opacity:.46}
+    .media-card .media:after{width:130px;height:130px;background:var(--mint-500);left:24px;bottom:-58px;opacity:.55}
+    .media-symbol{position:absolute;inset:0;display:grid;place-items:center;color:white}
+    .media-symbol .icon{width:64px;height:64px;filter:drop-shadow(0 5px 8px rgba(35,43,49,.2))}
+
+    .pricing-card{padding:24px;display:flex;flex-direction:column;min-height:440px}
+    .pricing-card.featured{border-color:var(--accent);box-shadow:var(--shadow-glow)}
+    .pricing-tag{position:absolute;right:16px;top:16px}
+    .price{font-family:var(--font-display);font-size:3rem;letter-spacing:-.07em;line-height:1;margin:20px 0 4px}
+    .price small{font-size:.82rem;color:var(--text-muted);letter-spacing:0}
+    .pricing-list{list-style:none;padding:0;margin:20px 0 24px;display:flex;flex-direction:column;gap:10px;flex:1}
+    .pricing-list li{display:flex;gap:9px;font-size:.82rem;color:var(--ink-700)}
+    .pricing-list .icon{width:17px;height:17px;color:var(--mint-600);margin-top:2px}
+
+    .quote{padding:22px}
+    .quote-stars{color:var(--orange-400);letter-spacing:2px;font-size:.9rem}
+    .quote-text{font-size:.95rem;color:var(--ink-700);margin:14px 0 20px}
+    .quote-author{display:flex;align-items:center;gap:11px}
+    .avatar{width:38px;height:38px;border-radius:13px;display:grid;place-items:center;font-weight:900;color:#fff;background:linear-gradient(145deg,var(--sky-400),var(--sky-600));box-shadow:0 3px 0 var(--sky-700)}
+    .author-meta strong{display:block;font-size:.8rem}
+    .author-meta span{display:block;font-size:.68rem;color:var(--text-muted)}
+
+    .faq{display:flex;flex-direction:column;gap:9px}
+    .faq-item{border:1px solid var(--border);border-radius:16px;background:#fff;box-shadow:var(--shadow-xs);overflow:hidden}
+    .faq-question{width:100%;border:0;background:#fff;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:15px 16px;text-align:left;font-weight:900;color:var(--text)}
+    .faq-answer{max-height:0;overflow:hidden;transition:max-height .25s ease}
+    .faq-answer p{margin:0;padding:0 16px 16px;color:var(--text-muted);font-size:.82rem}
+    .faq-item.open .faq-answer{max-height:180px}
+    .faq-item.open .faq-question .icon{transform:rotate(180deg)}
+
+    .progress{height:12px;padding:2px;border-radius:999px;background:#dce1e4;box-shadow:inset 0 2px 3px rgba(42,50,57,.14)}
+    .progress-bar{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent-strong));box-shadow:0 1px 0 rgba(255,255,255,.5) inset}
+    .meter{display:flex;align-items:center;gap:12px}
+    .meter .progress{flex:1}
+    .meter strong{font-size:.75rem;min-width:38px;text-align:right}
+
+    .stepper{display:flex;align-items:center;gap:8px}
+    .step{display:flex;align-items:center;gap:8px;flex:1}
+    .step-node{width:34px;height:34px;border-radius:12px;background:#fff;border:1px solid var(--border);display:grid;place-items:center;box-shadow:var(--shadow-xs);font-size:.75rem;font-weight:900;color:var(--ink-500)}
+    .step-line{height:5px;border-radius:99px;background:#dce1e4;flex:1;box-shadow:inset 0 1px 2px rgba(44,52,58,.13)}
+    .step.complete .step-node,.step.active .step-node{background:var(--accent);color:#fff;border-color:var(--accent-strong);box-shadow:0 3px 0 var(--accent-strong)}
+    .step.complete .step-line{background:var(--accent)}
+
+    .table-wrap{overflow:auto;border:1px solid var(--border);border-radius:18px;background:#fff;box-shadow:var(--shadow-sm)}
+    table{border-collapse:collapse;width:100%;min-width:650px}
+    th,td{padding:13px 15px;text-align:left;border-bottom:1px solid var(--border);font-size:.78rem}
+    th{background:#f0f3f5;color:var(--ink-600);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em}
+    tbody tr:hover{background:var(--mint-50)}
+    tbody tr:last-child td{border-bottom:0}
+
+    .chart-card{padding:20px}
+    .chart-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:18px}
+    .chart-title{font-weight:900;font-size:.9rem}
+    .chart-subtitle{font-size:.7rem;color:var(--text-muted)}
+    .chart-legend{display:flex;gap:10px;flex-wrap:wrap}
+    .legend-item{display:flex;align-items:center;gap:6px;font-size:.68rem;color:var(--ink-600);font-weight:800}
+    .legend-dot{width:8px;height:8px;border-radius:3px;background:var(--accent)}
+
+    .bar-chart{height:230px;display:flex;align-items:stretch;gap:12px;padding:12px 4px 0;border-bottom:1px solid var(--border);background:repeating-linear-gradient(to top,transparent 0 45px,rgba(111,122,132,.12) 46px 47px)}
+    .bar-item{display:flex;flex:1;flex-direction:column;justify-content:flex-end;align-items:center;gap:7px;min-width:28px}
+    .bar{width:min(42px,100%);height:var(--value);border-radius:7px 7px 3px 3px;background:linear-gradient(180deg,var(--mint-300),var(--mint-500));box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 3px 6px rgba(44,200,143,.18)}
+    .bar-label{font-size:.66rem;font-weight:900;color:var(--ink-500)}
+
+    .donut-wrap{display:grid;grid-template-columns:180px 1fr;align-items:center;gap:24px}
+    .donut{width:170px;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--mint-400) 0 42%,var(--sky-400) 42% 70%,var(--orange-400) 70% 86%,var(--pink-400) 86%);box-shadow:0 8px 18px rgba(44,52,58,.13)}
+    .donut:after{content:"68%";width:100px;aspect-ratio:1;border-radius:50%;background:#fff;display:grid;place-items:center;font-family:var(--font-display);font-size:1.8rem;font-weight:900;box-shadow:inset 0 2px 5px rgba(44,52,58,.08)}
+    .chart-list{display:flex;flex-direction:column;gap:10px}
+    .chart-list-item{display:grid;grid-template-columns:10px 1fr auto;gap:8px;align-items:center;font-size:.76rem;color:var(--ink-700)}
+    .chart-list-item strong{font-size:.78rem}
+
+    .line-chart{height:260px;position:relative;border-left:1px solid var(--border);border-bottom:1px solid var(--border);background:repeating-linear-gradient(to top,transparent 0 50px,rgba(111,122,132,.11) 51px 52px)}
+    .line-chart svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+    .line-chart .axis-label{position:absolute;font-size:.62rem;color:var(--ink-500);font-weight:800}
+
+    .notification-list{display:flex;flex-direction:column;border:1px solid var(--border);border-radius:20px;background:#fff;box-shadow:var(--shadow-sm);overflow:hidden}
+    .notification{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:13px 15px;border-bottom:1px solid var(--border)}
+    .notification:last-child{border-bottom:0}
+    .notification-avatar{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent-strong);font-weight:900;box-shadow:inset 0 1px 0 #fff,0 2px 4px rgba(48,56,62,.13)}
+    .notification-title{font-size:.82rem;font-weight:900}
+    .notification-copy{font-size:.7rem;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .notification-time{font-size:.68rem;color:var(--ink-500);font-weight:900}
+
+    .toast-stack{position:relative;min-height:180px}
+    .toast{position:absolute;right:0;width:min(100%,360px);display:flex;gap:11px;align-items:flex-start;padding:13px;border-radius:16px;background:#fff;border:1px solid var(--border);box-shadow:var(--shadow-md)}
+    .toast:nth-child(1){top:0;z-index:3}
+    .toast:nth-child(2){top:48px;right:18px;z-index:2;transform:scale(.97);opacity:.8}
+    .toast:nth-child(3){top:92px;right:36px;z-index:1;transform:scale(.94);opacity:.55}
+
+    .modal-demo{position:relative;min-height:330px;border-radius:22px;overflow:hidden;background:linear-gradient(135deg,#cdd5db,#edf1f4);display:grid;place-items:center}
+    .modal-demo:before{content:"";position:absolute;inset:0;background:rgba(36,44,50,.32);backdrop-filter:blur(2px)}
+    .modal{position:relative;width:min(90%,430px);border-radius:24px;background:#f7f9fa;border:1px solid #fff;box-shadow:0 24px 70px rgba(33,41,47,.36),0 5px 0 rgba(47,56,63,.12);overflow:hidden}
+    .modal-head{padding:18px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:linear-gradient(#fff,#f2f5f6)}
+    .modal-body{padding:20px}
+    .modal-footer{padding:14px 20px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:9px;background:#eef1f3}
+
+    .code-block{position:relative;border-radius:18px;background:#20272c;color:#e9f0f3;padding:18px;overflow:auto;box-shadow:inset 0 2px 8px rgba(0,0,0,.35),0 5px 0 #11171a;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.74rem;line-height:1.65}
+    .code-block .k{color:#78e2be}.code-block .v{color:#8dc7ff}.code-block .s{color:#ffc170}.code-block .c{color:#7f8d96}
+
+    /* Game selection carousel and galleries */
+    .catalog-shell{border:1px solid var(--border);border-radius:28px;background:linear-gradient(180deg,#f9fbfc,#edf1f3);box-shadow:var(--shadow-md);overflow:hidden}
+    .catalog-toolbar{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 18px;border-bottom:1px solid var(--border);background:rgba(255,255,255,.82)}
+    .catalog-toolbar-copy strong{display:block;font-family:var(--font-display);font-size:1rem}.catalog-toolbar-copy span{display:block;font-size:.7rem;color:var(--text-muted)}
+    .carousel-actions{display:flex;gap:8px}
+    .carousel-viewport{position:relative;padding:20px 18px 12px}
+    .game-carousel{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:5px 5px 18px;scrollbar-width:thin;scrollbar-color:var(--border-strong) transparent}
+    .game-carousel::-webkit-scrollbar{height:7px}.game-carousel::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:999px}.game-carousel::-webkit-scrollbar-track{background:transparent}
+    .game-card{flex:0 0 clamp(190px,23vw,255px);scroll-snap-align:start;border:1px solid var(--border);border-radius:22px;background:linear-gradient(#fff,#f4f6f7);box-shadow:var(--shadow-sm);padding:8px;text-align:left;transition:.2s ease;position:relative}
+    .game-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+    .game-card.active{border-color:var(--accent);box-shadow:0 0 0 5px rgba(var(--accent-rgb),.18),var(--shadow-md)}
+    .game-card.active:after{content:"Selecionado";position:absolute;top:17px;right:16px;padding:5px 8px;border-radius:999px;background:rgba(255,255,255,.92);color:var(--accent-strong);font-size:.58rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;box-shadow:var(--shadow-xs)}
+    .game-cover{height:176px;border-radius:16px;position:relative;overflow:hidden;display:grid;place-items:center;color:#fff;isolation:isolate;box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 4px 0 rgba(43,51,58,.13)}
+    .game-cover:before,.gallery-art:before,.detail-art:before{content:"";position:absolute;inset:auto -18% -36% auto;width:82%;aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.2);box-shadow:-80px -70px 0 rgba(255,255,255,.1);z-index:-1}
+    .game-cover .icon{width:62px;height:62px;filter:drop-shadow(0 8px 12px rgba(24,32,38,.25))}.game-cover small{position:absolute;left:12px;bottom:10px;font-size:.62rem;font-weight:900;letter-spacing:.09em;text-transform:uppercase}
+    .cover-orbit{background:linear-gradient(145deg,#6f7df1,#303b9f)}.cover-bloom{background:linear-gradient(145deg,#ff7da9,#d62967)}.cover-drift{background:linear-gradient(145deg,#50d8bd,#128476)}.cover-ember{background:linear-gradient(145deg,#ffb452,#d45a19)}.cover-cloud{background:linear-gradient(145deg,#66c8ff,#2476d8)}.cover-volt{background:linear-gradient(145deg,#a4ec58,#3da828)}
+    .game-card-copy{padding:12px 7px 7px}.game-card-copy h3{font-family:var(--font-display);font-size:.96rem;margin:0 0 4px}.game-card-copy p{font-size:.68rem;color:var(--text-muted);margin:0 0 10px}.game-meta-row{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:.63rem;font-weight:900;color:var(--ink-600)}
+    .game-detail{display:grid;grid-template-columns:minmax(220px,.75fr) 1.25fr;gap:20px;padding:20px;border-top:1px solid var(--border);background:rgba(255,255,255,.68)}
+    .detail-art{min-height:260px;border-radius:22px;display:grid;place-items:center;position:relative;overflow:hidden;color:#fff;background:linear-gradient(145deg,#6f7df1,#303b9f);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 5px 0 rgba(48,56,63,.13)}
+    .detail-art .icon{width:92px;height:92px;filter:drop-shadow(0 10px 18px rgba(24,32,38,.26))}
+    .detail-copy{display:flex;flex-direction:column;justify-content:center;align-items:flex-start}.detail-copy h3{font-family:var(--font-display);font-size:clamp(1.8rem,3.4vw,3.4rem);line-height:.95;letter-spacing:-.055em;margin:10px 0}.detail-copy p{max-width:620px;color:var(--text-muted);font-size:.86rem;margin:0 0 16px}.detail-stats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+    .gallery-filter{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.filter-chip{min-height:36px;padding:0 13px;border-radius:12px;border:1px solid var(--border);background:#fff;color:var(--ink-700);font-size:.72rem;font-weight:900;box-shadow:var(--shadow-xs)}.filter-chip.active{background:var(--accent-soft);color:var(--accent-strong);border-color:rgba(var(--accent-rgb),.35)}
+    .game-gallery{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+    .gallery-item{border:1px solid var(--border);border-radius:19px;background:#fff;padding:7px;box-shadow:var(--shadow-xs);transition:.18s ease}.gallery-item:hover{transform:translateY(-3px);box-shadow:var(--shadow-sm)}.gallery-item[hidden]{display:none}
+    .gallery-art{aspect-ratio:1.25;border-radius:14px;position:relative;overflow:hidden;display:grid;place-items:center;color:#fff}.gallery-art .icon{width:42px;height:42px;filter:drop-shadow(0 6px 9px rgba(24,32,38,.22))}.gallery-copy{padding:9px 5px 5px}.gallery-copy strong{display:block;font-size:.76rem}.gallery-copy span{font-size:.62rem;color:var(--text-muted)}
+
+    /* Code tabs */
+    .code-window{border:1px solid #11171a;border-radius:22px;background:#20272c;box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 6px 0 #11171a,0 18px 34px rgba(31,38,43,.22);overflow:hidden}
+    .code-window-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 12px;background:#2a3238;border-bottom:1px solid #11171a}
+    .window-dots{display:flex;gap:6px}.window-dot{width:10px;height:10px;border-radius:50%;background:#ff6e84}.window-dot:nth-child(2){background:#f8c84a}.window-dot:nth-child(3){background:#52dba7}
+    .code-tabs{display:flex;align-items:center;gap:5px;overflow-x:auto;padding:4px;background:#171d21;border-radius:12px}
+    .code-tab-button{min-height:32px;padding:0 12px;border:0;border-radius:9px;background:transparent;color:#89969e;font-size:.69rem;font-weight:900;white-space:nowrap}.code-tab-button.active{background:#343e45;color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 2px 3px rgba(0,0,0,.24)}
+    .code-copy{min-height:34px;color:#e9f0f3;background:#343e45;border:1px solid #465159;box-shadow:none}
+    .code-panel{display:none;min-height:390px;overflow:auto;padding:21px 22px;color:#dce5e9;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.75rem;line-height:1.7}.code-panel.active{display:block}.code-panel pre{margin:0;white-space:pre;tab-size:2}.code-panel .line{display:block}.code-panel .line:before{content:attr(data-line);display:inline-block;width:30px;margin-right:18px;color:#59666f;text-align:right;user-select:none}.code-panel .tag{color:#ff7f9f}.code-panel .attr{color:#a9d1ff}.code-panel .value{color:#ffd18b}.code-panel .prop{color:#80ddbd}.code-panel .fn{color:#b9a7ff}.code-panel .comment{color:#697780}
+    .code-notes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}.code-note{padding:15px;border:1px solid var(--border);border-radius:16px;background:#fff;box-shadow:var(--shadow-xs)}.code-note strong{display:block;font-size:.78rem;margin-bottom:4px}.code-note span{font-size:.67rem;color:var(--text-muted)}
+
+    .landing-preview{overflow:hidden;border-radius:28px;border:1px solid var(--border);background:#fff;box-shadow:var(--shadow-md)}
+    .preview-nav{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border);background:#f7f9fa}
+    .preview-logo{display:flex;align-items:center;gap:8px;font-size:.8rem;font-weight:900}
+    .preview-logo-mark{width:28px;height:28px;border-radius:9px;background:var(--accent);box-shadow:0 3px 0 var(--accent-strong)}
+    .preview-links{display:flex;align-items:center;gap:10px;font-size:.68rem;font-weight:900;color:var(--ink-600)}
+    .preview-hero{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center;padding:34px;background:radial-gradient(circle at 90% 20%,var(--mint-100),transparent 35%),#f8fafb}
+    .preview-hero h3{font-family:var(--font-display);font-size:clamp(2rem,4vw,4rem);line-height:.93;letter-spacing:-.07em;margin:10px 0 14px}
+    .preview-hero p{font-size:.82rem;color:var(--ink-600);max-width:430px}
+    .preview-scene{min-height:260px;display:grid;place-items:center;position:relative}
+    .preview-orb{width:190px;aspect-ratio:1;border-radius:50%;background:linear-gradient(145deg,var(--mint-300),var(--sky-400));box-shadow:inset 14px 18px 28px rgba(255,255,255,.52),inset -16px -20px 32px rgba(26,120,112,.21),0 24px 38px rgba(51,123,122,.23);display:grid;place-items:center;color:#fff}
+    .preview-orb .icon{width:70px;height:70px}
+    .preview-mini-tile{position:absolute;width:62px;height:62px;border-radius:18px;background:#fff;border:4px solid #fff;box-shadow:0 5px 0 rgba(46,54,61,.14),0 13px 24px rgba(46,54,61,.18);display:grid;place-items:center;color:var(--accent-strong)}
+    .preview-mini-tile.one{left:7%;top:12%;transform:rotate(-8deg)}
+    .preview-mini-tile.two{right:6%;bottom:10%;transform:rotate(7deg);color:var(--orange-500)}
+    .preview-features{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:20px;background:#eef1f3}
+    .preview-feature{background:#fff;border:1px solid var(--border);border-radius:17px;padding:15px;box-shadow:var(--shadow-xs)}
+    .preview-feature strong{font-size:.78rem}.preview-feature p{font-size:.66rem;color:var(--ink-500);margin:4px 0 0}
+
+    .footer-demo{display:grid;grid-template-columns:1.2fr repeat(3,.7fr);gap:24px;padding:26px;border-radius:22px;background:#252d33;color:#f6f8f9;box-shadow:0 5px 0 #151b1f}
+    .footer-demo h4{margin:0 0 10px;font-size:.82rem}
+    .footer-demo p,.footer-demo a{font-size:.72rem;color:#aeb8bf;text-decoration:none;display:block;margin:6px 0}
+    .footer-brand{max-width:270px}
+
+    .theme-controls{display:flex;gap:7px;align-items:center;padding:4px 5px 4px 8px;max-width:340px;overflow-x:auto;scrollbar-width:none}
+    .theme-controls::-webkit-scrollbar{display:none}
+    .theme-dot{flex:0 0 auto;width:26px;height:26px;border-radius:10px;border:3px solid #fff;box-shadow:0 2px 4px rgba(47,55,61,.22);transition:.16s}
+    .theme-dot:hover{transform:translateY(-2px)}
+    .theme-dot.active{outline:3px solid rgba(var(--accent-rgb),.3)}
+    .theme-mint{background:var(--mint-400)}
+    .theme-blue{background:var(--sky-400)}
+    .theme-cyan{background:var(--cyan-400)}
+    .theme-indigo{background:var(--indigo-400)}
+    .theme-violet{background:var(--violet-400)}
+    .theme-pink{background:var(--pink-400)}
+    .theme-coral{background:var(--coral-400)}
+    .theme-orange{background:var(--orange-400)}
+    .theme-amber{background:var(--amber-400)}
+    .theme-lime{background:var(--lime-400)}
+
+    .utility-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+    .utility-item{min-height:90px;border-radius:16px;background:#fff;border:1px solid var(--border);box-shadow:var(--shadow-xs);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10px}
+    .utility-item strong{font-size:.74rem;margin-top:7px}.utility-item span{font-size:.62rem;color:var(--ink-500)}
+
+    .spacer-demo{height:16px;background:var(--accent-soft);border-left:3px solid var(--accent);border-right:3px solid var(--accent);border-radius:4px;position:relative}
+    .spacer-demo:after{content:attr(data-size);position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:.61rem;font-weight:900;color:var(--accent-strong);background:#fff;padding:1px 6px;border-radius:99px}
+
+    .floating-action{position:fixed;right:22px;bottom:22px;z-index:60;width:54px;height:54px;border:0;border-radius:18px;background:linear-gradient(var(--accent),var(--accent-strong));color:#fff;box-shadow:0 5px 0 var(--accent-strong),0 16px 28px rgba(var(--accent-rgb),.28);display:grid;place-items:center}
+    .floating-action .icon{width:23px;height:23px}
+
+
+    /* Embedded video experience */
+    .video-shell{border:1px solid var(--border);border-radius:28px;background:linear-gradient(180deg,#f9fbfc,#edf1f3);box-shadow:var(--shadow-md);overflow:hidden}
+    .video-shell-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:15px 18px;border-bottom:1px solid var(--border);background:rgba(255,255,255,.86)}
+    .video-shell-title{display:flex;align-items:center;gap:12px}.video-shell-title strong{display:block;font-family:var(--font-display);font-size:1rem}.video-shell-title span{display:block;color:var(--text-muted);font-size:.68rem}
+    .video-layout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(260px,.65fr);min-height:610px}
+    .video-main{min-width:0;padding:18px;border-right:1px solid var(--border)}
+    .youtube-frame{position:relative;aspect-ratio:16/9;border-radius:22px;overflow:hidden;background:#11171a;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 5px 0 rgba(30,37,43,.18)}
+    .youtube-frame iframe{width:100%;height:100%;border:0}
+    .video-info{padding:17px 3px 0}.video-info h3{font-family:var(--font-display);font-size:clamp(1.22rem,2.1vw,1.7rem);letter-spacing:-.025em;margin:0 0 5px}.video-info p{font-size:.74rem;color:var(--text-muted);margin:0}
+    .video-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:12px 0 15px}.video-author{display:flex;align-items:center;gap:9px;margin-right:auto}.video-avatar{width:38px;height:38px;border-radius:13px;background:linear-gradient(145deg,var(--accent),var(--accent-strong));color:#fff;display:grid;place-items:center;border:2px solid #fff;box-shadow:var(--shadow-xs);font-weight:900}.video-author strong{display:block;font-size:.76rem}.video-author span{display:block;font-size:.62rem;color:var(--text-muted)}
+    .video-actions{display:flex;gap:8px;flex-wrap:wrap}.video-action{min-height:38px;padding:0 12px;border:1px solid var(--border);border-radius:12px;background:#fff;color:var(--ink-700);font-size:.68rem;font-weight:900;display:inline-flex;align-items:center;gap:7px;box-shadow:var(--shadow-xs)}.video-action:hover,.video-action.active{border-color:rgba(var(--accent-rgb),.36);background:var(--accent-soft);color:var(--accent-strong)}
+    .video-tabs{margin-top:16px}.video-tab-panel{display:none;padding:15px;border:1px solid var(--border);border-radius:17px;background:#fff;box-shadow:var(--shadow-xs)}.video-tab-panel.active{display:block}.video-tab-panel p{margin:0;font-size:.73rem;color:var(--ink-700)}
+    .chapter-list{display:grid;gap:8px}.chapter-row{display:grid;grid-template-columns:58px 1fr auto;align-items:center;gap:10px;padding:9px 10px;border-radius:12px;background:var(--ink-50);border:1px solid var(--ink-150);font-size:.69rem}.chapter-time{font-weight:900;color:var(--accent-strong)}.chapter-row strong{font-size:.7rem}.chapter-row span:last-child{font-size:.6rem;color:var(--text-muted)}
+    .video-playlist{min-width:0;background:rgba(255,255,255,.58);display:flex;flex-direction:column}.playlist-head{padding:18px;border-bottom:1px solid var(--border)}.playlist-head strong{display:block;font-size:.84rem}.playlist-head span{font-size:.64rem;color:var(--text-muted)}
+    .playlist-scroll{padding:12px;display:flex;flex-direction:column;gap:8px;overflow:auto;max-height:610px}
+    .playlist-item{width:100%;display:grid;grid-template-columns:112px 1fr;gap:10px;align-items:center;text-align:left;padding:7px;border:1px solid transparent;border-radius:16px;background:transparent;color:var(--text);transition:.18s}.playlist-item:hover{background:#fff;border-color:var(--border);box-shadow:var(--shadow-xs)}.playlist-item.active{background:#fff;border-color:var(--accent);box-shadow:0 0 0 4px rgba(var(--accent-rgb),.14),var(--shadow-xs)}
+    .playlist-thumb{aspect-ratio:16/9;border-radius:11px;display:grid;place-items:center;color:#fff;position:relative;overflow:hidden}.playlist-thumb:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent,rgba(17,23,26,.34))}.playlist-thumb .icon{position:relative;z-index:1;width:30px;height:30px;filter:drop-shadow(0 3px 5px rgba(0,0,0,.25))}.video-one{background:linear-gradient(145deg,#65dab9,#16765f)}.video-two{background:linear-gradient(145deg,#75baff,#315fc8)}.video-three{background:linear-gradient(145deg,#ffad6a,#d85c29)}.video-four{background:linear-gradient(145deg,#c89cff,#724bc8)}
+    .playlist-copy strong{display:block;font-size:.7rem;line-height:1.25;margin-bottom:4px}.playlist-copy span{font-size:.6rem;color:var(--text-muted)}.playlist-duration{position:absolute;right:6px;bottom:5px;z-index:2;padding:2px 5px;border-radius:5px;background:rgba(17,23,26,.78);font-size:.53rem;font-weight:900;color:#fff}
+    .video-patterns{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:18px}.video-pattern-card{padding:15px;border:1px solid var(--border);border-radius:17px;background:#fff;box-shadow:var(--shadow-xs)}.video-pattern-card .icon{color:var(--accent-strong)}.video-pattern-card strong{display:block;font-size:.75rem;margin:9px 0 4px}.video-pattern-card span{display:block;font-size:.64rem;color:var(--text-muted)}
+
+    /* Motion and animation library */
+    .motion-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;padding:12px;border:1px solid var(--border);border-radius:17px;background:#fff;box-shadow:var(--shadow-xs)}
+    .motion-controls{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.motion-speed{display:flex;padding:4px;border-radius:12px;background:var(--surface-muted);border:1px solid var(--border)}.motion-speed button{min-height:30px;padding:0 10px;border:0;border-radius:8px;background:transparent;color:var(--text-muted);font-size:.64rem;font-weight:900}.motion-speed button.active{background:#fff;color:var(--accent-strong);box-shadow:var(--shadow-xs)}
+    .motion-stage{--motion-speed:1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.motion-stage.is-paused *{animation-play-state:paused!important}
+    .motion-card{min-height:210px;padding:16px;border:1px solid var(--border);border-radius:20px;background:linear-gradient(#fff,#f4f6f7);box-shadow:var(--shadow-sm);display:flex;flex-direction:column;overflow:hidden}.motion-card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}.motion-card strong{font-size:.78rem}.motion-card small{display:block;color:var(--text-muted);font-size:.61rem;margin-top:2px}.motion-preview{position:relative;flex:1;min-height:125px;margin-top:12px;border-radius:15px;background:var(--surface-muted);border:1px solid var(--border);display:grid;place-items:center;overflow:hidden}
+    .motion-orb{width:62px;height:62px;border-radius:22px;background:linear-gradient(145deg,var(--accent),var(--accent-strong));border:4px solid #fff;box-shadow:0 5px 0 var(--accent-strong),0 13px 24px rgba(var(--accent-rgb),.22);display:grid;place-items:center;color:#fff}
+    .anim-float{animation:orbit-float calc(2.4s / var(--motion-speed)) ease-in-out infinite}.anim-bounce{animation:orbit-bounce calc(1.35s / var(--motion-speed)) cubic-bezier(.34,1.56,.64,1) infinite}.anim-pulse{animation:orbit-pulse calc(1.8s / var(--motion-speed)) ease-in-out infinite}.anim-spin{animation:orbit-spin calc(3.2s / var(--motion-speed)) linear infinite}
+    .motion-skeleton{width:82%;display:grid;gap:9px}.motion-skeleton span{height:12px;border-radius:99px;background:linear-gradient(90deg,#dfe4e7 25%,#f7f9fa 45%,#dfe4e7 65%);background-size:260% 100%;animation:orbit-shimmer calc(1.5s / var(--motion-speed)) linear infinite}.motion-skeleton span:nth-child(2){width:72%}.motion-skeleton span:nth-child(3){width:48%}
+    .motion-toast{width:82%;padding:12px;border-radius:15px;background:#fff;border:1px solid var(--border);box-shadow:var(--shadow-md);display:flex;align-items:center;gap:9px;animation:orbit-toast calc(2.7s / var(--motion-speed)) cubic-bezier(.22,1,.36,1) infinite}.motion-toast-icon{width:34px;height:34px;border-radius:11px;background:var(--accent-soft);color:var(--accent-strong);display:grid;place-items:center}.motion-toast-copy span{display:block;width:90px;height:7px;border-radius:99px;background:var(--ink-150);margin-top:5px}
+    .motion-progress{width:82%;height:14px;border-radius:99px;background:#dce2e5;padding:3px;overflow:hidden}.motion-progress span{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--accent),var(--accent-strong));transform-origin:left;animation:orbit-progress calc(2.5s / var(--motion-speed)) ease-in-out infinite}
+    .motion-chip{padding:10px 15px;border-radius:13px;background:#fff;border:1px solid var(--border);box-shadow:var(--shadow-xs);font-size:.7rem;font-weight:900;animation:orbit-pop calc(2.1s / var(--motion-speed)) cubic-bezier(.34,1.56,.64,1) infinite}
+    .motion-guidelines{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:18px}.motion-rule{padding:15px;border-radius:17px;background:#fff;border:1px solid var(--border);box-shadow:var(--shadow-xs)}.motion-rule b{display:block;font-size:.73rem;margin-bottom:4px}.motion-rule span{font-size:.63rem;color:var(--text-muted)}
+    @keyframes orbit-float{0%,100%{transform:translateY(-8px) rotate(-2deg)}50%{transform:translateY(10px) rotate(2deg)}}@keyframes orbit-bounce{0%,100%{transform:translateY(16px) scale(.96)}50%{transform:translateY(-22px) scale(1.04)}}@keyframes orbit-pulse{0%,100%{transform:scale(.9);box-shadow:0 0 0 0 rgba(var(--accent-rgb),.3)}50%{transform:scale(1.08);box-shadow:0 0 0 18px rgba(var(--accent-rgb),0)}}@keyframes orbit-spin{to{transform:rotate(360deg)}}@keyframes orbit-shimmer{to{background-position:-260% 0}}@keyframes orbit-toast{0%,18%{opacity:0;transform:translateY(25px) scale(.94)}32%,72%{opacity:1;transform:translateY(0) scale(1)}88%,100%{opacity:0;transform:translateY(-14px) scale(.97)}}@keyframes orbit-progress{0%{transform:scaleX(.08)}58%{transform:scaleX(.78)}100%{transform:scaleX(1)}}@keyframes orbit-pop{0%,20%,100%{transform:scale(.92);opacity:.65}36%,70%{transform:scale(1);opacity:1}}
+
+    /* Documentation wiki */
+    .wiki-shell{border:1px solid var(--border);border-radius:28px;background:#f8fafb;box-shadow:var(--shadow-md);overflow:hidden}
+    .wiki-topbar{display:grid;grid-template-columns:auto minmax(220px,520px) auto;align-items:center;gap:18px;padding:13px 16px;border-bottom:1px solid var(--border);background:linear-gradient(#fff,#f4f6f7)}.wiki-brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:900}.wiki-brand-mark{width:38px;height:38px;border-radius:12px;background:linear-gradient(145deg,var(--accent),var(--accent-strong));color:#fff;display:grid;place-items:center;box-shadow:0 3px 0 var(--accent-strong)}
+    .wiki-search{position:relative}.wiki-search .icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--ink-500)}.wiki-search input{width:100%;height:40px;padding:0 13px 0 39px;border:1px solid var(--border);border-radius:13px;background:#fff;outline:none;box-shadow:var(--shadow-xs);font-size:.72rem}.wiki-search input:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(var(--accent-rgb),.14)}
+    .wiki-actions{display:flex;gap:7px}.wiki-body{display:grid;grid-template-columns:240px minmax(0,1fr) 205px;min-height:690px}.wiki-sidebar{padding:16px 12px;border-right:1px solid var(--border);background:#f2f5f6}.wiki-nav-label{padding:9px 10px 5px;font-size:.59rem;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-500);font-weight:900}.wiki-link{width:100%;display:flex;align-items:center;gap:9px;padding:9px 10px;margin:2px 0;border:0;border-radius:11px;background:transparent;color:var(--ink-700);text-align:left;font-size:.68rem;font-weight:800}.wiki-link:hover{background:#fff}.wiki-link.active{background:#fff;color:var(--accent-strong);box-shadow:var(--shadow-xs)}.wiki-link .icon{width:16px;height:16px}.wiki-link[hidden]{display:none}
+    .wiki-article{min-width:0;padding:30px 36px;background:#fff}.wiki-breadcrumb{display:flex;gap:7px;align-items:center;color:var(--text-muted);font-size:.63rem;font-weight:800;margin-bottom:17px}.wiki-page{display:none}.wiki-page.active{display:block}.wiki-page h3{font-family:var(--font-display);font-size:clamp(1.8rem,3vw,2.8rem);letter-spacing:-.045em;line-height:1.04;margin:0 0 9px}.wiki-lead{font-size:.86rem;color:var(--text-muted);max-width:760px;margin:0 0 24px}.wiki-page h4{font-family:var(--font-display);font-size:1.06rem;margin:28px 0 9px}.wiki-page p,.wiki-page li{font-size:.74rem;color:var(--ink-700)}.wiki-page ul{padding-left:18px}.wiki-page code{padding:2px 6px;border-radius:7px;background:var(--ink-100);color:var(--accent-strong);font-family:ui-monospace,monospace;font-size:.68rem}
+    .wiki-callout{display:grid;grid-template-columns:auto 1fr;gap:11px;padding:14px;border-radius:16px;background:var(--accent-soft);border:1px solid rgba(var(--accent-rgb),.28);margin:18px 0}.wiki-callout .icon{color:var(--accent-strong)}.wiki-callout strong{display:block;font-size:.72rem}.wiki-callout p{margin:3px 0 0;font-size:.67rem}
+    .wiki-code{padding:15px;border-radius:15px;background:#20272c;color:#dfe8ec;overflow:auto;font: .68rem/1.7 ui-monospace,SFMono-Regular,Menlo,monospace;box-shadow:inset 0 2px 7px rgba(0,0,0,.28),0 4px 0 #11171a}.wiki-code .accent{color:#78e2be}
+    .wiki-spec-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.wiki-spec{padding:13px;border-radius:14px;border:1px solid var(--border);background:var(--ink-50)}.wiki-spec strong{font-size:.69rem}.wiki-spec span{display:block;font-size:.61rem;color:var(--text-muted);margin-top:3px}
+    .wiki-pagination{display:flex;justify-content:space-between;gap:12px;margin-top:30px;padding-top:18px;border-top:1px solid var(--border)}.wiki-page-nav{flex:1;padding:11px 13px;border:1px solid var(--border);border-radius:14px;background:#fff;box-shadow:var(--shadow-xs);font-size:.63rem;color:var(--text-muted)}.wiki-page-nav:last-child{text-align:right}.wiki-page-nav strong{display:block;color:var(--text);font-size:.7rem;margin-top:2px}
+    .wiki-toc{padding:22px 16px;border-left:1px solid var(--border);background:#f8fafb}.wiki-toc strong{display:block;font-size:.68rem;margin-bottom:10px}.wiki-toc a{display:block;padding:6px 0 6px 10px;border-left:2px solid var(--border);font-size:.62rem;color:var(--text-muted);text-decoration:none}.wiki-toc a:hover{color:var(--accent-strong);border-color:var(--accent)}.wiki-version{margin-top:24px;padding:12px;border-radius:14px;background:#fff;border:1px solid var(--border);box-shadow:var(--shadow-xs)}.wiki-version span{display:block;font-size:.59rem;color:var(--text-muted)}.wiki-version strong{font-size:.72rem;margin:2px 0}.wiki-empty{display:none;padding:10px;margin:10px;border-radius:11px;background:#fff;border:1px dashed var(--border-strong);font-size:.63rem;color:var(--text-muted)}.wiki-empty.show{display:block}
+
+    /* Simulated conversation chat */
+    .chat-shell{display:grid;grid-template-columns:275px minmax(0,1fr) 245px;min-height:680px;border:1px solid var(--border);border-radius:28px;background:#fff;box-shadow:var(--shadow-md);overflow:hidden}
+    .chat-list{background:#f2f5f6;border-right:1px solid var(--border);display:flex;flex-direction:column}.chat-list-head{padding:17px;border-bottom:1px solid var(--border)}.chat-list-head-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.chat-list-head strong{font-family:var(--font-display)}.chat-search{position:relative}.chat-search .icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:16px;color:var(--ink-500)}.chat-search input{width:100%;height:36px;border:1px solid var(--border);border-radius:12px;background:#fff;padding:0 10px 0 34px;font-size:.66rem}
+    .chat-conversations{padding:9px;display:flex;flex-direction:column;gap:4px;overflow:auto}.conversation{display:grid;grid-template-columns:auto 1fr auto;gap:9px;align-items:center;padding:9px;border:1px solid transparent;border-radius:14px;background:transparent;text-align:left;color:var(--text)}.conversation:hover{background:#fff}.conversation.active{background:#fff;border-color:var(--border);box-shadow:var(--shadow-xs)}.chat-avatar{position:relative;width:42px;height:42px;border-radius:14px;display:grid;place-items:center;color:#fff;font-weight:900;border:2px solid #fff;box-shadow:var(--shadow-xs)}.avatar-mint{background:linear-gradient(145deg,#56dcb2,#138568)}.avatar-blue{background:linear-gradient(145deg,#72b9ff,#3568c9)}.avatar-pink{background:linear-gradient(145deg,#ff8eb4,#d73770)}.avatar-orange{background:linear-gradient(145deg,#ffba6e,#d96925)}.chat-presence{position:absolute;right:-2px;bottom:-2px;width:11px;height:11px;border-radius:50%;background:var(--lime-400);border:2px solid #fff}.conversation-copy{min-width:0}.conversation-copy strong{display:block;font-size:.69rem}.conversation-copy span{display:block;font-size:.6rem;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.conversation-meta{text-align:right}.conversation-meta span{display:block;font-size:.55rem;color:var(--ink-500)}.unread-pill{min-width:20px;height:20px;border-radius:99px;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:.56rem;font-weight:900;margin:4px 0 0 auto}
+    .chat-main{min-width:0;display:flex;flex-direction:column;background:linear-gradient(135deg,rgba(255,255,255,.8),rgba(240,243,245,.58)),linear-gradient(135deg,rgba(var(--accent-rgb),.05) 25%,transparent 25%) 0 0/28px 28px}.chat-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 16px;background:rgba(255,255,255,.92);border-bottom:1px solid var(--border)}.chat-head-person{display:flex;align-items:center;gap:10px}.chat-head-person strong{display:block;font-size:.75rem}.chat-head-person span{display:block;font-size:.61rem;color:var(--text-muted)}.chat-head-actions{display:flex;gap:6px}
+    .chat-messages{flex:1;padding:22px;overflow:auto;display:flex;flex-direction:column;gap:14px}.chat-day{align-self:center;padding:5px 9px;border-radius:99px;background:rgba(255,255,255,.9);border:1px solid var(--border);font-size:.56rem;font-weight:900;color:var(--text-muted);box-shadow:var(--shadow-xs)}.message-row{display:flex;align-items:flex-end;gap:8px;max-width:82%}.message-row.outgoing{align-self:flex-end;flex-direction:row-reverse}.message-avatar{width:29px;height:29px;border-radius:10px;display:grid;place-items:center;background:var(--sky-400);color:#fff;font-size:.62rem;font-weight:900}.message-stack{min-width:0}.message-author{font-size:.56rem;color:var(--text-muted);margin:0 0 4px 4px}.message-row.outgoing .message-author{text-align:right;margin-right:4px}.message-bubble{padding:10px 12px;border-radius:16px 16px 16px 5px;background:#fff;border:1px solid var(--border);box-shadow:var(--shadow-xs);font-size:.69rem;color:var(--ink-800)}.message-row.outgoing .message-bubble{border-radius:16px 16px 5px 16px;background:linear-gradient(145deg,var(--accent),var(--accent-strong));border-color:var(--accent-strong);color:#fff}.message-time{display:block;margin-top:5px;font-size:.52rem;opacity:.65;text-align:right}.message-reply{margin-bottom:7px;padding:7px 8px;border-left:3px solid var(--accent);border-radius:8px;background:rgba(var(--accent-rgb),.08);font-size:.59rem;color:var(--text-muted)}.message-row.outgoing .message-reply{background:rgba(255,255,255,.15);border-color:#fff;color:rgba(255,255,255,.82)}.message-reactions{display:flex;gap:4px;margin-top:5px}.reaction{padding:3px 6px;border:1px solid var(--border);border-radius:99px;background:#fff;font-size:.55rem;box-shadow:var(--shadow-xs)}
+    .typing-row{display:none;align-items:flex-end;gap:8px;max-width:72%}.typing-row.show{display:flex}.typing-bubble{display:flex;gap:4px;padding:12px 14px;border:1px solid var(--border);border-radius:16px 16px 16px 5px;background:#fff;box-shadow:var(--shadow-xs)}.typing-bubble i{width:6px;height:6px;border-radius:50%;background:var(--ink-400);animation:typing-dot .9s infinite}.typing-bubble i:nth-child(2){animation-delay:.15s}.typing-bubble i:nth-child(3){animation-delay:.3s}@keyframes typing-dot{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+    .chat-composer{padding:12px 15px;background:rgba(255,255,255,.95);border-top:1px solid var(--border)}.chat-compose-box{display:grid;grid-template-columns:auto 1fr auto;align-items:end;gap:8px;padding:7px;border:1px solid var(--border);border-radius:17px;background:#fff;box-shadow:var(--shadow-xs)}.chat-compose-box textarea{min-height:38px;max-height:110px;resize:none;border:0;outline:none;padding:8px 4px;font-size:.68rem;background:transparent}.chat-compose-actions{display:flex;gap:4px}.chat-send{align-self:end}
+    .chat-details{padding:20px 16px;border-left:1px solid var(--border);background:#f8fafb;text-align:center}.chat-profile-avatar{width:78px;height:78px;margin:6px auto 11px;border-radius:25px;background:linear-gradient(145deg,var(--sky-300),var(--sky-700));color:#fff;display:grid;place-items:center;font-family:var(--font-display);font-size:1.25rem;border:4px solid #fff;box-shadow:var(--shadow-sm)}.chat-details h3{font-family:var(--font-display);font-size:1rem;margin:0}.chat-details>p{font-size:.62rem;color:var(--text-muted);margin:4px 0 15px}.chat-profile-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.profile-action{padding:9px 4px;border:1px solid var(--border);border-radius:12px;background:#fff;color:var(--ink-700);font-size:.55rem;font-weight:900;box-shadow:var(--shadow-xs)}.profile-action .icon{margin:0 auto 5px}.chat-detail-block{text-align:left;margin-top:18px;padding-top:15px;border-top:1px solid var(--border)}.chat-detail-block strong{display:block;font-size:.65rem;margin-bottom:9px}.chat-file{display:flex;align-items:center;gap:8px;padding:8px;border-radius:11px;background:#fff;border:1px solid var(--border);margin:6px 0}.chat-file .icon{color:var(--accent-strong)}.chat-file span{display:block;font-size:.58rem;color:var(--text-muted)}.chat-file b{display:block;font-size:.62rem}
+
+    @media (max-width:1100px){
+      .video-layout{grid-template-columns:1fr}.video-main{border-right:0;border-bottom:1px solid var(--border)}.playlist-scroll{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));max-height:none}.video-patterns{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .motion-stage{grid-template-columns:repeat(2,minmax(0,1fr))}.motion-guidelines{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .wiki-body{grid-template-columns:210px minmax(0,1fr)}.wiki-toc{display:none}.wiki-article{padding:28px}
+      .chat-shell{grid-template-columns:235px minmax(0,1fr)}.chat-details{display:none}
+    }
+    @media (max-width:840px){
+      .video-shell-head{align-items:flex-start;flex-direction:column}.video-patterns{grid-template-columns:1fr 1fr}
+      .wiki-topbar{grid-template-columns:1fr auto}.wiki-search{grid-column:1/-1;grid-row:2}.wiki-body{grid-template-columns:1fr}.wiki-sidebar{border-right:0;border-bottom:1px solid var(--border);display:flex;overflow:auto;gap:4px;padding:9px}.wiki-nav-label,.wiki-empty{display:none}.wiki-link{width:auto;white-space:nowrap;margin:0}.wiki-article{padding:24px 20px}.wiki-spec-grid{grid-template-columns:1fr}
+      .chat-shell{grid-template-columns:1fr}.chat-list{display:none}.chat-messages{min-height:500px}
+    }
+    @media (max-width:560px){
+      .video-main{padding:10px}.playlist-scroll{grid-template-columns:1fr}.video-actions{display:grid;grid-template-columns:1fr 1fr}.video-action{justify-content:center}.video-patterns{grid-template-columns:1fr}.playlist-item{grid-template-columns:96px 1fr}.chapter-row{grid-template-columns:48px 1fr}.chapter-row span:last-child{display:none}
+      .motion-toolbar{align-items:flex-start;flex-direction:column}.motion-stage{grid-template-columns:1fr}.motion-guidelines{grid-template-columns:1fr}.motion-card{min-height:190px}
+      .wiki-topbar{grid-template-columns:1fr}.wiki-actions{display:none}.wiki-search{grid-row:auto}.wiki-article{padding:20px 15px}.wiki-pagination{flex-direction:column}.wiki-page-nav:last-child{text-align:left}
+      .chat-head-actions .btn:nth-child(-n+2){display:none}.chat-messages{padding:16px 11px}.message-row{max-width:92%}.chat-compose-actions .btn:nth-child(2){display:none}.chat-composer{padding:9px}.chat-shell{border-radius:22px}
+    }
+
+    @media (max-width:1100px){
+      :root{--sidebar:235px}
+      .hero{grid-template-columns:1fr;padding:40px}.hero-visual{max-width:600px;width:100%;margin:auto}.device-screen{min-height:360px}
+      .grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .game-gallery{grid-template-columns:repeat(3,minmax(0,1fr))}.game-detail{grid-template-columns:1fr 1fr}
+      .preview-hero{grid-template-columns:1fr}
+    }
+    @media (max-width:840px){
+      .sidebar{transform:translateX(calc(-100% - 24px));transition:.25s ease}.sidebar.open{transform:translateX(0)}
+      .main{margin-left:0;padding:12px 12px 90px}.topbar{top:10px}.mobile-menu{display:inline-flex}
+      .status-cluster{display:none}.section-header{align-items:flex-start;flex-direction:column}.section-body{padding:22px 18px 26px}.section-header{padding:24px 18px 17px}
+      .hero{padding:28px;border-radius:30px}.hero h2{font-size:clamp(2.6rem,12vw,4.7rem)}
+      .grid-3,.grid-2{grid-template-columns:1fr}.donut-wrap{grid-template-columns:1fr;justify-items:center}.footer-demo{grid-template-columns:1fr 1fr}.navbar-links{display:none}
+      .game-detail{grid-template-columns:1fr}.detail-art{min-height:220px}.game-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}.code-notes{grid-template-columns:1fr}
+    }
+    @media (max-width:560px){
+      .grid-4{grid-template-columns:1fr}.hero{min-height:auto;padding:24px}.device-card{transform:none}.device-screen{min-height:300px;padding:12px}.game-grid{gap:8px}.game-tile{border-radius:16px;font-size:1.5rem}.hero-meta{align-items:flex-start;flex-direction:column;gap:8px}
+      .topbar-title .eyebrow{display:none}.topbar-actions>.btn{display:none}.theme-controls{padding-left:0;max-width:180px}
+      .token-row{grid-template-columns:1fr}.token-value{text-align:left}.utility-grid{grid-template-columns:repeat(2,1fr)}.footer-demo{grid-template-columns:1fr}.preview-links{display:none}.preview-features{grid-template-columns:1fr}.preview-hero{padding:24px}.stepper{align-items:flex-start;flex-direction:column}.step{width:100%}.step-line{display:none}
+      .catalog-toolbar{align-items:flex-start}.catalog-toolbar-copy span{display:none}.game-card{flex-basis:78vw}.game-gallery{grid-template-columns:1fr 1fr}.game-detail{padding:14px}.detail-copy h3{font-size:2rem}.code-window-head{align-items:flex-start;flex-wrap:wrap}.code-tabs{order:3;width:100%}.code-panel{font-size:.68rem;padding:16px 12px}.code-panel .line:before{width:24px;margin-right:10px}
+    }
+    @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <svg aria-hidden="true" width="0" height="0" style="position:absolute">
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></symbol>
+    <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0 0 18h1.2a1.8 1.8 0 0 0 1.3-3c-.8-.8-.2-2.1.9-2.1H17a4 4 0 0 0 4-4A9 9 0 0 0 12 3Z"/><circle cx="7.5" cy="10" r="1"/><circle cx="10" cy="6.5" r="1"/><circle cx="14" cy="6.5" r="1"/><circle cx="16.5" cy="10" r="1"/></symbol>
+    <symbol id="i-type" viewBox="0 0 24 24"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></symbol>
+    <symbol id="i-box" viewBox="0 0 24 24"><path d="m21 8-9 5-9-5 9-5 9 5Z"/><path d="m3 8 9 5 9-5v8l-9 5-9-5V8Z"/></symbol>
+    <symbol id="i-layout" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3Z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m10 8 6 4-6 4V8Z"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3-1.2 4.2L7 9l3.8 1.8L12 15l1.2-4.2L17 9l-3.8-1.8L12 3ZM5 16l-.6 2.1L2.5 19l1.9.9L5 22l.6-2.1 1.9-.9-1.9-.9L5 16ZM19 13l-.8 2.8-2.7 1.2 2.7 1.2L19 21l.8-2.8 2.7-1.2-2.7-1.2L19 13Z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="m12 3 10 18H2L12 3Z"/><path d="M12 9v5M12 17h.01"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m8 10 4 4 4-4"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 11 9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9Z"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9ZM10 21h4"/></symbol>
+    <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M5 12.6a11 11 0 0 1 14 0M8.5 16a6 6 0 0 1 7 0M12 20h.01M2 9a16 16 0 0 1 20 0"/></symbol>
+    <symbol id="i-battery" viewBox="0 0 24 24"><rect x="3" y="7" width="17" height="10" rx="2"/><path d="M22 10v4M6 10h9v4H6z"/></symbol>
+    <symbol id="i-game" viewBox="0 0 24 24"><path d="M8 8h8a5 5 0 0 1 4.6 3l1.2 2.8A4 4 0 0 1 18.2 19c-1.4 0-2.6-.7-3.3-1.9L14.3 16H9.7l-.6 1.1A3.8 3.8 0 0 1 5.8 19a4 4 0 0 1-3.6-5.2L3.4 11A5 5 0 0 1 8 8Z"/><path d="M8 11v4M6 13h4M16 12h.01M18 14h.01"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19H6a4 4 0 0 1-.6-7.9A7 7 0 0 1 19 9.7 4.7 4.7 0 0 1 17.5 19Z"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.7-7.5 1.1-1.1a5.5 5.5 0 0 0 0-7.8Z"/></symbol>
+    <symbol id="i-rocket" viewBox="0 0 24 24"><path d="M4.5 16.5c-1 1-1.5 4-1.5 4s3-.5 4-1.5M9 15l-3-3s1.5-4.5 5-8c2.5-2.5 6.5-2 8.5-1.5.5 2 1 6-1.5 8.5-3.5 3.5-8 5-8 5Z"/><circle cx="15" cy="8" r="2"/><path d="m8 16 4-4"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.4 8.3 8 10 4.6-1.7 8-5 8-10V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/></symbol>
+    <symbol id="i-layer" viewBox="0 0 24 24"><path d="m12 2 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5M3 17l9 5 9-5"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9" r="1.5"/><path d="m21 15-5-5L5 20"/></symbol>
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-video" viewBox="0 0 24 24"><rect x="3" y="5" width="13" height="14" rx="2"/><path d="m16 10 5-3v10l-5-3"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></symbol>
+    <symbol id="i-volume" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5ZM15 9a4 4 0 0 1 0 6M18 6a8 8 0 0 1 0 12"/></symbol>
+    <symbol id="i-maximize" viewBox="0 0 24 24"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/></symbol>
+    <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4V3Z"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6V3Z"/><path d="M14 3v5h5M9 12h6M9 16h6"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6h7l2 2h9v11H3V6Z"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="m4 20 4.5-1 10-10-3.5-3.5-10 10L4 20ZM13.5 6.5l3.5 3.5"/></symbol>
+    <symbol id="i-message" viewBox="0 0 24 24"><path d="M4 5h16v12H9l-5 4V5Z"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="m3 11 18-8-8 18-2-8-8-2Z"/><path d="m11 13 5-5"/></symbol>
+    <symbol id="i-smile" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></symbol>
+    <symbol id="i-paperclip" viewBox="0 0 24 24"><path d="m21 11-8.5 8.5a6 6 0 0 1-8.5-8.5L13 2a4 4 0 0 1 5.7 5.7l-9 9a2 2 0 0 1-2.8-2.8l8.3-8.3"/></symbol>
+    <symbol id="i-reply" viewBox="0 0 24 24"><path d="m9 17-6-5 6-5v3h4a7 7 0 0 1 7 7v2a8 8 0 0 0-7-5H9v3Z"/></symbol>
+    <symbol id="i-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M6.1 8a7 7 0 0 1 11.8-2L20 8M4 16l2.1 2a7 7 0 0 0 11.8-2"/></symbol>
+  </svg>
+
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark"><svg class="icon"><use href="#i-game"/></svg></div>
+        <div class="brand-copy"><strong>Orbit OS</strong><span>Landing System 1.2</span></div>
+      </div>
+      <nav class="nav-scroll" aria-label="Navegação do design system">
+        <div class="nav-label">Introdução</div>
+        <a class="nav-link active" href="#overview"><svg class="icon"><use href="#i-grid"/></svg>Visão geral</a>
+        <div class="nav-label">Fundamentos</div>
+        <a class="nav-link" href="#colors"><svg class="icon"><use href="#i-palette"/></svg>Cores</a>
+        <a class="nav-link" href="#typography"><svg class="icon"><use href="#i-type"/></svg>Tipografia</a>
+        <a class="nav-link" href="#tokens"><svg class="icon"><use href="#i-box"/></svg>Tokens & escala</a>
+        <div class="nav-label">Componentes</div>
+        <a class="nav-link" href="#actions"><svg class="icon"><use href="#i-zap"/></svg>Ações & formulários</a>
+        <a class="nav-link" href="#navigation"><svg class="icon"><use href="#i-layout"/></svg>Navegação</a>
+        <a class="nav-link" href="#content"><svg class="icon"><use href="#i-layer"/></svg>Conteúdo & cards</a>
+        <a class="nav-link" href="#feedback"><svg class="icon"><use href="#i-bell"/></svg>Feedback</a>
+        <a class="nav-link" href="#data"><svg class="icon"><use href="#i-chart"/></svg>Dados & gráficos</a>
+        <a class="nav-link" href="#media"><svg class="icon"><use href="#i-image"/></svg>Carrossel & galerias</a>
+        <a class="nav-link" href="#code-tabs"><svg class="icon"><use href="#i-code"/></svg>Código com abas</a>
+        <a class="nav-link" href="#videos"><svg class="icon"><use href="#i-video"/></svg>Vídeos & player</a>
+        <a class="nav-link" href="#motion"><svg class="icon"><use href="#i-spark"/></svg>Animações</a>
+        <a class="nav-link" href="#wiki"><svg class="icon"><use href="#i-doc"/></svg>Wiki & documentação</a>
+        <a class="nav-link" href="#chat"><svg class="icon"><use href="#i-message"/></svg>Chat simulado</a>
+        <a class="nav-link" href="#landing"><svg class="icon"><use href="#i-rocket"/></svg>Blocos de landing</a>
+        <a class="nav-link" href="#guidelines"><svg class="icon"><use href="#i-code"/></svg>Diretrizes</a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="mini-status"><span style="display:flex;align-items:center;gap:8px"><span class="status-dot"></span>System online</span><span>v1.2</span></div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="topbar-title">
+          <button class="btn btn-secondary btn-icon btn-sm mobile-menu" id="menuButton" aria-label="Abrir menu"><svg class="icon"><use href="#i-menu"/></svg></button>
+          <div><div class="eyebrow">Design system</div><h1>Orbit OS para landing pages</h1></div>
+        </div>
+        <div class="topbar-actions">
+          <div class="status-cluster" aria-label="Indicadores do sistema">
+            <span class="status-pill"><svg class="icon"><use href="#i-bell"/></svg>12</span>
+            <span class="status-pill"><svg class="icon"><use href="#i-wifi"/></svg>Online</span>
+            <span class="status-pill"><svg class="icon"><use href="#i-battery"/></svg>100%</span>
+          </div>
+          <div class="theme-controls" aria-label="Escolha de cor de destaque">
+            <button class="theme-dot theme-mint active" data-theme="mint" aria-label="Tema verde menta" title="Menta"></button>
+            <button class="theme-dot theme-blue" data-theme="blue" aria-label="Tema azul" title="Azul"></button>
+            <button class="theme-dot theme-cyan" data-theme="cyan" aria-label="Tema ciano" title="Ciano"></button>
+            <button class="theme-dot theme-indigo" data-theme="indigo" aria-label="Tema índigo" title="Índigo"></button>
+            <button class="theme-dot theme-violet" data-theme="violet" aria-label="Tema violeta" title="Violeta"></button>
+            <button class="theme-dot theme-pink" data-theme="pink" aria-label="Tema rosa" title="Rosa"></button>
+            <button class="theme-dot theme-coral" data-theme="coral" aria-label="Tema coral" title="Coral"></button>
+            <button class="theme-dot theme-orange" data-theme="orange" aria-label="Tema laranja" title="Laranja"></button>
+            <button class="theme-dot theme-amber" data-theme="amber" aria-label="Tema âmbar" title="Âmbar"></button>
+            <button class="theme-dot theme-lime" data-theme="lime" aria-label="Tema lima" title="Lima"></button>
+          </div>
+          <a class="btn btn-primary btn-sm" href="#landing"><svg class="icon"><use href="#i-play"/></svg>Ver exemplo</a>
+        </div>
+      </header>
+
+      <div class="page">
+        <section class="section" id="overview">
+          <div class="hero">
+            <div class="hero-copy">
+              <span class="hero-badge"><svg class="icon"><use href="#i-spark"/></svg>Interface amigável, tátil e memorável</span>
+              <h2>Landing pages com energia de <span>console portátil.</span></h2>
+              <p>Um sistema visual completo inspirado em interfaces de handhelds: superfícies claras, formas arredondadas, ícones coloridos, profundidade suave, feedback imediato e módulos que parecem cartões de um sistema operacional.</p>
+              <div class="hero-actions">
+                <a class="btn btn-primary btn-lg" href="#colors">Explorar fundamentos <svg class="icon"><use href="#i-arrow"/></svg></a>
+                <a class="btn btn-secondary btn-lg" href="#guidelines"><svg class="icon"><use href="#i-code"/></svg>Copiar tokens</a>
+              </div>
+              <div class="hero-meta">
+                <div class="avatar-stack" aria-label="Equipe">
+                  <span class="avatar" style="background:linear-gradient(145deg,#7bdcff,#3f8fe9)">A</span>
+                  <span class="avatar" style="background:linear-gradient(145deg,#ffb272,#ef7721)">B</span>
+                  <span class="avatar" style="background:linear-gradient(145deg,#9be879,#4bbd2b)">C</span>
+                </div>
+                <span>Pronto para marketing, produto e páginas de campanha.</span>
+              </div>
+            </div>
+            <div class="hero-visual" aria-label="Prévia visual do sistema">
+              <div class="device-card">
+                <div class="device-screen">
+                  <div class="device-status">
+                    <span class="device-mini">Orbit Home</span>
+                    <div class="row" style="gap:8px;color:var(--ink-500)"><svg class="icon" style="width:15px"><use href="#i-wifi"/></svg><svg class="icon" style="width:15px"><use href="#i-battery"/></svg><span class="device-mini">12:00</span></div>
+                  </div>
+                  <div class="game-grid">
+                    <div class="game-tile tile-pink"><svg class="icon" style="width:42px;height:42px"><use href="#i-heart"/></svg></div>
+                    <div class="game-tile tile-orange"><svg class="icon" style="width:42px;height:42px"><use href="#i-game"/></svg></div>
+                    <div class="game-tile tile-blue"><svg class="icon" style="width:42px;height:42px"><use href="#i-clock"/></svg></div>
+                    <div class="game-tile tile-mint"><svg class="icon" style="width:42px;height:42px"><use href="#i-cloud"/></svg></div>
+                    <div class="game-tile tile-purple active"><svg class="icon" style="width:42px;height:42px"><use href="#i-spark"/></svg></div>
+                    <div class="game-tile tile-lime"><svg class="icon" style="width:42px;height:42px"><use href="#i-zap"/></svg></div>
+                  </div>
+                  <div class="device-dock"><span class="dock-dot">A</span><span class="dock-dot">B</span><span class="dock-dot">X</span><span class="dock-dot">Y</span><span class="dock-dot">+</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section section-panel" id="colors">
+          <div class="section-header">
+            <div><p class="section-kicker">01 · Fundamentos</p><h2 class="section-title">Sistema de cores</h2><p class="section-description">A base é neutra e luminosa. As cores intensas entram em elementos interativos, ícones, gráficos e destaques, preservando o caráter lúdico sem comprometer legibilidade.</p></div>
+            <span class="badge badge-success badge-dot">WCAG friendly</span>
+          </div>
+          <div class="section-body">
+            <h3 class="card-title" style="margin-bottom:14px">Paleta principal</h3>
+            <div class="grid grid-4" style="margin-bottom:24px">
+              <div class="swatch" style="background:#52dba7"><strong>Mint / Primary</strong><code>#52DBA7</code></div>
+              <div class="swatch" style="background:#51a9f8"><strong>Sky / Information</strong><code>#51A9F8</code></div>
+              <div class="swatch" style="background:#ff9b2d"><strong>Orange / Energy</strong><code>#FF9B2D</code></div>
+              <div class="swatch" style="background:#ff6196"><strong>Pink / Attention</strong><code>#FF6196</code></div>
+              <div class="swatch" style="background:#22d3ee"><strong>Cyan / Fresh</strong><code>#22D3EE</code></div>
+              <div class="swatch" style="background:#818cf8"><strong>Indigo / Focus</strong><code>#818CF8</code></div>
+              <div class="swatch" style="background:#a78bfa"><strong>Violet / Magic</strong><code>#A78BFA</code></div>
+              <div class="swatch" style="background:#ff7a6b"><strong>Coral / Action</strong><code>#FF7A6B</code></div>
+              <div class="swatch swatch-light" style="background:#f8c84a"><strong>Amber / Reward</strong><code>#F8C84A</code></div>
+              <div class="swatch" style="background:#72e843"><strong>Lime / Success</strong><code>#72E843</code></div>
+              <div class="swatch swatch-light" style="background:#ffffff;border:1px solid #d5dade"><strong>White / Surface</strong><code>#FFFFFF</code></div>
+              <div class="swatch swatch-light" style="background:#eef0f2"><strong>Cloud / Canvas</strong><code>#EEF0F2</code></div>
+              <div class="swatch" style="background:#2b333a"><strong>Ink / Text</strong><code>#2B333A</code></div>
+            </div>
+            <div class="grid grid-2">
+              <div class="card"><div class="card-body"><h3 class="card-title">Distribuição recomendada</h3><p class="card-copy" style="margin-bottom:16px">Use a regra 70/20/10 para controlar a intensidade visual.</p><div class="row" style="align-items:stretch;gap:5px;height:78px"><div style="flex:7;border-radius:14px;background:#fff;border:1px solid var(--border);display:grid;place-items:center;font-weight:900;color:var(--ink-600)">70% neutros</div><div style="flex:2;border-radius:14px;background:var(--accent-soft);display:grid;place-items:center;font-weight:900;color:var(--accent-strong)">20%</div><div style="flex:1;border-radius:14px;background:var(--accent);display:grid;place-items:center;font-weight:900;color:#fff">10%</div></div></div></div>
+              <div class="card"><div class="card-body"><h3 class="card-title">Gradientes de superfície</h3><p class="card-copy" style="margin-bottom:16px">Gradientes discretos reforçam volume, nunca substituem contraste.</p><div class="grid grid-3" style="gap:10px"><div style="height:78px;border-radius:14px;background:linear-gradient(#fff,#edf0f2);border:1px solid var(--border)"></div><div style="height:78px;border-radius:14px;background:linear-gradient(145deg,var(--mint-300),var(--mint-600))"></div><div style="height:78px;border-radius:14px;background:linear-gradient(145deg,var(--sky-300),var(--sky-600))"></div></div></div></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section section-panel" id="typography">
+          <div class="section-header">
+            <div><p class="section-kicker">02 · Fundamentos</p><h2 class="section-title">Tipografia</h2><p class="section-description">Uma hierarquia arredondada e acolhedora: títulos compactos, expressivos e com tracking negativo; textos de apoio simples e muito legíveis.</p></div>
+            <span class="badge badge-info">Trebuchet / Rounded fallback</span>
+          </div>
+          <div class="section-body">
+            <div class="type-sample"><div class="type-meta"><span>Display XL</span><span>108px / 0.88 / -7.5%</span></div><div class="display-xl">Play more.</div></div>
+            <div class="type-sample"><div class="type-meta"><span>Display LG</span><span>76px / 0.95 / -6%</span></div><div class="display-lg">Uma nova forma de descobrir.</div></div>
+            <div class="type-sample"><div class="type-meta"><span>Heading 1</span><span>43px / 1 / -5%</span></div><div class="heading-1">Experiências que parecem vivas.</div></div>
+            <div class="grid grid-2">
+              <div class="type-sample"><div class="type-meta"><span>Heading 2</span><span>32px / 1.08</span></div><div class="heading-2">Recursos em destaque</div></div>
+              <div class="type-sample"><div class="type-meta"><span>Heading 3</span><span>22px / 1.15</span></div><div class="heading-3">Card de funcionalidade</div></div>
+              <div class="type-sample"><div class="type-meta"><span>Body LG</span><span>17px / 1.55</span></div><div class="body-lg">Textos introdutórios, argumentos de valor e descrições de destaque com ritmo confortável.</div></div>
+              <div class="type-sample"><div class="type-meta"><span>Body MD</span><span>15px / 1.55</span></div><div class="body-md">Textos corridos de componentes, benefícios, explicações e seções institucionais.</div></div>
+              <div class="type-sample"><div class="type-meta"><span>Body SM</span><span>12px / 1.5</span></div><div class="body-sm">Metadados, descrições auxiliares e textos de suporte.</div></div>
+              <div class="type-sample"><div class="type-meta"><span>Caption</span><span>11px / uppercase / +12%</span></div><div class="caption">Atividade recente · há 5 minutos</div></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section section-panel" id="tokens">
+          <div class="section-header">
+            <div><p class="section-kicker">03 · Fundamentos</p><h2 class="section-title">Tokens, elevação e espaçamento</h2><p class="section-description">As interfaces usam profundidade curta e tátil: uma borda clara, sombra de contato e sombra ambiental. O espaçamento segue múltiplos de 4.</p></div>
+          </div>
+          <div class="section-body">
+            <div class="grid grid-2">
+              <div class="card"><div class="card-body"><h3 class="card-title">Raios</h3>
+                <div class="token-row"><span class="token-name">Radius XS</span><div class="token-preview" style="border-radius:10px"></div><span class="token-value">10px</span></div>
+                <div class="token-row"><span class="token-name">Radius SM</span><div class="token-preview" style="border-radius:14px"></div><span class="token-value">14px</span></div>
+                <div class="token-row"><span class="token-name">Radius MD</span><div class="token-preview" style="border-radius:20px"></div><span class="token-value">20px</span></div>
+                <div class="token-row"><span class="token-name">Radius LG</span><div class="token-preview" style="border-radius:28px"></div><span class="token-value">28px</span></div>
+                <div class="token-row"><span class="token-name">Radius XL</span><div class="token-preview" style="border-radius:38px"></div><span class="token-value">38px</span></div>
+              </div></div>
+              <div class="card"><div class="card-body"><h3 class="card-title">Elevação</h3>
+                <div class="token-row"><span class="token-name">Elevation 1</span><div class="token-preview" style="border-radius:14px;box-shadow:var(--shadow-xs)"></div><span class="token-value">XS</span></div>
+                <div class="token-row"><span class="token-name">Elevation 2</span><div class="token-preview" style="border-radius:14px;box-shadow:var(--shadow-sm)"></div><span class="token-value">SM</span></div>
+                <div class="token-row"><span class="token-name">Elevation 3</span><div class="token-preview" style="border-radius:14px;box-shadow:var(--shadow-md)"></div><span class="token-value">MD</span></div>
+                <div class="token-row"><span class="token-name">Focus glow</span><div class="token-preview" style="border-radius:14px;box-shadow:var(--shadow-glow)"></div><span class="token-value">Accent</span></div>
+              </div></div>
+            </div>
+            <h3 class="card-title" style="margin:24px 0 14px">Escala de espaçamento</h3>
+            <div class="grid grid-4">
+              <div><div class="spacer-demo" data-size="4px" style="height:4px"></div><div class="caption" style="margin-top:8px">Space 1</div></div>
+              <div><div class="spacer-demo" data-size="8px" style="height:8px"></div><div class="caption" style="margin-top:8px">Space 2</div></div>
+              <div><div class="spacer-demo" data-size="16px" style="height:16px"></div><div class="caption" style="margin-top:8px">Space 4</div></div>
+              <div><div class="spacer-demo" data-size="24px" style="height:24px"></div><div class="caption" style="margin-top:8px">Space 6</div></div>
+              <div><div class="spacer-demo" data-size="32px" style="height:32px"></div><div class="caption" style="margin-top:8px">Space 8</div></div>
+              <div><div class="spacer-demo" data-size="48px" style="height:48px"></div><div class="caption" style="margin-top:8px">Space 12</div></div>
+              <div><div class="spacer-demo" data-size="64px" style="height:64px"></div><div class="caption" style="margin-top:8px">Space 16</div></div>
+              <div><div class="spacer-demo" data-size="96px" style="height:96px"></div><div class="caption" style="margin-top:8px">Space 24</div></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section section-panel" id="actions">
+          <div class="section-header">
+            <div><p class="section-kicker">04 · Componentes</p><h2 class="section-title">Ações e formulários</h2><p class="section-description">Controles com aparência física, resposta clara ao hover e estados focados. O botão primário deve ser reservado à ação de maior valor da seção.</p></div>
+          </div>
+          <div class="section-body">
+            <div class="grid grid-2">
+              <div class="component-stage"><p class="component-label">Botões</p><div class="row"><button class="btn btn-primary"><svg class="icon"><use href="#i-play"/></svg>Começar agora</button><button class="btn btn-secondary">Saiba mais</button><button class="btn btn-ghost">Explorar</button><button class="btn btn-danger">Remover</button><button class="btn btn-secondary btn-icon" aria-label="Adicionar"><svg class="icon"><use href="#i-plus"/></svg></button><button class="btn btn-primary" disabled>Indisponível</button></div><div class="row" style="margin-top:18px"><button class="btn btn-primary btn-sm">Small</button><button class="btn btn-primary">Medium</button><button class="btn btn-primary btn-lg">Large</button></div></div>
+              <div class="component-stage"><p class="component-label">Badges</p><div class="row"><span class="badge">Default</span><span class="badge badge-success badge-dot">Online</span><span class="badge badge-info">Novo</span><span class="badge badge-warning">Beta</span><span class="badge badge-danger">Urgente</span></div><p class="component-label" style="margin-top:24px">Seletores</p><div class="row"><label class="checkbox"><input type="checkbox" checked><span class="control-box"><svg class="icon" style="width:14px"><use href="#i-check"/></svg></span>Checkbox</label><label class="radio"><input type="radio" checked><span class="control-box"></span>Radio</label><label class="switch"><input type="checkbox" checked><span class="switch-track"><span class="switch-knob"></span></span>Ativo</label></div></div>
+              <div class="component-stage"><p class="component-label">Campos</p><div class="grid grid-2"><div class="field"><label>Seu nome</label><input class="input" placeholder="Digite seu nome"></div><div class="field"><label>E-mail</label><div class="input-wrap input-icon"><svg class="icon"><use href="#i-mail"/></svg><input class="input" type="email" placeholder="voce@empresa.com"></div></div><div class="field"><label>Categoria</label><select class="select"><option>Selecione uma opção</option><option>Produto</option><option>Marketing</option></select></div><div class="field"><label>Senha</label><div class="input-wrap input-icon"><svg class="icon"><use href="#i-lock"/></svg><input class="input" type="password" value="12345678"></div><span class="helper">Mínimo de 8 caracteres.</span></div></div></div>
+              <div class="component-stage"><p class="component-label">Estados e textarea</p><div class="column"><div class="field"><label>Busca</label><div class="input-wrap input-icon"><svg class="icon"><use href="#i-search"/></svg><input class="input" placeholder="Buscar no catálogo"></div></div><div class="field"><label>Código promocional</label><input class="input error" value="ORBIT-000"><span class="error-text">Este código não está disponível.</span></div><div class="field"><label>Mensagem</label><textarea class="textarea" placeholder="Conte sua ideia..."></textarea></div></div></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section section-panel" id="navigation">
+          <div class="section-header">
+            <div><p class="section-kicker">05 · Componentes</p><h2 class="section-title">Navegação</h2><p class="section-description">Menus compactos, navegação segmentada e controles com leitura instantânea. Em mobile, priorize menu reduzido e CTA único.</p></div>
+          </div>
+          <div class="section-body">
+            <div class="column" style="gap:20px">
+              <div class="component-stage"><p class="component-label">Navbar</p><div class="navbar-demo"><div class="navbar-brand"><span class="navbar-logo"><svg class="icon"><use href="#i-game"/></svg></span>Orbit</div><div class="navbar-links"><a href="#">Recursos</a><a href="#">Preços</a><a href="#">Clientes</a><a href="#">Ajuda</a></div><button class="btn btn-primary btn-sm">Criar conta</button></div></div>
+              <div class="grid grid-2">
+                <div class="component-stage"><p class="component-label">Tabs</p><div class="tabs"><button class="tab active">Visão geral</button><button class="tab">Atividade</button><button class="tab">Conquistas</button><button class="tab">Comunidade</button></div></div>
+                <div class="component-stage"><p class="component-label">Breadcrumb</p><div class="breadcrumb"><a href="#"><svg class="icon"><use href="#i-home"/></svg></a><svg class="icon"><use href="#i-chevron"/></svg><a href="#">Biblioteca</a><svg class="icon"><use href="#i-chevron"/></svg><span>Design systems</span></div><p class="component-label" style="margin-top:22px">Pagination</p><div class="pagination"><button class="page-btn">‹</button><button class="page-btn active">1</button><button class="page-btn">2</button><button class="page-btn">3</button><button class="page-btn">›</button></div></div>
+              </div>
+              <div class="component-stage"><p class="component-label">Stepper</p><div class="stepper"><div class="step complete"><span class="step-node"><svg class="icon"><use href="#i-check"/></svg></span><span class="step-line"></span></div><div class="step active"><span class="step-node">2</span><span class="step-line"></span></div><div class="step"><span class="step-node">3</span><span class="step-line"></span></div><div class="step"><span class="step-node">4</span></div></div></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section section-panel" id="content">
+          <div class="section-header">
+            <div><p class="section-kicker">06 · Componentes</p><h2 class="section-title">Cards, conteúdo e conversão</h2><p class="section-description">Cards são o principal bloco do sistema. Eles organizam argumentos, dados, planos, provas sociais e itens de catálogo em módulos independentes.</p></div>
+          </div>
+          <div class="section-body">
+            <h3 class="card-title" style="margin-bottom:14px">Cards de funcionalidade</h3>
+            <div class="grid grid-3" style="margin-bottom:24px">
+              <article class="card card-hover feature-card"><div class="feature-icon"><svg class="icon"><use href="#i-zap"/></svg></div><h3 class="card-title">Rápido por padrão</h3><p class="card-copy">Componentes leves e objetivos para páginas com carregamento rápido.</p></article>
+              <article class="card card-hover feature-card"><div class="feature-icon" style="background:linear-gradient(145deg,var(--sky-400),var(--sky-600));box-shadow:0 4px 0 var(--sky-700),0 10px 20px rgba(47,141,233,.22)"><svg class="icon"><use href="#i-layer"/></svg></div><h3 class="card-title">Modular</h3><p class="card-copy">Blocos autônomos que podem ser combinados em diferentes narrativas.</p></article>
+              <article class="card card-hover feature-card"><div class="feature-icon" style="background:linear-gradient(145deg,var(--orange-400),var(--orange-600));box-shadow:0 4px 0 var(--orange-700),0 10px 20px rgba(247,125,19,.22)"><svg class="icon"><use href="#i-shield"/></svg></div><h3 class="card-title">Consistente</h3><p class="card-copy">Tokens reduzem variações e tornam o sistema mais fácil de manter.</p></article>
+            </div>
+
+            <h3 class="card-title" style="margin-bottom:14px">Cards editoriais</h3>
+            <div class="grid grid-3" style="margin-bottom:24px">
+              <article class="card media-card card-hover"><div class="media"><div class="media-symbol"><svg class="icon"><use href="#i-cloud"/></svg></div></div><div class="card-body"><div class="row" style="justify-content:space-between;margin-bottom:10px"><span class="badge badge-info">Guia</span><span class="caption">8 min</span></div><h3 class="card-title">Como criar uma landing modular</h3><p class="card-copy">Estrutura, hierarquia e componentes essenciais para uma página de alto impacto.</p></div></article>
+              <article class="card media-card card-hover"><div class="media" style="background:linear-gradient(135deg,var(--orange-200),var(--pink-200))"><div class="media-symbol"><svg class="icon"><use href="#i-game"/></svg></div></div><div class="card-body"><div class="row" style="justify-content:space-between;margin-bottom:10px"><span class="badge badge-warning">Case</span><span class="caption">12 min</span></div><h3 class="card-title">Gamificação sem ruído</h3><p class="card-copy">Como usar feedback lúdico sem transformar a experiência em um brinquedo.</p></div></article>
+              <article class="card media-card card-hover"><div class="media" style="background:linear-gradient(135deg,var(--mint-200),var(--lime-200))"><div class="media-symbol"><svg class="icon"><use href="#i-chart"/></svg></div></div><div class="card-body"><div class="row" style="justify-content:space-between;margin-bottom:10px"><span class="badge badge-success">Dados</span><span class="caption">6 min</span></div><h3 class="card-title">Métricas que orientam</h3><p class="card-copy">Use gráficos simples para apoiar decisão, não apenas decorar a página.</p></div></article>
+            </div>
+
+            <h3 class="card-title" style="margin-bottom:14px">Pricing</h3>
+            <div class="grid grid-3" style="margin-bottom:24px">
+              <article class="card pricing-card"><span class="badge">Starter</span><div class="price">R$0 <small>/mês</small></div><p class="card-copy">Para validar a experiência.</p><ul class="pricing-list"><li><svg class="icon"><use href="#i-check"/></svg>1 landing ativa</li><li><svg class="icon"><use href="#i-check"/></svg>Componentes essenciais</li><li><svg class="icon"><use href="#i-check"/></svg>Analytics básico</li></ul><button class="btn btn-secondary">Começar grátis</button></article>
+              <article class="card pricing-card featured"><span class="badge badge-success pricing-tag">Mais escolhido</span><span class="badge">Pro</span><div class="price">R$79 <small>/mês</small></div><p class="card-copy">Para campanhas em crescimento.</p><ul class="pricing-list"><li><svg class="icon"><use href="#i-check"/></svg>Landings ilimitadas</li><li><svg class="icon"><use href="#i-check"/></svg>Todos os componentes</li><li><svg class="icon"><use href="#i-check"/></svg>Experimentos A/B</li><li><svg class="icon"><use href="#i-check"/></svg>Suporte prioritário</li></ul><button class="btn btn-primary">Assinar Pro</button></article>
+              <article class="card pricing-card"><span class="badge">Studio</span><div class="price">Custom</div><p class="card-copy">Para equipes e operações complexas.</p><ul class="pricing-list"><li><svg class="icon"><use href="#i-check"/></svg>Governança de marca</li><li><svg class="icon"><use href="#i-check"/></svg>Permissões avançadas</li><li><svg class="icon"><use href="#i-check"/></svg>Integrações dedicadas</li></ul><button class="btn btn-secondary">Falar com vendas</button></article>
+            </div>
+
+            <h3 class="card-title" style="margin-bottom:14px">Prova social</h3>
+            <div class="grid grid-3">
+              <article class="card quote"><div class="quote-stars">★★★★★</div><p class="quote-text">“O visual tem personalidade, mas ainda deixa a proposta de valor muito clara.”</p><div class="quote-author"><span class="avatar">LM</span><div class="author-meta"><strong>Luiza Martins</strong><span>Product Designer</span></div></div></article>
+              <article class="card quote"><div class="quote-stars">★★★★★</div><p class="quote-text">“Conseguimos montar campanhas diferentes sem perder consistência entre páginas.”</p><div class="quote-author"><span class="avatar" style="background:linear-gradient(145deg,#ffb578,#ef7b21);box-shadow:0 3px 0 #b94c0b">RC</span><div class="author-meta"><strong>Rafael Costa</strong><span>Growth Lead</span></div></div></article>
+              <article class="card quote"><div class="quote-stars">★★★★★</div><p class="quote-text">“As sombras curtas e os estados interativos dão sensação real de resposta.”</p><div class="quote-author"><span class="avatar" style="background:linear-gradient(145deg,#95e778,#4fc82c);box-shadow:0 3px 0 #2d811a">AF</span><div class="author-meta"><strong>Ana Freire</strong><span>Frontend Engineer</span></div></div></article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section section-panel" id="feedback">
+          <div class="section-header">
+            <div><p class="section-kicker">07 · Componentes</p><h2 class="section-title">Feedback e estados do sistema</h2><p class="section-description">Todo clique importante deve gerar resposta perceptível. Use alertas, progresso, notificações e modais para orientar a próxima ação.</p></div>
+          </div>
+          <div class="section-body">
+            <div class="grid grid-2">
+              <div class="column">
+                <div class="alert alert-info"><span class="alert-icon"><svg class="icon"><use href="#i-info"/></svg></span><div><div class="alert-title">Informação</div>Uma nova versão do kit está disponível.</div></div>
+                <div class="alert alert-success"><span class="alert-icon"><svg class="icon"><use href="#i-check"/></svg></span><div><div class="alert-title">Tudo certo</div>Seu formulário foi enviado com sucesso.</div></div>
+                <div class="alert alert-warning"><span class="alert-icon"><svg class="icon"><use href="#i-alert"/></svg></span><div><div class="alert-title">Atenção</div>Revise os dados antes de publicar.</div></div>
+                <div class="alert alert-danger"><span class="alert-icon"><svg class="icon"><use href="#i-x"/></svg></span><div><div class="alert-title">Erro</div>Não foi possível concluir esta ação.</div></div>
+              </div>
+              <div class="component-stage"><p class="component-label">Progresso</p><div class="column"><div class="meter"><div class="progress"><div class="progress-bar" style="width:78%"></div></div><strong>78%</strong></div><div class="meter"><div class="progress"><div class="progress-bar" style="width:42%;background:linear-gradient(90deg,var(--sky-300),var(--sky-600))"></div></div><strong>42%</strong></div><div class="meter"><div class="progress"><div class="progress-bar" style="width:18%;background:linear-gradient(90deg,var(--orange-300),var(--orange-600))"></div></div><strong>18%</strong></div></div><p class="component-label" style="margin-top:26px">Utilitários rápidos</p><div class="utility-grid"><div class="utility-item"><svg class="icon" style="color:var(--mint-600)"><use href="#i-check"/></svg><strong>Publicado</strong><span>Agora</span></div><div class="utility-item"><svg class="icon" style="color:var(--sky-600)"><use href="#i-cloud"/></svg><strong>Sincronizado</strong><span>2 min</span></div><div class="utility-item"><svg class="icon" style="color:var(--orange-600)"><use href="#i-clock"/></svg><strong>Agendado</strong><span>16:30</span></div><div class="utility-item"><svg class="icon" style="color:var(--pink-600)"><use href="#i-heart"/></svg><strong>Favorito</strong><span>24 itens</span></div></div></div>
+            </div>
+
+            <div class="grid grid-2" style="margin-top:20px">
+              <div><h3 class="card-title" style="margin-bottom:12px">Notificações</h3><div class="notification-list"><div class="notification"><span class="notification-avatar"><svg class="icon"><use href="#i-spark"/></svg></span><div style="min-width:0"><div class="notification-title">Nova conquista desbloqueada</div><div class="notification-copy">Sua landing atingiu 10 mil visualizações.</div></div><span class="notification-time">5m</span></div><div class="notification"><span class="notification-avatar" style="background:var(--sky-100);color:var(--sky-700)"><svg class="icon"><use href="#i-users"/></svg></span><div style="min-width:0"><div class="notification-title">Novo comentário da equipe</div><div class="notification-copy">Marina deixou uma sugestão no bloco de pricing.</div></div><span class="notification-time">35m</span></div><div class="notification"><span class="notification-avatar" style="background:var(--orange-100);color:var(--orange-700)"><svg class="icon"><use href="#i-chart"/></svg></span><div style="min-width:0"><div class="notification-title">Relatório semanal pronto</div><div class="notification-copy">Confira conversão, scroll e cliques principais.</div></div><span class="notification-time">1h</span></div></div></div>
+              <div><h3 class="card-title" style="margin-bottom:12px">Toasts empilhados</h3><div class="toast-stack"><div class="toast"><span class="alert-icon" style="background:var(--mint-100);color:var(--mint-700)"><svg class="icon"><use href="#i-check"/></svg></span><div><div class="alert-title">Alterações salvas</div><div class="body-sm">Sua página já está atualizada.</div></div></div><div class="toast"><span class="alert-icon" style="background:var(--sky-100);color:var(--sky-700)"><svg class="icon"><use href="#i-info"/></svg></span><div><div class="alert-title">Sincronizando</div><div class="body-sm">Aguarde alguns instantes.</div></div></div><div class="toast"><span class="alert-icon" style="background:var(--orange-100);color:var(--orange-700)"><svg class="icon"><use href="#i-clock"/></svg></span><div><div class="alert-title">Agendado</div><div class="body-sm">Publicação para amanhã.</div></div></div></div></div>
+            </div>
+
+            <div style="margin-top:20px"><h3 class="card-title" style="margin-bottom:12px">Modal</h3><div class="modal-demo"><div class="modal"><div class="modal-head"><strong>Publicar landing page?</strong><button class="btn btn-secondary btn-icon btn-sm"><svg class="icon"><use href="#i-x"/></svg></button></div><div class="modal-body"><p class="card-copy">A página ficará disponível para todos que tiverem o link. Você poderá despublicá-la a qualquer momento.</p><div class="alert alert-info" style="margin-top:15px"><span class="alert-icon"><svg class="icon"><use href="#i-info"/></svg></span><div><div class="alert-title">Domínio</div>orbit.example.com/campanha</div></div></div><div class="modal-footer"><button class="btn btn-secondary btn-sm">Cancelar</button><button class="btn btn-primary btn-sm">Publicar</button></div></div></div></div>
+          </div>
+        </section>
+
+        <section class="section section-panel" id="data">
+          <div class="section-header">
+            <div><p class="section-kicker">08 · Componentes</p><h2 class="section-title">Dados, métricas e gráficos</h2><p class="section-description">Visualizações simples, arredondadas e coloridas. A paleta serve para distinguir séries; rótulos e valores continuam em tons neutros.</p></div>
+          </div>
+          <div class="section-body">
+            <div class="grid grid-4" style="margin-bottom:20px">
+              <div class="stat-card"><div class="stat-head"><span class="stat-icon"><svg class="icon"><use href="#i-users"/></svg></span><span class="trend">+12%</span></div><div class="stat-value">24.8k</div><div class="stat-label">Visitantes únicos</div></div>
+              <div class="stat-card"><div class="stat-head"><span class="stat-icon" style="background:var(--sky-100);color:var(--sky-700)"><svg class="icon"><use href="#i-chart"/></svg></span><span class="trend">+4.8%</span></div><div class="stat-value">7.4%</div><div class="stat-label">Taxa de conversão</div></div>
+              <div class="stat-card"><div class="stat-head"><span class="stat-icon" style="background:var(--orange-100);color:var(--orange-700)"><svg class="icon"><use href="#i-clock"/></svg></span><span class="badge badge-warning">2m 42s</span></div><div class="stat-value">68%</div><div class="stat-label">Retenção média</div></div>
+              <div class="stat-card"><div class="stat-head"><span class="stat-icon" style="background:var(--pink-100);color:var(--pink-700)"><svg class="icon"><use href="#i-heart"/></svg></span><span class="trend">+21%</span></div><div class="stat-value">1.8k</div><div class="stat-label">Leads qualificados</div></div>
+            </div>
+
+            <div class="grid grid-2" style="margin-bottom:20px">
+              <div class="card chart-card"><div class="chart-head"><div><div class="chart-title">Atividade semanal</div><div class="chart-subtitle">Sessões por dia</div></div><span class="badge badge-success">Últimos 7 dias</span></div><div class="bar-chart"><div class="bar-item"><div class="bar" style="--value:32%"></div><span class="bar-label">Seg</span></div><div class="bar-item"><div class="bar" style="--value:76%"></div><span class="bar-label">Ter</span></div><div class="bar-item"><div class="bar" style="--value:93%"></div><span class="bar-label">Qua</span></div><div class="bar-item"><div class="bar" style="--value:25%"></div><span class="bar-label">Qui</span></div><div class="bar-item"><div class="bar" style="--value:66%"></div><span class="bar-label">Sex</span></div><div class="bar-item"><div class="bar" style="--value:42%"></div><span class="bar-label">Sáb</span></div><div class="bar-item"><div class="bar" style="--value:54%"></div><span class="bar-label">Dom</span></div></div></div>
+              <div class="card chart-card"><div class="chart-head"><div><div class="chart-title">Origem do tráfego</div><div class="chart-subtitle">Distribuição por canal</div></div></div><div class="donut-wrap"><div class="donut"></div><div class="chart-list"><div class="chart-list-item"><span class="legend-dot" style="background:var(--mint-400)"></span><span>Orgânico</span><strong>42%</strong></div><div class="chart-list-item"><span class="legend-dot" style="background:var(--sky-400)"></span><span>Social</span><strong>28%</strong></div><div class="chart-list-item"><span class="legend-dot" style="background:var(--orange-400)"></span><span>Referral</span><strong>16%</strong></div><div class="chart-list-item"><span class="legend-dot" style="background:var(--pink-400)"></span><span>Pago</span><strong>14%</strong></div></div></div></div>
+            </div>
+
+            <div class="card chart-card" style="margin-bottom:20px"><div class="chart-head"><div><div class="chart-title">Conversão ao longo do mês</div><div class="chart-subtitle">Visualizações e leads qualificados</div></div><div class="chart-legend"><span class="legend-item"><span class="legend-dot"></span>Visualizações</span><span class="legend-item"><span class="legend-dot" style="background:var(--sky-400)"></span>Leads</span></div></div><div class="line-chart"><svg viewBox="0 0 800 260" preserveAspectRatio="none" aria-label="Gráfico de linhas"><defs><linearGradient id="areaMint" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#52dba7" stop-opacity=".36"/><stop offset="1" stop-color="#52dba7" stop-opacity="0"/></linearGradient></defs><path d="M0,210 C70,195 95,120 150,135 C220,155 245,76 320,95 C400,118 420,56 500,76 C590,100 620,28 800,45 L800,260 L0,260 Z" fill="url(#areaMint)"/><path d="M0,210 C70,195 95,120 150,135 C220,155 245,76 320,95 C400,118 420,56 500,76 C590,100 620,28 800,45" fill="none" stroke="#2cc88f" stroke-width="6" stroke-linecap="round"/><path d="M0,235 C100,230 130,190 210,202 C300,214 320,150 400,165 C480,181 540,117 620,135 C690,150 735,92 800,100" fill="none" stroke="#51a9f8" stroke-width="5" stroke-linecap="round" stroke-dasharray="10 9"/></svg></div></div>
+
+            <h3 class="card-title" style="margin-bottom:12px">Tabela</h3>
+            <div class="table-wrap"><table><thead><tr><th>Campanha</th><th>Status</th><th>Visitantes</th><th>Conversão</th><th>Receita</th></tr></thead><tbody><tr><td><strong>Orbit Launch</strong></td><td><span class="badge badge-success badge-dot">Ativa</span></td><td>12.480</td><td>8,4%</td><td>R$ 42.900</td></tr><tr><td><strong>Summer Quest</strong></td><td><span class="badge badge-info">Agendada</span></td><td>8.120</td><td>6,1%</td><td>R$ 24.300</td></tr><tr><td><strong>Creator Pack</strong></td><td><span class="badge badge-warning">Pausada</span></td><td>4.790</td><td>4,8%</td><td>R$ 11.850</td></tr><tr><td><strong>Studio Pro</strong></td><td><span class="badge">Rascunho</span></td><td>—</td><td>—</td><td>—</td></tr></tbody></table></div>
+          </div>
+        </section>
+
+        <section class="section section-panel" id="media">
+          <div class="section-header">
+            <div><p class="section-kicker">09 · Componentes</p><h2 class="section-title">Carrossel e galerias de jogos</h2><p class="section-description">Componentes para catálogos, vitrines, bibliotecas e páginas de escolha. A seleção ativa recebe glow, profundidade e um painel de detalhes inspirado em frontends de consoles.</p></div>
+            <span class="badge badge-info"><svg class="icon"><use href="#i-game"/></svg>Interativo</span>
+          </div>
+          <div class="section-body">
+            <h3 class="card-title" style="margin-bottom:12px">Carrossel de catálogo com detalhe selecionado</h3>
+            <div class="catalog-shell" data-game-catalog>
+              <div class="catalog-toolbar">
+                <div class="catalog-toolbar-copy"><strong>Biblioteca em destaque</strong><span>Navegue horizontalmente ou escolha um jogo para atualizar o painel.</span></div>
+                <div class="carousel-actions">
+                  <button class="btn btn-secondary btn-icon btn-sm" data-carousel-prev aria-label="Jogo anterior"><svg class="icon"><use href="#i-chevron-left"/></svg></button>
+                  <button class="btn btn-secondary btn-icon btn-sm" data-carousel-next aria-label="Próximo jogo"><svg class="icon"><use href="#i-chevron-right"/></svg></button>
+                </div>
+              </div>
+              <div class="carousel-viewport">
+                <div class="game-carousel" tabindex="0" aria-label="Catálogo de jogos">
+                  <button class="game-card active" data-title="Orbit Legends" data-genre="Aventura cósmica" data-time="12h para concluir" data-score="94% positivo" data-description="Explore pequenos mundos conectados por portais, resolva enigmas ambientais e recupere fragmentos de uma constelação perdida." data-cover="cover-orbit" data-icon="i-spark">
+                    <span class="game-cover cover-orbit"><svg class="icon"><use href="#i-spark"/></svg><small>Orbit Studio</small></span><span class="game-card-copy"><h3>Orbit Legends</h3><p>Aventura · Puzzle</p><span class="game-meta-row"><span>12h</span><span>★ 4,8</span></span></span>
+                  </button>
+                  <button class="game-card" data-title="Bloom Circuit" data-genre="Estratégia botânica" data-time="18h para concluir" data-score="91% positivo" data-description="Cultive biomas, conecte circuitos orgânicos e transforme pequenas ilhas em ecossistemas automatizados." data-cover="cover-bloom" data-icon="i-heart">
+                    <span class="game-cover cover-bloom"><svg class="icon"><use href="#i-heart"/></svg><small>Petal Works</small></span><span class="game-card-copy"><h3>Bloom Circuit</h3><p>Estratégia · Cozy</p><span class="game-meta-row"><span>18h</span><span>★ 4,6</span></span></span>
+                  </button>
+                  <button class="game-card" data-title="Drift Signal" data-genre="Exploração narrativa" data-time="8h para concluir" data-score="96% positivo" data-description="Pilote uma estação errante por um oceano de sinais e descubra histórias preservadas em transmissões esquecidas." data-cover="cover-drift" data-icon="i-wifi">
+                    <span class="game-cover cover-drift"><svg class="icon"><use href="#i-wifi"/></svg><small>North Signal</small></span><span class="game-card-copy"><h3>Drift Signal</h3><p>Narrativa · Exploração</p><span class="game-meta-row"><span>8h</span><span>★ 4,9</span></span></span>
+                  </button>
+                  <button class="game-card" data-title="Ember Kitchen" data-genre="Simulação cooperativa" data-time="25h para concluir" data-score="88% positivo" data-description="Coordene receitas, estações e pedidos em cozinhas fantásticas que mudam de formato a cada rodada." data-cover="cover-ember" data-icon="i-zap">
+                    <span class="game-cover cover-ember"><svg class="icon"><use href="#i-zap"/></svg><small>Hot Pan Lab</small></span><span class="game-card-copy"><h3>Ember Kitchen</h3><p>Co-op · Simulação</p><span class="game-meta-row"><span>25h</span><span>★ 4,4</span></span></span>
+                  </button>
+                  <button class="game-card" data-title="Cloud Archive" data-genre="Mistério e investigação" data-time="14h para concluir" data-score="93% positivo" data-description="Organize arquivos impossíveis, reconstrua memórias digitais e revele a origem de uma cidade suspensa." data-cover="cover-cloud" data-icon="i-cloud">
+                    <span class="game-cover cover-cloud"><svg class="icon"><use href="#i-cloud"/></svg><small>Blue Room</small></span><span class="game-card-copy"><h3>Cloud Archive</h3><p>Mistério · Puzzle</p><span class="game-meta-row"><span>14h</span><span>★ 4,7</span></span></span>
+                  </button>
+                  <button class="game-card" data-title="Volt Runners" data-genre="Corrida arcade" data-time="6h para concluir" data-score="89% positivo" data-description="Dispute pistas magnéticas, domine atalhos e combine impulsos elétricos em corridas rápidas e responsivas." data-cover="cover-volt" data-icon="i-rocket">
+                    <span class="game-cover cover-volt"><svg class="icon"><use href="#i-rocket"/></svg><small>Neon Mile</small></span><span class="game-card-copy"><h3>Volt Runners</h3><p>Arcade · Corrida</p><span class="game-meta-row"><span>6h</span><span>★ 4,5</span></span></span>
+                  </button>
+                </div>
+              </div>
+              <div class="game-detail">
+                <div class="detail-art cover-orbit" data-detail-art><svg class="icon"><use href="#i-spark" data-detail-icon/></svg></div>
+                <div class="detail-copy"><span class="badge badge-success" data-detail-genre>Aventura cósmica</span><h3 data-detail-title>Orbit Legends</h3><p data-detail-description>Explore pequenos mundos conectados por portais, resolva enigmas ambientais e recupere fragmentos de uma constelação perdida.</p><div class="detail-stats"><span class="badge" data-detail-time>12h para concluir</span><span class="badge badge-info" data-detail-score>94% positivo</span><span class="badge">1 jogador</span></div><button class="btn btn-primary">Ver página do jogo <svg class="icon"><use href="#i-arrow"/></svg></button></div>
+              </div>
+            </div>
+
+            <h3 class="card-title" style="margin:26px 0 12px">Galeria filtrável</h3>
+            <div class="component-stage">
+              <div class="gallery-filter" role="group" aria-label="Filtrar jogos por categoria">
+                <button class="filter-chip active" data-gallery-filter="all">Todos</button><button class="filter-chip" data-gallery-filter="adventure">Aventura</button><button class="filter-chip" data-gallery-filter="puzzle">Puzzle</button><button class="filter-chip" data-gallery-filter="action">Ação</button><button class="filter-chip" data-gallery-filter="cozy">Cozy</button>
+              </div>
+              <div class="game-gallery" data-game-gallery>
+                <article class="gallery-item" data-category="adventure puzzle"><div class="gallery-art cover-orbit"><svg class="icon"><use href="#i-spark"/></svg></div><div class="gallery-copy"><strong>Orbit Legends</strong><span>Aventura · Puzzle</span></div></article>
+                <article class="gallery-item" data-category="cozy puzzle"><div class="gallery-art cover-bloom"><svg class="icon"><use href="#i-heart"/></svg></div><div class="gallery-copy"><strong>Bloom Circuit</strong><span>Cozy · Puzzle</span></div></article>
+                <article class="gallery-item" data-category="adventure"><div class="gallery-art cover-drift"><svg class="icon"><use href="#i-wifi"/></svg></div><div class="gallery-copy"><strong>Drift Signal</strong><span>Aventura · Narrativa</span></div></article>
+                <article class="gallery-item" data-category="action cozy"><div class="gallery-art cover-ember"><svg class="icon"><use href="#i-zap"/></svg></div><div class="gallery-copy"><strong>Ember Kitchen</strong><span>Ação · Cozy</span></div></article>
+                <article class="gallery-item" data-category="puzzle"><div class="gallery-art cover-cloud"><svg class="icon"><use href="#i-cloud"/></svg></div><div class="gallery-copy"><strong>Cloud Archive</strong><span>Mistério · Puzzle</span></div></article>
+                <article class="gallery-item" data-category="action"><div class="gallery-art cover-volt"><svg class="icon"><use href="#i-rocket"/></svg></div><div class="gallery-copy"><strong>Volt Runners</strong><span>Ação · Corrida</span></div></article>
+                <article class="gallery-item" data-category="adventure cozy"><div class="gallery-art" style="background:linear-gradient(145deg,#ffd36e,#e59a1c)"><svg class="icon"><use href="#i-star"/></svg></div><div class="gallery-copy"><strong>Sunset Post</strong><span>Aventura · Cozy</span></div></article>
+                <article class="gallery-item" data-category="action puzzle"><div class="gallery-art" style="background:linear-gradient(145deg,#b38aff,#6943c3)"><svg class="icon"><use href="#i-game"/></svg></div><div class="gallery-copy"><strong>Pixel Vault</strong><span>Ação · Puzzle</span></div></article>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section section-panel" id="code-tabs">
+          <div class="section-header">
+            <div><p class="section-kicker">10 · Componentes</p><h2 class="section-title">Código com abas</h2><p class="section-description">Bloco para documentação, snippets e exemplos técnicos. Cada linguagem possui uma aba própria, numeração de linhas e ação de copiar o conteúdo ativo.</p></div>
+            <span class="badge"><svg class="icon"><use href="#i-code"/></svg>HTML · CSS · JS</span>
+          </div>
+          <div class="section-body">
+            <div class="code-window" data-code-window>
+              <div class="code-window-head">
+                <div class="window-dots" aria-hidden="true"><span class="window-dot"></span><span class="window-dot"></span><span class="window-dot"></span></div>
+                <div class="code-tabs" role="tablist" aria-label="Exemplos de código">
+                  <button class="code-tab-button active" role="tab" aria-selected="true" data-code-target="html">index.html</button>
+                  <button class="code-tab-button" role="tab" aria-selected="false" data-code-target="css">styles.css</button>
+                  <button class="code-tab-button" role="tab" aria-selected="false" data-code-target="js">app.js</button>
+                </div>
+                <button class="btn btn-sm code-copy" data-copy-active><svg class="icon"><use href="#i-copy"/></svg>Copiar</button>
+              </div>
+              <div class="code-panel active" role="tabpanel" data-code-panel="html"><pre><code><span class="line" data-line="1"><span class="tag">&lt;section</span> <span class="attr">class</span>=<span class="value">&quot;game-shelf&quot;</span><span class="tag">&gt;</span></span><span class="line" data-line="2">  <span class="tag">&lt;header&gt;</span></span><span class="line" data-line="3">    <span class="tag">&lt;h2&gt;</span>Escolha sua próxima aventura<span class="tag">&lt;/h2&gt;</span></span><span class="line" data-line="4">    <span class="tag">&lt;button</span> <span class="attr">data-next</span><span class="tag">&gt;</span>Próximo<span class="tag">&lt;/button&gt;</span></span><span class="line" data-line="5">  <span class="tag">&lt;/header&gt;</span></span><span class="line" data-line="6">  <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="value">&quot;game-carousel&quot;</span><span class="tag">&gt;</span></span><span class="line" data-line="7">    <span class="tag">&lt;article</span> <span class="attr">class</span>=<span class="value">&quot;game-card is-active&quot;</span><span class="tag">&gt;</span>...<span class="tag">&lt;/article&gt;</span></span><span class="line" data-line="8">  <span class="tag">&lt;/div&gt;</span></span><span class="line" data-line="9"><span class="tag">&lt;/section&gt;</span></span></code></pre></div>
+              <div class="code-panel" role="tabpanel" data-code-panel="css"><pre><code><span class="line" data-line="1"><span class="prop">.game-carousel</span> {</span><span class="line" data-line="2">  <span class="attr">display</span>: <span class="value">flex</span>;</span><span class="line" data-line="3">  <span class="attr">gap</span>: <span class="value">1rem</span>;</span><span class="line" data-line="4">  <span class="attr">overflow-x</span>: <span class="value">auto</span>;</span><span class="line" data-line="5">  <span class="attr">scroll-snap-type</span>: <span class="value">x mandatory</span>;</span><span class="line" data-line="6">}</span><span class="line" data-line="7"></span><span class="line" data-line="8"><span class="prop">.game-card</span> {</span><span class="line" data-line="9">  <span class="attr">scroll-snap-align</span>: <span class="value">start</span>;</span><span class="line" data-line="10">  <span class="attr">border-radius</span>: <span class="value">var(--radius-card)</span>;</span><span class="line" data-line="11">}</span></code></pre></div>
+              <div class="code-panel" role="tabpanel" data-code-panel="js"><pre><code><span class="line" data-line="1"><span class="comment">// Move o catálogo para o próximo card</span></span><span class="line" data-line="2"><span class="fn">const</span> shelf = document.<span class="fn">querySelector</span>(<span class="value">'.game-carousel'</span>);</span><span class="line" data-line="3"><span class="fn">const</span> next = document.<span class="fn">querySelector</span>(<span class="value">'[data-next]'</span>);</span><span class="line" data-line="4"></span><span class="line" data-line="5">next.<span class="fn">addEventListener</span>(<span class="value">'click'</span>, () =&gt; {</span><span class="line" data-line="6">  shelf.<span class="fn">scrollBy</span>({</span><span class="line" data-line="7">    left: shelf.clientWidth * <span class="value">0.8</span>,</span><span class="line" data-line="8">    behavior: <span class="value">'smooth'</span></span><span class="line" data-line="9">  });</span><span class="line" data-line="10">});</span></code></pre></div>
+            </div>
+            <div class="code-notes"><div class="code-note"><strong>Abas contextuais</strong><span>Use nomes de arquivo ou linguagens para facilitar reconhecimento.</span></div><div class="code-note"><strong>Cópia do painel ativo</strong><span>O botão captura apenas o snippet atualmente visível.</span></div><div class="code-note"><strong>Leitura confortável</strong><span>Contraste alto, linhas numeradas e rolagem horizontal preservam o código.</span></div></div>
+          </div>
+        </section>
+
+
+        <section class="section section-panel" id="videos">
+          <div class="section-header">
+            <div><p class="section-kicker">11 · Componentes</p><h2 class="section-title">Vídeos incorporados e player</h2><p class="section-description">Uma experiência completa para páginas de cursos, trailers, demonstrações e hubs editoriais, com player do YouTube, playlist, metadados, capítulos e ações de engajamento.</p></div>
+            <span class="badge badge-danger"><svg class="icon"><use href="#i-play"/></svg>YouTube-ready</span>
+          </div>
+          <div class="section-body">
+            <div class="video-shell" data-video-shell>
+              <div class="video-shell-head">
+                <div class="video-shell-title"><span class="navbar-logo"><svg class="icon"><use href="#i-video"/></svg></span><div><strong>Orbit Video Hub</strong><span>Player editorial para trailers, aulas e demonstrações.</span></div></div>
+                <div class="row"><span class="badge badge-success badge-dot">Ao vivo</span><button class="btn btn-secondary btn-sm"><svg class="icon"><use href="#i-list"/></svg>Minha lista</button></div>
+              </div>
+              <div class="video-layout">
+                <div class="video-main">
+                  <div class="youtube-frame">
+                    <iframe data-video-frame src="https://www.youtube-nocookie.com/embed/M7lc1UVf-VE?rel=0&modestbranding=1" title="Player de vídeo do YouTube" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                  </div>
+                  <div class="video-info">
+                    <h3 data-video-title>Como construir experiências memoráveis</h3>
+                    <p data-video-description>Uma introdução prática à composição visual, hierarquia e feedback em interfaces inspiradas em sistemas de console.</p>
+                    <div class="video-meta">
+                      <div class="video-author"><span class="video-avatar">OS</span><div><strong>Orbit Studio</strong><span>128 mil inscritos</span></div></div>
+                      <div class="video-actions">
+                        <button class="video-action" data-toggle-action><svg class="icon"><use href="#i-heart"/></svg><span>1,8 mil</span></button>
+                        <button class="video-action" data-toggle-action><svg class="icon"><use href="#i-bookmark"/></svg><span>Salvar</span></button>
+                        <button class="video-action"><svg class="icon"><use href="#i-reply"/></svg><span>Compartilhar</span></button>
+                        <a class="video-action" data-video-youtube href="https://www.youtube.com/watch?v=M7lc1UVf-VE" target="_blank" rel="noreferrer"><svg class="icon"><use href="#i-maximize"/></svg><span>Abrir no YouTube</span></a>
+                      </div>
+                    </div>
+                    <div class="tabs" data-video-tabs>
+                      <button class="tab active" data-video-tab="overview">Visão geral</button>
+                      <button class="tab" data-video-tab="chapters">Capítulos</button>
+                      <button class="tab" data-video-tab="transcript">Transcrição</button>
+                    </div>
+                    <div class="video-tabs">
+                      <div class="video-tab-panel active" data-video-panel="overview"><p>Combine o player com contexto editorial, informações do autor e ações que ajudem o usuário a continuar a jornada. Em páginas de conversão, mantenha o vídeo acima da dobra e evite autoplay com som.</p></div>
+                      <div class="video-tab-panel" data-video-panel="chapters"><div class="chapter-list"><button class="chapter-row"><span class="chapter-time">00:00</span><strong>Introdução e objetivo</strong><span>2 min</span></button><button class="chapter-row"><span class="chapter-time">02:14</span><strong>Hierarquia visual</strong><span>5 min</span></button><button class="chapter-row"><span class="chapter-time">07:28</span><strong>Estados e feedback</strong><span>4 min</span></button><button class="chapter-row"><span class="chapter-time">11:40</span><strong>Composição final</strong><span>3 min</span></button></div></div>
+                      <div class="video-tab-panel" data-video-panel="transcript"><p><strong>00:00</strong> — Uma boa experiência começa deixando claro o que é interativo, o que é conteúdo e qual é a próxima ação. Use profundidade curta, cor com propósito e feedback imediato para cada interação relevante.</p></div>
+                    </div>
+                  </div>
+                </div>
+                <aside class="video-playlist">
+                  <div class="playlist-head"><strong>Continuar assistindo</strong><span>4 vídeos · 38 minutos</span></div>
+                  <div class="playlist-scroll">
+                    <button class="playlist-item active" data-video-id="M7lc1UVf-VE" data-title="Como construir experiências memoráveis" data-description="Uma introdução prática à composição visual, hierarquia e feedback em interfaces inspiradas em sistemas de console."><span class="playlist-thumb video-one"><svg class="icon"><use href="#i-play"/></svg><span class="playlist-duration">14:20</span></span><span class="playlist-copy"><strong>Como construir experiências memoráveis</strong><span>Orbit Studio · Fundamentos</span></span></button>
+                    <button class="playlist-item" data-video-id="ScMzIvxBSi4" data-title="Cards, coleções e vitrines" data-description="Estruture catálogos visuais com seleção clara, filtros simples e progressão de conteúdo."><span class="playlist-thumb video-two"><svg class="icon"><use href="#i-layer"/></svg><span class="playlist-duration">08:48</span></span><span class="playlist-copy"><strong>Cards, coleções e vitrines</strong><span>Orbit Studio · Componentes</span></span></button>
+                    <button class="playlist-item" data-video-id="ysz5S6PUM-U" data-title="Microinterações com propósito" data-description="Aprenda a aplicar movimento como feedback, orientação e recompensa sem distrair o usuário."><span class="playlist-thumb video-three"><svg class="icon"><use href="#i-spark"/></svg><span class="playlist-duration">09:12</span></span><span class="playlist-copy"><strong>Microinterações com propósito</strong><span>Orbit Studio · Motion</span></span></button>
+                    <button class="playlist-item" data-video-id="aqz-KE-bpKQ" data-title="Do componente à landing page" data-description="Uma composição completa que conecta hero, prova social, recursos, conteúdo e CTA final."><span class="playlist-thumb video-four"><svg class="icon"><use href="#i-rocket"/></svg><span class="playlist-duration">06:04</span></span><span class="playlist-copy"><strong>Do componente à landing page</strong><span>Orbit Studio · Templates</span></span></button>
+                  </div>
+                </aside>
+              </div>
+            </div>
+            <div class="video-patterns">
+              <div class="video-pattern-card"><svg class="icon"><use href="#i-play"/></svg><strong>Player principal</strong><span>Use proporção 16:9, cantos arredondados e área de foco sem distrações.</span></div>
+              <div class="video-pattern-card"><svg class="icon"><use href="#i-list"/></svg><strong>Playlist contextual</strong><span>Mostre sequência, duração e estado ativo para incentivar continuidade.</span></div>
+              <div class="video-pattern-card"><svg class="icon"><use href="#i-clock"/></svg><strong>Capítulos e progresso</strong><span>Permita navegação não linear em conteúdos longos, aulas e demos.</span></div>
+              <div class="video-pattern-card"><svg class="icon"><use href="#i-bookmark"/></svg><strong>Ações prioritárias</strong><span>Salvar, curtir, compartilhar e abrir na fonte devem ser reconhecíveis.</span></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section section-panel" id="motion">
+          <div class="section-header">
+            <div><p class="section-kicker">12 · Fundamentos</p><h2 class="section-title">Animações e movimento</h2><p class="section-description">Biblioteca de motion para entrada, feedback, carregamento e continuidade. As animações reforçam o estado do sistema e preservam a sensação tátil do Orbit OS.</p></div>
+            <span class="badge badge-info"><svg class="icon"><use href="#i-spark"/></svg>Motion tokens</span>
+          </div>
+          <div class="section-body">
+            <div class="motion-toolbar">
+              <div><strong style="display:block;font-size:.78rem">Laboratório de movimento</strong><span style="display:block;font-size:.63rem;color:var(--text-muted)">Ajuste a velocidade, pause ou reinicie as demonstrações.</span></div>
+              <div class="motion-controls">
+                <div class="motion-speed" data-motion-speed>
+                  <button data-speed=".6">0,6×</button><button class="active" data-speed="1">1×</button><button data-speed="1.6">1,6×</button>
+                </div>
+                <button class="btn btn-secondary btn-sm" data-motion-pause><svg class="icon"><use href="#i-pause"/></svg>Pausar</button>
+                <button class="btn btn-primary btn-sm" data-motion-replay><svg class="icon"><use href="#i-refresh"/></svg>Repetir</button>
+              </div>
+            </div>
+            <div class="motion-stage" data-motion-stage>
+              <article class="motion-card"><div class="motion-card-head"><div><strong>Flutuação</strong><small>Ambient / decorative</small></div><span class="badge">2400 ms</span></div><div class="motion-preview"><span class="motion-orb anim-float"><svg class="icon"><use href="#i-cloud"/></svg></span></div></article>
+              <article class="motion-card"><div class="motion-card-head"><div><strong>Salto de recompensa</strong><small>Success / achievement</small></div><span class="badge">1350 ms</span></div><div class="motion-preview"><span class="motion-orb anim-bounce"><svg class="icon"><use href="#i-star"/></svg></span></div></article>
+              <article class="motion-card"><div class="motion-card-head"><div><strong>Pulso de atenção</strong><small>Focus / notification</small></div><span class="badge">1800 ms</span></div><div class="motion-preview"><span class="motion-orb anim-pulse"><svg class="icon"><use href="#i-bell"/></svg></span></div></article>
+              <article class="motion-card"><div class="motion-card-head"><div><strong>Carregamento contínuo</strong><small>Processing / sync</small></div><span class="badge">3200 ms</span></div><div class="motion-preview"><span class="motion-orb anim-spin"><svg class="icon"><use href="#i-refresh"/></svg></span></div></article>
+              <article class="motion-card"><div class="motion-card-head"><div><strong>Skeleton shimmer</strong><small>Loading / placeholder</small></div><span class="badge">1500 ms</span></div><div class="motion-preview"><div class="motion-skeleton"><span></span><span></span><span></span></div></div></article>
+              <article class="motion-card"><div class="motion-card-head"><div><strong>Toast de entrada</strong><small>Feedback / confirmation</small></div><span class="badge">2700 ms</span></div><div class="motion-preview"><div class="motion-toast"><span class="motion-toast-icon"><svg class="icon"><use href="#i-check"/></svg></span><div class="motion-toast-copy"><strong>Conquista salva</strong><span></span></div></div></div></article>
+              <article class="motion-card"><div class="motion-card-head"><div><strong>Progresso orientado</strong><small>Upload / onboarding</small></div><span class="badge">2500 ms</span></div><div class="motion-preview"><div class="motion-progress"><span></span></div></div></article>
+              <article class="motion-card"><div class="motion-card-head"><div><strong>Pop de seleção</strong><small>Chip / filter state</small></div><span class="badge">2100 ms</span></div><div class="motion-preview"><span class="motion-chip">Filtro selecionado</span></div></article>
+              <article class="motion-card"><div class="motion-card-head"><div><strong>Resposta tátil</strong><small>Button / press</small></div><span class="badge">120 ms</span></div><div class="motion-preview"><button class="btn btn-primary btn-lg">Pressione <svg class="icon"><use href="#i-zap"/></svg></button></div></article>
+            </div>
+            <div class="motion-guidelines">
+              <div class="motion-rule"><b>Duração</b><span>120–180 ms para feedback; 240–420 ms para entrada e mudança de contexto.</span></div>
+              <div class="motion-rule"><b>Easing</b><span>Use curvas de desaceleração em entradas e aceleração em saídas.</span></div>
+              <div class="motion-rule"><b>Hierarquia</b><span>O elemento mais importante começa primeiro e conduz os demais.</span></div>
+              <div class="motion-rule"><b>Acessibilidade</b><span>Respeite <code>prefers-reduced-motion</code> e nunca dependa só da animação.</span></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section section-panel" id="wiki">
+          <div class="section-header">
+            <div><p class="section-kicker">13 · Templates</p><h2 class="section-title">Wiki e documentação</h2><p class="section-description">Template para documentação de produto, design systems, APIs e bases de conhecimento, com árvore de navegação, busca, sumário, callouts, código e paginação.</p></div>
+            <span class="badge badge-success"><svg class="icon"><use href="#i-doc"/></svg>Knowledge base</span>
+          </div>
+          <div class="section-body">
+            <div class="wiki-shell" data-wiki>
+              <div class="wiki-topbar">
+                <div class="wiki-brand"><span class="wiki-brand-mark"><svg class="icon"><use href="#i-doc"/></svg></span>Orbit Docs</div>
+                <label class="wiki-search"><svg class="icon"><use href="#i-search"/></svg><input data-wiki-search placeholder="Buscar na documentação..." aria-label="Buscar na documentação"></label>
+                <div class="wiki-actions"><button class="btn btn-secondary btn-sm"><svg class="icon"><use href="#i-edit"/></svg>Editar</button><button class="btn btn-primary btn-sm">Começar</button></div>
+              </div>
+              <div class="wiki-body">
+                <nav class="wiki-sidebar" aria-label="Navegação da documentação">
+                  <div class="wiki-nav-label">Introdução</div>
+                  <button class="wiki-link active" data-wiki-page="getting-started"><svg class="icon"><use href="#i-rocket"/></svg>Primeiros passos</button>
+                  <button class="wiki-link" data-wiki-page="principles"><svg class="icon"><use href="#i-star"/></svg>Princípios</button>
+                  <div class="wiki-nav-label">Fundamentos</div>
+                  <button class="wiki-link" data-wiki-page="tokens"><svg class="icon"><use href="#i-palette"/></svg>Design tokens</button>
+                  <button class="wiki-link" data-wiki-page="accessibility"><svg class="icon"><use href="#i-shield"/></svg>Acessibilidade</button>
+                  <div class="wiki-nav-label">Componentes</div>
+                  <button class="wiki-link" data-wiki-page="components"><svg class="icon"><use href="#i-layer"/></svg>Cards e ações</button>
+                  <button class="wiki-link" data-wiki-page="implementation"><svg class="icon"><use href="#i-code"/></svg>Implementação</button>
+                  <div class="wiki-empty" data-wiki-empty>Nenhum tópico encontrado.</div>
+                </nav>
+                <main class="wiki-article">
+                  <div class="wiki-breadcrumb"><span>Documentação</span><span>›</span><span data-wiki-breadcrumb>Primeiros passos</span></div>
+                  <article class="wiki-page active" data-wiki-article="getting-started">
+                    <span class="badge badge-success">Visão geral</span><h3>Primeiros passos com Orbit OS</h3><p class="wiki-lead">Configure os tokens globais, escolha o tema principal e monte a primeira página usando componentes independentes e responsivos.</p>
+                    <div class="wiki-callout"><svg class="icon"><use href="#i-info"/></svg><div><strong>Antes de começar</strong><p>Defina apenas uma cor de destaque por experiência. Use as demais cores para dados, status e ilustrações pontuais.</p></div></div>
+                    <h4>1. Instale os tokens</h4><p>Copie o bloco base para o elemento <code>:root</code>. Os componentes usam variáveis semânticas, portanto o tema pode ser trocado sem alterar cada seletor.</p>
+                    <pre class="wiki-code"><span class="accent">:root</span> {
+  --accent: #52dba7;
+  --accent-strong: #16a875;
+  --surface: #ffffff;
+  --radius-card: 20px;
+}</pre>
+                    <h4>2. Monte a estrutura</h4><div class="wiki-spec-grid"><div class="wiki-spec"><strong>Shell</strong><span>Canvas, navegação e limites gerais.</span></div><div class="wiki-spec"><strong>Sections</strong><span>Blocos independentes de conteúdo.</span></div><div class="wiki-spec"><strong>Components</strong><span>Unidades reutilizáveis e acessíveis.</span></div></div>
+                    <h4>3. Valide a experiência</h4><ul><li>Teste contraste e foco por teclado.</li><li>Confira o comportamento entre 320 px e 1440 px.</li><li>Reduza animações quando o sistema operacional solicitar.</li></ul>
+                    <div class="wiki-pagination"><button class="wiki-page-nav">Anterior<strong>Visão geral</strong></button><button class="wiki-page-nav" data-wiki-jump="principles">Próximo<strong>Princípios do sistema →</strong></button></div>
+                  </article>
+                  <article class="wiki-page" data-wiki-article="principles"><span class="badge badge-info">Fundamentos</span><h3>Princípios do sistema</h3><p class="wiki-lead">O Orbit OS combina clareza funcional com uma camada visual lúdica, sem transformar a interface em decoração.</p><h4>Playfully serious</h4><p>Superfícies claras, profundidade curta e cores de recompensa criam personalidade enquanto a hierarquia permanece objetiva.</p><div class="wiki-callout"><svg class="icon"><use href="#i-star"/></svg><div><strong>Regra de ouro</strong><p>Cada elemento expressivo precisa apoiar reconhecimento, orientação, feedback ou motivação.</p></div></div><h4>Quatro princípios</h4><div class="wiki-spec-grid"><div class="wiki-spec"><strong>Claro</strong><span>A próxima ação é evidente.</span></div><div class="wiki-spec"><strong>Tátil</strong><span>Controles respondem ao toque.</span></div><div class="wiki-spec"><strong>Modular</strong><span>Blocos funcionam isoladamente.</span></div></div></article>
+                  <article class="wiki-page" data-wiki-article="tokens"><span class="badge badge-warning">Fundamentos</span><h3>Design tokens</h3><p class="wiki-lead">Tokens semânticos conectam marca, estado e componente sem acoplar decisões visuais ao HTML.</p><h4>Camadas recomendadas</h4><ul><li><code>primitive</code>: cores e medidas brutas.</li><li><code>semantic</code>: accent, surface, text e border.</li><li><code>component</code>: propriedades específicas de botões, cards e campos.</li></ul><pre class="wiki-code">--button-primary-bg: var(--accent);
+--button-primary-shadow: 0 4px 0 var(--accent-strong);
+--card-radius: var(--radius-md);</pre></article>
+                  <article class="wiki-page" data-wiki-article="accessibility"><span class="badge badge-success">Qualidade</span><h3>Acessibilidade</h3><p class="wiki-lead">A identidade visual deve continuar funcional para diferentes capacidades, dispositivos e preferências.</p><h4>Checklist essencial</h4><ul><li>Contraste mínimo AA para textos e controles.</li><li>Foco visível e ordem lógica por teclado.</li><li>Rótulos acessíveis em botões de ícone.</li><li>Texto alternativo e legendas em mídia.</li><li>Movimento reduzido quando solicitado.</li></ul></article>
+                  <article class="wiki-page" data-wiki-article="components"><span class="badge badge-info">Biblioteca</span><h3>Cards e ações</h3><p class="wiki-lead">Cards organizam contexto; botões deixam explícito o que pode acontecer a seguir.</p><h4>Anatomia do card</h4><div class="wiki-spec-grid"><div class="wiki-spec"><strong>Header</strong><span>Título, badge ou ação contextual.</span></div><div class="wiki-spec"><strong>Body</strong><span>Conteúdo principal e evidências.</span></div><div class="wiki-spec"><strong>Footer</strong><span>Ação, metadado ou progresso.</span></div></div></article>
+                  <article class="wiki-page" data-wiki-article="implementation"><span class="badge">Engenharia</span><h3>Implementação</h3><p class="wiki-lead">Organize estilos por tokens, fundações, componentes, templates e utilitários.</p><pre class="wiki-code">styles/
+├── tokens.css
+├── foundations.css
+├── components/
+├── templates/
+└── utilities.css</pre><div class="wiki-callout"><svg class="icon"><use href="#i-code"/></svg><div><strong>Evite acoplamento</strong><p>O componente não deve depender da página em que aparece para funcionar ou manter legibilidade.</p></div></div></article>
+                </main>
+                <aside class="wiki-toc">
+                  <strong>Nesta página</strong><a href="#">Instale os tokens</a><a href="#">Monte a estrutura</a><a href="#">Valide a experiência</a><a href="#">Próximos passos</a>
+                  <div class="wiki-version"><span>Versão atual</span><strong>Orbit OS 2.4</strong><span>Atualizado em julho de 2026</span></div>
+                </aside>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section section-panel" id="chat">
+          <div class="section-header">
+            <div><p class="section-kicker">14 · Templates</p><h2 class="section-title">Chat de conversa simulado</h2><p class="section-description">Interface completa para suporte, comunidade e colaboração, com lista de conversas, thread, respostas, reações, digitação, anexos e painel de detalhes.</p></div>
+            <span class="badge badge-success badge-dot"><svg class="icon"><use href="#i-message"/></svg>Interativo</span>
+          </div>
+          <div class="section-body">
+            <div class="chat-shell" data-chat>
+              <aside class="chat-list">
+                <div class="chat-list-head"><div class="chat-list-head-row"><strong>Conversas</strong><button class="btn btn-primary btn-icon btn-sm" aria-label="Nova conversa"><svg class="icon"><use href="#i-plus"/></svg></button></div><label class="chat-search"><svg class="icon"><use href="#i-search"/></svg><input placeholder="Buscar conversa"></label></div>
+                <div class="chat-conversations">
+                  <button class="conversation active"><span class="chat-avatar avatar-blue">M<span class="chat-presence"></span></span><span class="conversation-copy"><strong>Marina Costa</strong><span>Enviei a nova versão do protótipo.</span></span><span class="conversation-meta"><span>09:42</span><b class="unread-pill">2</b></span></button>
+                  <button class="conversation"><span class="chat-avatar avatar-mint">DS<span class="chat-presence"></span></span><span class="conversation-copy"><strong>Design System</strong><span>Leo: tokens aprovados pelo time.</span></span><span class="conversation-meta"><span>08:15</span><b class="unread-pill">5</b></span></button>
+                  <button class="conversation"><span class="chat-avatar avatar-pink">A</span><span class="conversation-copy"><strong>Alana Ribeiro</strong><span>Obrigada pela ajuda!</span></span><span class="conversation-meta"><span>Ontem</span></span></button>
+                  <button class="conversation"><span class="chat-avatar avatar-orange">OP</span><span class="conversation-copy"><strong>Orbit Players</strong><span>Nova votação disponível.</span></span><span class="conversation-meta"><span>Seg</span></span></button>
+                </div>
+              </aside>
+              <main class="chat-main">
+                <header class="chat-head">
+                  <div class="chat-head-person"><span class="chat-avatar avatar-blue" style="width:40px;height:40px">M<span class="chat-presence"></span></span><div><strong>Marina Costa</strong><span>Online · Product Designer</span></div></div>
+                  <div class="chat-head-actions"><button class="btn btn-secondary btn-icon btn-sm" aria-label="Videochamada"><svg class="icon"><use href="#i-video"/></svg></button><button class="btn btn-secondary btn-icon btn-sm" aria-label="Buscar"><svg class="icon"><use href="#i-search"/></svg></button><button class="btn btn-secondary btn-icon btn-sm" aria-label="Mais opções"><svg class="icon"><use href="#i-more"/></svg></button></div>
+                </header>
+                <div class="chat-messages" data-chat-messages>
+                  <span class="chat-day">Hoje</span>
+                  <div class="message-row"><span class="message-avatar">M</span><div class="message-stack"><div class="message-author">Marina Costa</div><div class="message-bubble">Bom dia! Finalizei a revisão do fluxo de onboarding e organizei os estados vazios.<span class="message-time">09:31</span></div></div></div>
+                  <div class="message-row outgoing"><span class="message-avatar">EU</span><div class="message-stack"><div class="message-author">Você</div><div class="message-bubble"><div class="message-reply">Marina: Finalizei a revisão do fluxo...</div>Ótimo! O comportamento no mobile também ficou coberto?<span class="message-time">09:34 · ✓✓</span></div></div></div>
+                  <div class="message-row"><span class="message-avatar">M</span><div class="message-stack"><div class="message-author">Marina Costa</div><div class="message-bubble">Sim. Ajustei o drawer, os targets de toque e a ordem do foco. Enviei a nova versão do protótipo.<span class="message-time">09:42</span></div><div class="message-reactions"><button class="reaction">✨ 3</button><button class="reaction">👍 2</button></div></div></div>
+                  <div class="message-row"><span class="message-avatar">M</span><div class="message-stack"><div class="message-author">Marina Costa</div><div class="message-bubble"><div class="chat-file" style="margin:0;background:var(--ink-50)"><svg class="icon"><use href="#i-doc"/></svg><div><b>onboarding-flow.fig</b><span>4,8 MB · Figma</span></div></div><span class="message-time">09:43</span></div></div></div>
+                  <div class="typing-row" data-typing><span class="message-avatar">M</span><span class="typing-bubble"><i></i><i></i><i></i></span></div>
+                </div>
+                <div class="chat-composer">
+                  <div class="chat-compose-box">
+                    <div class="chat-compose-actions"><button class="btn btn-ghost btn-icon btn-sm" aria-label="Anexar"><svg class="icon"><use href="#i-paperclip"/></svg></button><button class="btn btn-ghost btn-icon btn-sm" aria-label="Emoji"><svg class="icon"><use href="#i-smile"/></svg></button></div>
+                    <textarea data-chat-input rows="1" placeholder="Escreva uma mensagem..."></textarea>
+                    <button class="btn btn-primary btn-icon chat-send" data-chat-send aria-label="Enviar mensagem"><svg class="icon"><use href="#i-send"/></svg></button>
+                  </div>
+                </div>
+              </main>
+              <aside class="chat-details">
+                <div class="chat-profile-avatar">MC</div><h3>Marina Costa</h3><p>Product Designer · São Paulo</p>
+                <div class="chat-profile-actions"><button class="profile-action"><svg class="icon"><use href="#i-bell"/></svg>Silenciar</button><button class="profile-action"><svg class="icon"><use href="#i-search"/></svg>Buscar</button><button class="profile-action"><svg class="icon"><use href="#i-more"/></svg>Mais</button></div>
+                <div class="chat-detail-block"><strong>Arquivos compartilhados</strong><div class="chat-file"><svg class="icon"><use href="#i-doc"/></svg><div><b>onboarding-flow.fig</b><span>Figma · 4,8 MB</span></div></div><div class="chat-file"><svg class="icon"><use href="#i-image"/></svg><div><b>empty-states.png</b><span>Imagem · 1,2 MB</span></div></div></div>
+                <div class="chat-detail-block"><strong>Configurações</strong><label class="switch"><input type="checkbox" checked><span class="switch-track"><span class="switch-knob"></span></span>Notificações</label></div>
+              </aside>
+            </div>
+          </div>
+        </section>
+
+        <section class="section section-panel" id="landing">
+          <div class="section-header">
+            <div><p class="section-kicker">15 · Templates</p><h2 class="section-title">Blocos de landing page</h2><p class="section-description">Estrutura recomendada: navbar compacta, hero com foco único, benefícios modulares, prova social, pricing, FAQ e CTA final.</p></div>
+          </div>
+          <div class="section-body">
+            <div class="landing-preview" style="margin-bottom:24px">
+              <div class="preview-nav"><div class="preview-logo"><span class="preview-logo-mark"></span>Orbit Play</div><div class="preview-links"><span>Produto</span><span>Recursos</span><span>Planos</span><span>Clientes</span></div><button class="btn btn-primary btn-sm">Entrar</button></div>
+              <div class="preview-hero"><div><span class="badge badge-success">Nova temporada</span><h3>Transforme rotina em progresso.</h3><p>Uma plataforma visual para organizar hábitos, desafios e conquistas com a leveza de um sistema de console.</p><div class="row" style="margin-top:18px"><button class="btn btn-primary">Começar grátis</button><button class="btn btn-secondary">Ver demonstração</button></div></div><div class="preview-scene"><div class="preview-mini-tile one"><svg class="icon" style="width:28px"><use href="#i-heart"/></svg></div><div class="preview-orb"><svg class="icon"><use href="#i-game"/></svg></div><div class="preview-mini-tile two"><svg class="icon" style="width:28px"><use href="#i-star"/></svg></div></div></div>
+              <div class="preview-features"><div class="preview-feature"><strong>Progresso visível</strong><p>Metas e evolução em um só lugar.</p></div><div class="preview-feature"><strong>Conquistas</strong><p>Feedback positivo a cada etapa.</p></div><div class="preview-feature"><strong>Comunidade</strong><p>Compartilhe jornadas e resultados.</p></div></div>
+            </div>
+
+            <div class="grid grid-2">
+              <div><h3 class="card-title" style="margin-bottom:12px">FAQ</h3><div class="faq"><div class="faq-item open"><button class="faq-question">Este sistema funciona para qualquer marca?<svg class="icon"><use href="#i-chevron"/></svg></button><div class="faq-answer"><p>Sim. Troque o accent token, ajuste tipografia e preserve a lógica de superfícies, profundidade e feedback.</p></div></div><div class="faq-item"><button class="faq-question">Posso usar em páginas B2B?<svg class="icon"><use href="#i-chevron"/></svg></button><div class="faq-answer"><p>Sim. Reduza a saturação dos acentos, use menos elementos ilustrativos e mantenha os cards modulares.</p></div></div><div class="faq-item"><button class="faq-question">Como evitar um visual infantil?<svg class="icon"><use href="#i-chevron"/></svg></button><div class="faq-answer"><p>Priorize fundo neutro, ícones simples, textos objetivos e reserve cores fortes para ações e dados.</p></div></div><div class="faq-item"><button class="faq-question">É responsivo?<svg class="icon"><use href="#i-chevron"/></svg></button><div class="faq-answer"><p>Os componentes foram estruturados para desktop, tablet e mobile, com grids que colapsam progressivamente.</p></div></div></div></div>
+              <div><h3 class="card-title" style="margin-bottom:12px">CTA final</h3><div class="card" style="padding:28px;background:radial-gradient(circle at 85% 15%,var(--mint-200),transparent 34%),linear-gradient(135deg,#fff,#edf5f2);min-height:330px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start"><span class="badge badge-success"><svg class="icon"><use href="#i-spark"/></svg>Pronto para jogar</span><h3 class="heading-2" style="margin:16px 0 10px">Construa sua próxima landing com personalidade.</h3><p class="body-md" style="max-width:520px">Combine os componentes, preserve a hierarquia e use a cor como recompensa visual.</p><button class="btn btn-primary btn-lg" style="margin-top:16px">Criar experiência <svg class="icon"><use href="#i-arrow"/></svg></button></div></div>
+            </div>
+
+            <h3 class="card-title" style="margin:24px 0 12px">Footer</h3>
+            <div class="footer-demo"><div class="footer-brand"><div class="brand-copy"><strong style="color:white;font-size:1rem">Orbit OS</strong><span style="color:var(--mint-300)">Interface playfully serious</span></div><p>Design system para páginas memoráveis, modulares e acessíveis.</p></div><div><h4>Produto</h4><a href="#">Recursos</a><a href="#">Templates</a><a href="#">Roadmap</a></div><div><h4>Empresa</h4><a href="#">Sobre</a><a href="#">Clientes</a><a href="#">Carreiras</a></div><div><h4>Suporte</h4><a href="#">Documentação</a><a href="#">Contato</a><a href="#">Status</a></div></div>
+          </div>
+        </section>
+
+        <section class="section section-panel" id="guidelines">
+          <div class="section-header">
+            <div><p class="section-kicker">16 · Implementação</p><h2 class="section-title">Diretrizes de uso</h2><p class="section-description">O caráter do sistema vem da combinação entre neutralidade, forma, profundidade e cor. Evite aplicar todos os recursos ao mesmo tempo.</p></div>
+          </div>
+          <div class="section-body">
+            <div class="grid grid-2" style="margin-bottom:20px">
+              <div class="card"><div class="card-body"><span class="badge badge-success">Faça</span><ul class="pricing-list" style="margin-bottom:0"><li><svg class="icon"><use href="#i-check"/></svg>Use uma ação primária por seção.</li><li><svg class="icon"><use href="#i-check"/></svg>Mantenha superfícies majoritariamente brancas.</li><li><svg class="icon"><use href="#i-check"/></svg>Use cor para indicar estado e prioridade.</li><li><svg class="icon"><use href="#i-check"/></svg>Combine sombra curta com borda clara.</li><li><svg class="icon"><use href="#i-check"/></svg>Garanta contraste AA em textos e controles.</li></ul></div></div>
+              <div class="card"><div class="card-body"><span class="badge badge-danger">Evite</span><ul class="pricing-list" style="margin-bottom:0"><li><svg class="icon" style="color:var(--pink-600)"><use href="#i-x"/></svg>Colorir grandes blocos sem necessidade.</li><li><svg class="icon" style="color:var(--pink-600)"><use href="#i-x"/></svg>Usar sombras profundas em todos os itens.</li><li><svg class="icon" style="color:var(--pink-600)"><use href="#i-x"/></svg>Misturar mais de três acentos na mesma seção.</li><li><svg class="icon" style="color:var(--pink-600)"><use href="#i-x"/></svg>Reduzir o corpo de texto abaixo de 14px.</li><li><svg class="icon" style="color:var(--pink-600)"><use href="#i-x"/></svg>Imitar elementos proprietários de sistemas reais.</li></ul></div></div>
+            </div>
+
+            <h3 class="card-title" style="margin-bottom:12px">Tokens CSS essenciais</h3>
+            <div class="code-block" id="codeBlock"><button class="btn btn-secondary btn-sm" id="copyButton" style="position:absolute;right:12px;top:12px"><svg class="icon"><use href="#i-copy"/></svg>Copiar</button><pre style="margin:0"><code><span class="c">/* Orbit OS — core tokens */</span>
+<span class="k">:root</span> {
+  <span class="v">--accent</span>: <span class="s">#52dba7</span>;
+  <span class="v">--accent-strong</span>: <span class="s">#16a875</span>;
+  <span class="v">--canvas</span>: <span class="s">#eef0f2</span>;
+  <span class="v">--surface</span>: <span class="s">#ffffff</span>;
+  <span class="v">--text</span>: <span class="s">#1e252b</span>;
+  <span class="v">--text-muted</span>: <span class="s">#727d87</span>;
+  <span class="v">--radius-control</span>: <span class="s">14px</span>;
+  <span class="v">--radius-card</span>: <span class="s">20px</span>;
+  <span class="v">--radius-section</span>: <span class="s">38px</span>;
+  <span class="v">--shadow-card</span>:
+    <span class="s">0 1px 0 rgba(255,255,255,.98) inset</span>,
+    <span class="s">0 3px 0 rgba(39,47,54,.08)</span>,
+    <span class="s">0 8px 18px rgba(39,47,54,.10)</span>;
+}</code></pre></div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <button class="floating-action" aria-label="Voltar ao topo" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg class="icon" style="transform:rotate(-90deg)"><use href="#i-arrow"/></svg></button>
+
+  <script>
+    const root = document.documentElement;
+    const themeMap = {
+      mint: {accent:'#52dba7', strong:'#16a875', soft:'#d8faec', rgb:'82,219,167'},
+      blue: {accent:'#51a9f8', strong:'#2070ca', soft:'#dcefff', rgb:'81,169,248'},
+      cyan: {accent:'#22d3ee', strong:'#0891b2', soft:'#cffafe', rgb:'34,211,238'},
+      indigo: {accent:'#818cf8', strong:'#4f46e5', soft:'#e0e7ff', rgb:'129,140,248'},
+      violet: {accent:'#a78bfa', strong:'#7c3aed', soft:'#ede9fe', rgb:'167,139,250'},
+      pink: {accent:'#ff6196', strong:'#e51f5f', soft:'#ffe1ec', rgb:'255,97,150'},
+      coral: {accent:'#ff7a6b', strong:'#d94841', soft:'#ffe1db', rgb:'255,122,107'},
+      orange: {accent:'#ff9b2d', strong:'#dc5d09', soft:'#ffead0', rgb:'255,155,45'},
+      amber: {accent:'#f8c84a', strong:'#c58a00', soft:'#fff3c4', rgb:'248,200,74'},
+      lime: {accent:'#72e843', strong:'#38a91a', soft:'#e4ffd6', rgb:'114,232,67'}
+    };
+
+    document.querySelectorAll('.theme-dot').forEach(button => {
+      button.addEventListener('click', () => {
+        const t = themeMap[button.dataset.theme];
+        root.style.setProperty('--accent', t.accent);
+        root.style.setProperty('--accent-strong', t.strong);
+        root.style.setProperty('--accent-soft', t.soft);
+        root.style.setProperty('--accent-rgb', t.rgb);
+        document.querySelectorAll('.theme-dot').forEach(b => b.classList.remove('active'));
+        button.classList.add('active');
+      });
+    });
+
+    const sidebar = document.getElementById('sidebar');
+    const menuButton = document.getElementById('menuButton');
+    menuButton?.addEventListener('click', () => sidebar.classList.toggle('open'));
+    document.querySelectorAll('.nav-link').forEach(link => link.addEventListener('click', () => sidebar.classList.remove('open')));
+
+    const sections = [...document.querySelectorAll('section[id]')];
+    const links = [...document.querySelectorAll('.nav-link')];
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          links.forEach(link => link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id));
+        }
+      });
+    }, {rootMargin:'-25% 0px -65% 0px', threshold:0});
+    sections.forEach(section => observer.observe(section));
+
+    document.querySelectorAll('.faq-question').forEach(button => {
+      button.addEventListener('click', () => button.closest('.faq-item').classList.toggle('open'));
+    });
+
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        tab.parentElement.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+      });
+    });
+
+    // Game catalog carousel and selected detail
+    document.querySelectorAll('[data-game-catalog]').forEach(catalog => {
+      const carousel = catalog.querySelector('.game-carousel');
+      const cards = [...catalog.querySelectorAll('.game-card')];
+      const detailArt = catalog.querySelector('[data-detail-art]');
+      const detailIcon = catalog.querySelector('[data-detail-icon]');
+      const title = catalog.querySelector('[data-detail-title]');
+      const genre = catalog.querySelector('[data-detail-genre]');
+      const time = catalog.querySelector('[data-detail-time]');
+      const score = catalog.querySelector('[data-detail-score]');
+      const description = catalog.querySelector('[data-detail-description]');
+
+      const selectGame = card => {
+        cards.forEach(item => item.classList.toggle('active', item === card));
+        title.textContent = card.dataset.title;
+        genre.textContent = card.dataset.genre;
+        time.textContent = card.dataset.time;
+        score.textContent = card.dataset.score;
+        description.textContent = card.dataset.description;
+        detailArt.className = `detail-art ${card.dataset.cover}`;
+        detailIcon.setAttribute('href', `#${card.dataset.icon}`);
+      };
+
+      cards.forEach(card => card.addEventListener('click', () => selectGame(card)));
+      catalog.querySelector('[data-carousel-prev]')?.addEventListener('click', () => carousel.scrollBy({left:-carousel.clientWidth * .78,behavior:'smooth'}));
+      catalog.querySelector('[data-carousel-next]')?.addEventListener('click', () => carousel.scrollBy({left:carousel.clientWidth * .78,behavior:'smooth'}));
+    });
+
+    // Filterable gallery
+    document.querySelectorAll('[data-gallery-filter]').forEach(button => {
+      button.addEventListener('click', () => {
+        const stage = button.closest('.component-stage');
+        const filter = button.dataset.galleryFilter;
+        stage.querySelectorAll('[data-gallery-filter]').forEach(item => item.classList.toggle('active', item === button));
+        stage.querySelectorAll('.gallery-item').forEach(item => {
+          const categories = item.dataset.category.split(' ');
+          item.hidden = filter !== 'all' && !categories.includes(filter);
+        });
+      });
+    });
+
+    // Tabbed code component and active-panel copy action
+    document.querySelectorAll('[data-code-window]').forEach(windowEl => {
+      const tabs = [...windowEl.querySelectorAll('[data-code-target]')];
+      const panels = [...windowEl.querySelectorAll('[data-code-panel]')];
+      tabs.forEach(tab => tab.addEventListener('click', () => {
+        const target = tab.dataset.codeTarget;
+        tabs.forEach(item => {
+          const active = item === tab;
+          item.classList.toggle('active', active);
+          item.setAttribute('aria-selected', String(active));
+        });
+        panels.forEach(panel => panel.classList.toggle('active', panel.dataset.codePanel === target));
+      }));
+
+      windowEl.querySelector('[data-copy-active]')?.addEventListener('click', async function(){
+        const activePanel = windowEl.querySelector('.code-panel.active');
+        try {
+          await navigator.clipboard.writeText(activePanel.innerText.replace(/^\s*\d+\s?/gm, ''));
+          this.innerHTML = '<svg class="icon"><use href="#i-check"/></svg>Copiado';
+          setTimeout(() => this.innerHTML = '<svg class="icon"><use href="#i-copy"/></svg>Copiar', 1500);
+        } catch(e) {
+          this.textContent = 'Selecione o código';
+        }
+      });
+    });
+
+
+    // Embedded video playlist, tabs and engagement actions
+    document.querySelectorAll('[data-video-shell]').forEach(shell => {
+      const frame = shell.querySelector('[data-video-frame]');
+      const title = shell.querySelector('[data-video-title]');
+      const description = shell.querySelector('[data-video-description]');
+      const youtubeLink = shell.querySelector('[data-video-youtube]');
+      shell.querySelectorAll('.playlist-item').forEach(item => {
+        item.addEventListener('click', () => {
+          shell.querySelectorAll('.playlist-item').forEach(button => button.classList.toggle('active', button === item));
+          frame.src = `https://www.youtube-nocookie.com/embed/${item.dataset.videoId}?rel=0&modestbranding=1`;
+          title.textContent = item.dataset.title;
+          description.textContent = item.dataset.description;
+          youtubeLink.href = `https://www.youtube.com/watch?v=${item.dataset.videoId}`;
+        });
+      });
+      shell.querySelectorAll('[data-toggle-action]').forEach(button => button.addEventListener('click', () => button.classList.toggle('active')));
+      shell.querySelectorAll('[data-video-tab]').forEach(tab => {
+        tab.addEventListener('click', () => {
+          const target = tab.dataset.videoTab;
+          shell.querySelectorAll('[data-video-tab]').forEach(button => button.classList.toggle('active', button === tab));
+          shell.querySelectorAll('[data-video-panel]').forEach(panel => panel.classList.toggle('active', panel.dataset.videoPanel === target));
+        });
+      });
+    });
+
+    // Motion playground
+    document.querySelectorAll('[data-motion-stage]').forEach(stage => {
+      const section = stage.closest('#motion');
+      const pauseButton = section.querySelector('[data-motion-pause]');
+      section.querySelectorAll('[data-speed]').forEach(button => {
+        button.addEventListener('click', () => {
+          section.querySelectorAll('[data-speed]').forEach(item => item.classList.toggle('active', item === button));
+          stage.style.setProperty('--motion-speed', button.dataset.speed);
+        });
+      });
+      pauseButton?.addEventListener('click', () => {
+        const paused = stage.classList.toggle('is-paused');
+        pauseButton.innerHTML = paused
+          ? '<svg class="icon"><use href="#i-play"/></svg>Continuar'
+          : '<svg class="icon"><use href="#i-pause"/></svg>Pausar';
+      });
+      section.querySelector('[data-motion-replay]')?.addEventListener('click', () => {
+        stage.classList.remove('is-paused');
+        pauseButton.innerHTML = '<svg class="icon"><use href="#i-pause"/></svg>Pausar';
+        stage.getAnimations({subtree:true}).forEach(animation => {
+          animation.cancel();
+          animation.play();
+        });
+      });
+    });
+
+    // Documentation wiki navigation and search
+    document.querySelectorAll('[data-wiki]').forEach(wiki => {
+      const links = [...wiki.querySelectorAll('[data-wiki-page]')];
+      const articles = [...wiki.querySelectorAll('[data-wiki-article]')];
+      const breadcrumb = wiki.querySelector('[data-wiki-breadcrumb]');
+      const openPage = id => {
+        links.forEach(link => link.classList.toggle('active', link.dataset.wikiPage === id));
+        articles.forEach(article => article.classList.toggle('active', article.dataset.wikiArticle === id));
+        const selected = links.find(link => link.dataset.wikiPage === id);
+        if (selected) breadcrumb.textContent = selected.textContent.trim();
+      };
+      links.forEach(link => link.addEventListener('click', () => openPage(link.dataset.wikiPage)));
+      wiki.querySelectorAll('[data-wiki-jump]').forEach(button => button.addEventListener('click', () => openPage(button.dataset.wikiJump)));
+      wiki.querySelector('[data-wiki-search]')?.addEventListener('input', event => {
+        const query = event.target.value.trim().toLocaleLowerCase('pt-BR');
+        let visible = 0;
+        links.forEach(link => {
+          const show = !query || link.textContent.toLocaleLowerCase('pt-BR').includes(query);
+          link.hidden = !show;
+          if (show) visible += 1;
+        });
+        wiki.querySelector('[data-wiki-empty]').classList.toggle('show', visible === 0);
+      });
+    });
+
+    // Simulated chat composer with automated reply
+    document.querySelectorAll('[data-chat]').forEach(chat => {
+      const input = chat.querySelector('[data-chat-input]');
+      const messages = chat.querySelector('[data-chat-messages]');
+      const typing = chat.querySelector('[data-typing]');
+      const scrollMessages = () => { messages.scrollTop = messages.scrollHeight; };
+      const sendMessage = () => {
+        const text = input.value.trim();
+        if (!text) return;
+        const row = document.createElement('div');
+        row.className = 'message-row outgoing';
+        row.innerHTML = `<span class="message-avatar">EU</span><div class="message-stack"><div class="message-author">Você</div><div class="message-bubble"></div></div>`;
+        row.querySelector('.message-bubble').textContent = text;
+        const time = document.createElement('span');
+        time.className = 'message-time';
+        time.textContent = 'agora · ✓';
+        row.querySelector('.message-bubble').appendChild(time);
+        messages.insertBefore(row, typing);
+        input.value = '';
+        typing.classList.add('show');
+        scrollMessages();
+        window.setTimeout(() => {
+          typing.classList.remove('show');
+          const reply = document.createElement('div');
+          reply.className = 'message-row';
+          reply.innerHTML = '<span class="message-avatar">M</span><div class="message-stack"><div class="message-author">Marina Costa</div><div class="message-bubble">Perfeito! Vou revisar e retorno com os próximos ajustes.<span class="message-time">agora</span></div></div>';
+          messages.insertBefore(reply, typing);
+          scrollMessages();
+        }, 1200);
+      };
+      chat.querySelector('[data-chat-send]')?.addEventListener('click', sendMessage);
+      input?.addEventListener('keydown', event => {
+        if (event.key === 'Enter' && !event.shiftKey) {
+          event.preventDefault();
+          sendMessage();
+        }
+      });
+      scrollMessages();
+    });
+
+    document.getElementById('copyButton')?.addEventListener('click', async function(){
+      const text = `:root {\n  --accent: #52dba7;\n  --accent-strong: #16a875;\n  --canvas: #eef0f2;\n  --surface: #ffffff;\n  --text: #1e252b;\n  --text-muted: #727d87;\n  --radius-control: 14px;\n  --radius-card: 20px;\n  --radius-section: 38px;\n}`;
+      try {
+        await navigator.clipboard.writeText(text);
+        this.innerHTML = '<svg class="icon"><use href="#i-check"/></svg>Copiado';
+        setTimeout(() => this.innerHTML = '<svg class="icon"><use href="#i-copy"/></svg>Copiar', 1600);
+      } catch(e) {
+        this.textContent = 'Selecione o código';
+      }
+    });
+  </script>
+</body>
+</html>
