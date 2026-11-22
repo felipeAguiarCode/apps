@@ -6,7 +6,7 @@
     {
       id: 'dump',
       slug: 'dump-studio',
-      name: 'Dump Studio',
+      name: 'My Dump Studio',
       category: 'Editor de fotos e carrosséis',
       categoryId: 'edicao',
       platform: 'Windows',

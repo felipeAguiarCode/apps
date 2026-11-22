@@ -104,7 +104,7 @@ ${content}
       </nav>
       <nav class="footer-col" aria-label="Downloads">
         <h2>Downloads</h2>
-        <a href="${dump.download}" ${external}>Download do Dump Studio</a>
+        <a href="${dump.download}" ${external}>Download do ${dump.name}</a>
         <a href="${ps5.download}" ${external}>Último release do ${ps5.name}</a>
       </nav>
     </div>
@@ -122,7 +122,7 @@ ${content}
 
 function catalogCard(project) {
   const isDump = project === dump;
-  const name = isDump ? 'My Dump Studio' : project.name;
+  const { name } = project;
   const destination = route(project) + 'index.html';
   const starsAPI = project.repo.replace('https://github.com/', 'https://api.github.com/repos/');
   const star = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.5 4.4 1 6.2L12 17.3l-5.6 2.9 1.1-6.2L3 9.6l6.2-.9L12 3Z"/></svg>';
@@ -163,7 +163,7 @@ function home() {
 
   return layout({
     title: 'My App Store',
-    description: `Monte carrosséis com o Dump Studio e jogue sua biblioteca pelo controle com o ${ps5.name}. Veja os vídeos, as capturas e onde baixar.`,
+    description: `Monte carrosséis com o ${dump.name} e jogue sua biblioteca pelo controle com o ${ps5.name}. Veja os vídeos, as capturas e onde baixar.`,
     canonical: siteURL,
     image: media(dump, dump.screens[0][0]),
     content: `  <main id="conteudo" class="shell home">
@@ -174,13 +174,13 @@ function home() {
       <div class="story-stage">
         <div class="story-slides">
           <article class="hero-slide theme-dump is-current" data-story data-duration="10500" aria-labelledby="featured-title">
+            <span class="featured-ribbon"><span>Destaque</span></span>
             <div class="hero-copy">
-              <p class="kicker"><span class="dot"></span> App em destaque</p>
-              <h2 id="featured-title">Dump<br class="hero-break"> Studio<span class="title-period">.</span></h2>
+              <h2 id="featured-title">${dump.name}<span class="title-period">.</span></h2>
               <p class="hero-lede">${dump.headline}</p>
               <p class="hero-summary">${dump.summary}</p>
               <div class="actions">
-                <a class="button primary" href="${route(dump)}index.html">Conhecer o Dump Studio</a>
+                <a class="button primary" href="${route(dump)}index.html">Conhecer o ${dump.name}</a>
                 <a class="button secondary" href="${dump.download}" ${external}>Ver download</a>
               </div>
             </div>
