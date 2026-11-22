@@ -29,6 +29,23 @@ const socialLinks = [
   ['Instagram', 'https://www.instagram.com/felipeaguiar.exe/', '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.6h.01"/>']
 ];
 const searchIcon = '<circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 5 5"/>';
+const controllerIcon = '<path d="M7 7h10a4 4 0 0 1 3.9 3.3l1 5.3a2.6 2.6 0 0 1-4.4 2.3L15 15H9l-2.5 2.9a2.6 2.6 0 0 1-4.4-2.3l1-5.3A4 4 0 0 1 7 7Z"/><path d="M8 9.5v4M6 11.5h4M16 11.5h.01m2-2h.01"/>';
+const screenIcon = '<rect x="3" y="4" width="18" height="13" rx="2"/><path d="M12 17v3m-4 0h8"/>';
+const factIcons = {
+  Plataforma: screenIcon,
+  Distribuição: '<path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z"/><path d="m4 7.5 8 4.5 8-4.5M12 12v9m-4-15.75 8 4.5"/>',
+  Sistema: '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 10h18M10 3v18"/>',
+  Processador: '<rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9" y="9" width="6" height="6" rx="1"/><path d="M9 3v3m6-3v3M9 18v3m6-3v3M3 9h3m-3 6h3m12-6h3m-3 6h3"/>',
+  Memória: '<rect x="3" y="7" width="18" height="9" rx="1"/><path d="M6 16v3m4-3v3m4-3v3m4-3v3M7 11h2m2 0h2m2 0h2"/>',
+  Vídeo: screenIcon,
+  Armazenamento: '<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 15h16m-12 2.5h.01m3 0h.01"/>',
+  Controles: controllerIcon,
+  Jogadores: '<circle cx="9" cy="8" r="3"/><path d="M3 19v-1a5 5 0 0 1 5-5h2a5 5 0 0 1 5 5v1m.5-14a3 3 0 0 1 0 6m1.5 2a5 5 0 0 1 4 5v1"/>',
+  Idiomas: '<circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/>',
+  Projetos: '<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z"/>',
+  Exportação: '<path d="M12 4v11m-4-4 4 4 4-4M4 15v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"/>',
+  Desenvolvedor: '<circle cx="12" cy="8" r="3"/><path d="M5 20v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1"/>'
+};
 
 function lineIcon(paths, size = 19) {
   return `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
@@ -158,7 +175,7 @@ function home() {
   const filters = [
     ['all', 'Todas', '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>'],
     ['edicao', 'Edição', '<path d="m15 5 4 4M4 20l4.5-1 11-11a2.8 2.8 0 0 0-4-4l-11 11L4 20z"/>'],
-    ['entretenimento', 'Entretenimento', '<path d="M7 7h10a4 4 0 0 1 3.9 3.3l1 5.3a2.6 2.6 0 0 1-4.4 2.3L15 15H9l-2.5 2.9a2.6 2.6 0 0 1-4.4-2.3l1-5.3A4 4 0 0 1 7 7Z"/><path d="M8 9.5v4M6 11.5h4M16 11.5h.01m2-2h.01"/>']
+    ['entretenimento', 'Entretenimento', controllerIcon]
   ];
 
   return layout({
@@ -306,7 +323,8 @@ function factsList(items, base) {
     const content = avatar
       ? `<dd class="fact-person"><img src="${base + avatar}" width="30" height="30" alt="" loading="lazy">${escape(value)}</dd>`
       : `<dd>${escape(value)}</dd>`;
-    return `<div><dt>${name}</dt>${content}</div>`;
+    const icon = factIcons[name] ?? '<circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/>';
+    return `<div><dt>${lineIcon(icon, 16)}<span>${escape(name)}</span></dt>${content}</div>`;
   }).join('')}</dl>`;
 }
 
@@ -350,11 +368,15 @@ function projectPage(project) {
   </div>
 
   <nav class="section-nav" aria-label="Nesta página">
-    <a href="#sobre">Sobre</a><a href="#recursos">Recursos</a><a href="#instalacao">Instalação</a><a href="#perguntas">Perguntas frequentes</a>
+    <a href="#o-que-ele-faz">O que ele faz</a><a href="#sobre">Sobre</a><a href="#recursos">Recursos</a><a href="#instalacao">Instalação</a><a href="#perguntas">Perguntas frequentes</a>
   </nav>
 
   <div class="project-body">
     <div class="project-story">
+      <section class="story-intro" id="o-que-ele-faz" aria-labelledby="product-purpose-title">
+        <h2 id="product-purpose-title">O que ele faz</h2>
+        <p>${escape(project.whatItDoes ?? project.description)}</p>
+      </section>
       <section class="story-intro" id="sobre">
         <h2>${project.aboutTitle}</h2>
         <p>${project.about}</p>

@@ -35,6 +35,7 @@
         ['Exportação', 'JPG e PNG'],
         ['Desenvolvedor', 'Felipe Aguiar', 'assets/felipe-aguiar.jpg']
       ],
+      whatItDoes: 'Importe suas fotos, monte um carrossel e ajuste o visual com filtros e texturas. Salve o tratamento como preset para outros projetos e exporte cada página em JPG ou PNG.',
       aboutTitle: 'Uma sequência com o seu olhar',
       about: 'Um café no meio da tarde, o caminho de volta e o retrato que você quase apagou. No My Dump Studio, cada foto ganha um lugar na sequência. Escolha a composição, ajuste cada camada e veja o carrossel inteiro antes de exportar.',
       features: [
@@ -101,6 +102,7 @@
         ['Jogadores', 'Até 4 controles no launcher'],
         ['Desenvolvedor', 'Felipe Aguiar', 'assets/felipe-aguiar.jpg']
       ],
+      whatItDoes: 'Adicione pastas de ROMs e os executáveis de recomps e jogos de PC. O launcher reúne tudo em uma biblioteca com capas, filtros por sistema e favoritos para você escolher o que jogar pelo controle.',
       aboutTitle: 'Sua coleção pronta para jogar',
       about: 'Abra a biblioteca no sofá, passe pelas capas e filtre por console. O launcher reúne jogos de 19 sistemas, recompilações nativas e jogos de PC. Ao escolher um título, ele chama o emulador ou executável que você configurou.',
       features: [

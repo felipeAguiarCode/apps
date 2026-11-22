@@ -637,6 +637,7 @@ section[id], figure[id] { scroll-margin-top: 1.5rem; }
 .section-nav a:hover { color: var(--accent); }
 .project-body { display: grid; grid-template-columns: minmax(0, 2.22fr) minmax(0, 1fr); gap: 1.25rem; padding-top: 2rem; }
 .story-intro { padding-right: 1rem; }
+.story-intro + .story-intro { margin-top: 1.8rem; }
 .story-intro > p { max-width: 65ch; margin-top: .75rem; color: var(--muted); }
 .feature-list { margin-top: 2.15rem; }
 .feature-list > h2 { margin-bottom: .9rem; font-size: 1.6rem; }
@@ -657,15 +658,21 @@ section[id], figure[id] { scroll-margin-top: 1.5rem; }
 .feature p { margin-top: .38rem; color: var(--muted); line-height: 1.55; }
 
 .project-facts { display: grid; align-content: start; gap: .85rem; }
-.info-card { padding: 1rem 1.15rem; border: 1px solid var(--line); border-radius: .58rem; background: var(--surface); }
+.info-card { container: info-card / inline-size; padding: 1rem 1.15rem; border: 1px solid var(--line); border-radius: .58rem; background: var(--surface); }
 .info-card h2 { margin-bottom: .65rem; font-size: 1.17rem; }
-.facts > div { display: grid; grid-template-columns: minmax(5rem, .85fr) minmax(0, 1.15fr); gap: .65rem; padding-block: .5rem; border-top: 1px solid var(--line); font-size: .9rem; }
-.facts dt { color: var(--dim); }
+.facts > div { display: grid; grid-template-columns: minmax(8.25rem, .92fr) minmax(0, 1.08fr); gap: .65rem; padding-block: .5rem; border-top: 1px solid var(--line); font-size: .9rem; }
+.facts dt { display: flex; align-items: flex-start; gap: .45rem; color: var(--dim); }
+.facts dt svg { flex: none; margin-top: .2rem; color: var(--accent); opacity: .82; }
+.facts dt span, .facts dd { overflow-wrap: anywhere; }
 .facts dd { margin: 0; color: #e3dfea; }
 .fact-person { display: flex; align-items: center; gap: .52rem; }
 .fact-person img { flex: none; width: 1.85rem; height: 1.85rem; object-fit: cover; border-radius: 50%; }
 .facts > div:has(.fact-person) { align-items: center; }
 .info-card .text-link { display: block; width: fit-content; padding: .26rem 0; font-size: .91rem; }
+@container info-card (max-width: 16.5rem) {
+  .facts > div { grid-template-columns: minmax(0, 1fr); gap: .2rem; }
+  .facts dd { margin-inline-start: 1.45rem; }
+}
 
 .install {
   display: grid;
