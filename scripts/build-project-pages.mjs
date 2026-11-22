@@ -180,7 +180,7 @@ function home() {
               <p class="hero-lede">${dump.headline}</p>
               <p class="hero-summary">${dump.summary}</p>
               <div class="actions">
-                <a class="button primary" href="${route(dump)}index.html">Conhecer o ${dump.name}</a>
+                <a class="button primary" href="${route(dump)}index.html">Conhecer o Editor</a>
                 <a class="button secondary" href="${dump.download}" ${external}>Ver download</a>
               </div>
             </div>
