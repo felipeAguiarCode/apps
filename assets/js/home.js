@@ -230,3 +230,25 @@ document.querySelectorAll('[data-repo-stars]').forEach(async link => {
     // Keep the link available if GitHub is temporarily unreachable.
   }
 });
+
+const avatarRing = document.querySelector('[data-avatar-ring]');
+if (avatarRing && 'IntersectionObserver' in window) {
+  let progress = 0;
+  avatarRing.style.setProperty('--avatar-progress', '0turn');
+
+  const revealThreshold = 0.9;
+  const thresholds = Array.from({ length: 19 }, (_, index) => index / 20);
+  const revealRing = new IntersectionObserver((entries, observer) => {
+    const next = Math.min(1, entries.at(-1).intersectionRatio / revealThreshold);
+    if (next <= progress) return;
+
+    progress = next;
+    avatarRing.style.setProperty('--avatar-progress', `${progress}turn`);
+    if (progress === 1) {
+      avatarRing.classList.add('is-ring-complete');
+      observer.disconnect();
+    }
+  }, { threshold: thresholds });
+
+  revealRing.observe(avatarRing);
+}

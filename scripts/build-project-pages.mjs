@@ -256,7 +256,9 @@ function home() {
   </section>
 
   <section class="about-me" id="sobre" aria-labelledby="about-me-title">
-    <img class="about-photo" src="assets/felipe-aguiar.jpg" width="192" height="192" loading="lazy" alt="Foto de Felipe Aguiar">
+    <div class="about-avatar" data-avatar-ring>
+      <img class="about-photo" src="assets/felipe-aguiar.jpg" width="192" height="192" loading="lazy" alt="Foto de Felipe Aguiar">
+    </div>
     <div class="about-copy">
       <p class="kicker">Quem faz</p>
       <h2 id="about-me-title">Felipe Aguiar</h2>
