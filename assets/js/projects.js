@@ -143,6 +143,85 @@
         ['O que preciso fornecer para jogar?', 'Use suas próprias cópias de jogos e os arquivos de BIOS ou firmware exigidos por cada emulador. O launcher pode baixar emuladores das fontes oficiais.'],
         ['Posso levar a biblioteca para outro PC?', 'Copie a pasta base inteira, que reúne o launcher, as ROMs e os emuladores. Os caminhos relativos mantêm a biblioteca vinculada no outro computador.']
       ]
+    },
+    {
+      id: 'pixel',
+      slug: 'pixel-college-deluxe',
+      name: 'Pixel College Deluxe',
+      category: 'Futebol americano universitário',
+      categoryId: 'entretenimento',
+      platform: 'Navegador',
+      edition: 'Computador e celular',
+      headline: 'Do primeiro snap à final universitária.',
+      summary: 'Escolha entre 138 programas universitários, dispute partidas em pixel art e construa uma carreira de treinador.',
+      description: 'Futebol americano universitário em pixel art. Jogue uma partida rápida, dispute campeonatos ou assuma um time por várias temporadas. A ESPX TV acompanha os lances e também transmite partidas entre equipes controladas pela IA.',
+      repo: 'https://github.com/felipeAguiarCode/pixel-college-deluxe',
+      docs: 'https://github.com/felipeAguiarCode/pixel-college-deluxe/blob/main/README.pt-BR.md',
+      playUrl: 'https://felipeaguiarcode.github.io/pixel-college-deluxe/',
+      cta: 'Jogar no navegador',
+      cover: 'cover.webp',
+      video: 'demo.mp4',
+      screens: [
+        ['pre-snap.png', 'Alabama e Auburn alinhados antes do snap na chuva'],
+        ['passe.png', 'Jogada de passe entre Florida State e Clemson'],
+        ['corrida.png', 'Michigan e Michigan State disputam uma jogada de corrida na neve'],
+        ['recepcao.png', 'Desafio de precisão na recepção entre Texas A&M e LSU'],
+        ['espx-tv.png', 'A ESPX TV comenta o intervalo de Georgia e Tennessee']
+      ],
+      tags: ['Esportes', 'Pixel art', 'Carreira'],
+      facts: [
+        ['Plataforma', 'Navegador no computador ou celular'],
+        ['Idiomas', 'Português (Brasil) e inglês'],
+        ['Controles', 'Teclado e mouse ou toque'],
+        ['Equipes', '138 programas da FBS'],
+        ['Progresso', 'Carreira e campeonato salvos no navegador'],
+        ['Desenvolvedor', 'Felipe Aguiar', 'assets/felipe-aguiar.jpg']
+      ],
+      whatItDoes: 'Escolha seu time, chame as jogadas e execute passes, corridas e chutes. Você pode disputar uma partida rápida, jogar um campeonato ou cuidar do elenco e do recrutamento ao longo de várias temporadas.',
+      aboutTitle: 'Cada descida muda a decisão',
+      about: 'Você tem quatro descidas para ganhar dez jardas. Leia a defesa antes do snap e escolha entre avançar aos poucos ou arriscar um passe longo. A chuva dificulta a recepção, a neve encurta os passes e o vento pode desviar o chute.',
+      features: [
+        {
+          title: 'Aprenda o playbook em partidas rápidas',
+          body: 'Escolha os dois times, a dificuldade, o clima e a duração dos quartos. Observe as rotas e a cobertura antes de chamar o snap.',
+          screen: 0
+        },
+        {
+          title: 'Construa uma carreira de treinador',
+          body: 'Recrute atletas com o fundo de bolsas, administre lesões e notas e invista nas instalações. A temporada regular tem 12 jogos, com chance de disputar a final da conferência, um bowl ou o playoff nacional.'
+        },
+        {
+          title: 'Dispute campeonatos e desafios de virada',
+          body: 'Jogue ou simule as rodadas do campeonato nacional ou de uma conferência. Nos desafios, cinco academias militares têm quatro cenários de virada cada, com troféus por vitória.',
+          screen: 3
+        },
+        {
+          title: 'Assista às partidas pela ESPX TV',
+          body: 'Escolha duas equipes e deixe a IA disputar os quatro quartos. Acompanhe a transmissão em velocidade normal, 2× ou 4×.',
+          screen: 4
+        },
+        {
+          title: 'Personalize seus times',
+          body: 'Edite nome, mascote, cores, capacete e força do programa. Com uma carreira ativa, você também pode ajustar nomes, números e posições do elenco.'
+        }
+      ],
+      stepsTitle: 'Como começar',
+      steps: [
+        ['Abra o jogo', 'Use Jogar no navegador. Para mudar o idioma, acesse Settings › Language › Português (Brasil).'],
+        ['Escolha o confronto', 'Entre em Jogo Rápido e selecione os times. Para aprender os comandos, escolha Rookie, tempo limpo e quartos de um minuto.'],
+        ['Faça o primeiro snap', 'Confirme a jogada e pressione Espaço para iniciar o lance. No celular, toque no campo.']
+      ],
+      installTitle: 'Sua primeira partida',
+      install: 'Abra o jogo no navegador e escolha dois times. Se jogar no celular, vire a tela na horizontal para enxergar melhor o campo.',
+      questions: [
+        ['Dá para jogar no celular?', 'Sim. Escolha a jogada pelo cartão, toque no campo para o snap e toque ou arraste para passar a bola. Jogue na horizontal para ter uma visão mais ampla.'],
+        ['Onde o progresso fica salvo?', 'A carreira e o campeonato ficam no navegador. Use o mesmo perfil para continuar. Para guardar uma cópia da carreira, abra a opção de exportar o save nas configurações.'],
+        ['Posso só assistir à partida?', 'Sim. Em Assistir Partida, você escolhe os times e a IA joga os quatro quartos. A transmissão tem opções de velocidade de 1×, 2× e 4×.'],
+        ['Posso jogar offline?', 'Sim. Baixe o repositório, extraia os arquivos e abra index.html com a pasta assets no mesmo local.']
+      ],
+      credits: [
+        ['Créditos da arte', 'https://github.com/felipeAguiarCode/pixel-college-deluxe/blob/main/assets/docs/art-credits.md']
+      ]
     }
   ];
 })();

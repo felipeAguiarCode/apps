@@ -27,6 +27,20 @@
         "trophies.jpg": "Frame of docs/media/trofeus-tema-claro-escuro.gif",
         "keyboard.jpg": "Frame of docs/media/teclado-virtual.gif"
       }
+    },
+    "pixel": {
+      "source": "https://github.com/felipeAguiarCode/pixel-college-deluxe",
+      "revision": "3b211df32e0ec9462d1a8f616a144611534b85ae",
+      "video": "Watch Game recording from https://felipeaguiarcode.github.io/pixel-college-deluxe/",
+      "images": {
+        "cover.webp": "assets/menu/menu-cover.webp",
+        "pre-snap.png": ".demo/01-chuva-alabama-auburn-pre-snap.png",
+        "passe.png": ".demo/02-chuva-florida-state-clemson-passe.png",
+        "corrida.png": ".demo/05-neve-michigan-michigan-state-handoff.png",
+        "recepcao.png": ".demo/09-qte-texas-am-lsu-recepcao.png",
+        "espx-tv.png": ".demo/25-espx-tv-halftime-georgia-tennessee.png"
+      },
+      "credits": "https://github.com/felipeAguiarCode/pixel-college-deluxe/blob/main/assets/docs/art-credits.md"
     }
   }
 }

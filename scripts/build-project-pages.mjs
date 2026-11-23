@@ -42,6 +42,8 @@ const factIcons = {
   Controles: controllerIcon,
   Jogadores: '<circle cx="9" cy="8" r="3"/><path d="M3 19v-1a5 5 0 0 1 5-5h2a5 5 0 0 1 5 5v1m.5-14a3 3 0 0 1 0 6m1.5 2a5 5 0 0 1 4 5v1"/>',
   Idiomas: '<circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/>',
+  Equipes: '<path d="M3 21V4m0 1c4-3 8 3 12 0v10c-4 3-8-3-12 0"/><path d="M18 9h3v9h-6v-2"/>',
+  Progresso: '<path d="M5 4h12l2 2v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4Z"/><path d="M8 4v6h7V4m-6 16v-5h6v5"/>',
   Projetos: '<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z"/>',
   Exportação: '<path d="M12 4v11m-4-4 4 4 4-4M4 15v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"/>',
   Desenvolvedor: '<circle cx="12" cy="8" r="3"/><path d="M5 20v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1"/>'
@@ -119,10 +121,11 @@ ${content}
         <h2>Apps</h2>
         ${projects.map(app => `<a href="${base}${route(app)}index.html">${app.name}<small>${app.category}</small></a>`).join('\n        ')}
       </nav>
-      <nav class="footer-col" aria-label="Downloads">
-        <h2>Downloads</h2>
+      <nav class="footer-col" aria-label="Jogar e baixar">
+        <h2>Jogar e baixar</h2>
         <a href="${dump.download}" ${external}>Download do ${dump.name}</a>
         <a href="${ps5.download}" ${external}>Último release do ${ps5.name}</a>
+        ${projects.filter(app => app.playUrl).map(app => `<a href="${app.playUrl}" ${external}>Jogar ${app.name}</a>`).join('\n        ')}
       </nav>
     </div>
     <div class="footer-bottom">
@@ -144,11 +147,15 @@ function catalogCard(project) {
   const starsAPI = project.repo.replace('https://github.com/', 'https://api.github.com/repos/');
   const star = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.5 4.4 1 6.2L12 17.3l-5.6 2.9 1.1-6.2L3 9.6l6.2-.9L12 3Z"/></svg>';
   const summary = project.summary ?? project.description;
+  const frames = project.screens.map(([file]) => file);
+  if (project.cover) frames.unshift(project.cover);
+  const detailLabel = project.playUrl ? 'Conhecer o jogo' : (isDump ? 'Conhecer o editor' : 'Conhecer o launcher');
+  const actionLabel = project.playUrl ? project.cta : (isDump ? 'Ver download' : 'Ver último release');
   const searchText = [name, project.repo.split('/').at(-1), project.slug, project.category, summary, ...project.tags].join(' ');
   return `<article class="catalog-entry theme-${project.id}" data-category="${project.categoryId}" data-search-text="${escape(searchText)}">
         <div class="catalog-preview" data-card-preview>
           <a class="catalog-image" href="${destination}#midia" aria-label="Ver o vídeo e as capturas de ${name}">
-            ${project.screens.map(([file], index) => `<img class="preview-image${index === 0 ? ' is-current' : ''}" src="${media(project, file)}" alt="" loading="lazy">`).join('\n            ')}
+            ${frames.map((file, index) => `<img class="preview-image${index === 0 ? ' is-current' : ''}" src="${media(project, file)}" alt="" loading="lazy">`).join('\n            ')}
             <video class="preview-video" src="${media(project, project.video)}" muted loop playsinline preload="none" aria-hidden="true"></video>
             <span class="catalog-play">Ver galeria</span>
           </a>
@@ -162,8 +169,8 @@ function catalogCard(project) {
           ${tagList(project.tags)}
           <div class="catalog-footer">
             <div class="actions">
-              <a class="button primary" href="${destination}">${isDump ? 'Conhecer o editor' : 'Conhecer o launcher'}</a>
-              <a class="button secondary" href="${project.download}" ${external}>${isDump ? 'Ver download' : 'Ver último release'}</a>
+              <a class="button primary" href="${destination}">${detailLabel}</a>
+              <a class="button secondary" href="${project.playUrl ?? project.download}" ${external}>${actionLabel}</a>
             </div>
             <a class="repo-stars" href="${project.repo}/stargazers" ${external} data-repo-stars="${starsAPI}" aria-label="Ver estrelas de ${name} no GitHub" title="Estrelas no GitHub">${star}<span data-star-count hidden></span></a>
           </div>
@@ -180,7 +187,7 @@ function home() {
 
   return layout({
     title: 'My App Store',
-    description: `Monte carrosséis com o ${dump.name} e jogue sua biblioteca pelo controle com o ${ps5.name}. Veja os vídeos, as capturas e onde baixar.`,
+    description: 'Explore editores, launchers e jogos de navegador criados por Felipe Aguiar. Veja os vídeos, as capturas e onde jogar ou baixar.',
     canonical: siteURL,
     image: media(dump, dump.screens[0][0]),
     content: `  <main id="conteudo" class="shell home">
@@ -268,7 +275,7 @@ function home() {
     <p class="catalog-query" data-catalog-query hidden>Resultados para “<span></span>”. <a href="index.html#projetos">Limpar busca</a></p>
     <p class="catalog-empty" data-catalog-empty hidden>Nenhum app encontrado.</p>
     <div class="catalog-list" id="catalog-list">
-      ${[ps5, dump].map(catalogCard).join('\n      ')}
+      ${[ps5, ...projects.filter(app => app !== ps5)].map(catalogCard).join('\n      ')}
     </div>
   </section>
 
@@ -314,8 +321,8 @@ function gallery(project, base) {
     </figure>`;
 }
 
-function downloadButton(project) {
-  return `<a class="button primary" href="${project.download}" ${external}>${project.cta}</a>`;
+function projectAction(project) {
+  return `<a class="button primary" href="${project.playUrl ?? project.download}" ${external}>${project.cta}</a>`;
 }
 
 function factsList(items, base) {
@@ -332,12 +339,14 @@ function projectPage(project) {
   const base = '../../';
   const other = projects.find(app => app !== project);
   const isDump = project === dump;
-  const cover = base + media(project, project.screens[0][0]);
+  const coverFile = project.cover ?? project.screens[0][0];
+  const cover = base + media(project, coverFile);
+  const setupSection = project.playUrl ? 'como-jogar' : 'instalacao';
   return layout({
     title: `${project.name} | Apps de Felipe Aguiar`,
     description: project.description,
     canonical: new URL(route(project), siteURL),
-    image: media(project, project.screens[0][0]),
+    image: media(project, coverFile),
     project,
     content: `  <main id="conteudo" class="shell project">
   <div class="project-hero">
@@ -361,14 +370,14 @@ function projectPage(project) {
         <p>${project.description}</p>
         ${tagList(project.tags)}
         <p class="platform">${project.platform} · ${isDump ? 'Edição local' : project.edition}</p>
-        ${downloadButton(project)}
+        ${projectAction(project)}
         <a class="text-link" href="${project.repo}" ${external}>Ver repositório no GitHub</a>
       </div>
     </aside>
   </div>
 
   <nav class="section-nav" aria-label="Nesta página">
-    <a href="#o-que-ele-faz">O que ele faz</a><a href="#sobre">Sobre</a><a href="#recursos">Recursos</a><a href="#instalacao">Instalação</a><a href="#perguntas">Perguntas frequentes</a>
+    <a href="#o-que-ele-faz">O que ele faz</a><a href="#sobre">Sobre</a><a href="#recursos">Recursos</a><a href="#${setupSection}">${project.playUrl ? 'Como jogar' : 'Instalação'}</a><a href="#perguntas">Perguntas frequentes</a>
   </nav>
 
   <div class="project-body">
@@ -383,8 +392,8 @@ function projectPage(project) {
       </section>
       <section class="feature-list" id="recursos" aria-labelledby="features-title">
         <h2 id="features-title">Recursos</h2>
-        ${project.features.map(({ title, body, screen }) => `<article class="feature${screen === undefined ? ' feature-text' : ''}">
-          ${screen === undefined ? '' : `<img src="${base + media(project, project.screens[screen][0])}" alt="${project.screens[screen][1]}" loading="lazy">`}
+        ${project.features.map(({ title, body, screen }) => `<article class="feature${screen === undefined ? ' feature-text' : ''}">${screen === undefined ? '' : `
+          <img src="${base + media(project, project.screens[screen][0])}" alt="${project.screens[screen][1]}" loading="lazy">`}
           <div><h3>${title}</h3><p>${body}</p></div>
         </article>`).join('\n          ')}
       </section>
@@ -404,11 +413,11 @@ function projectPage(project) {
     </aside>
   </div>
 
-  <section class="install" id="instalacao" aria-labelledby="install-title">
+  <section class="install" id="${setupSection}" aria-labelledby="install-title">
     <div class="install-copy">
       <h2 id="install-title">${project.installTitle}</h2>
       <p>${project.install}</p>
-      <div class="actions">${downloadButton(project)}${project.demo ? `<a class="button secondary" href="${project.demo}" ${external}>${project.demoLabel}</a>` : ''}</div>
+      <div class="actions">${projectAction(project)}${project.demo ? `<a class="button secondary" href="${project.demo}" ${external}>${project.demoLabel}</a>` : ''}</div>
     </div>
     <div class="install-steps">
       <h3>${project.stepsTitle || 'Da criação à exportação'}</h3>
