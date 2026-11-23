@@ -1,3 +1,5 @@
+const mobileLayout = matchMedia('(max-width: 42rem), (max-width: 56rem) and (hover: none) and (pointer: coarse)');
+
 (() => {
   'use strict';
 
@@ -6,16 +8,22 @@
 
   const controls = stories.querySelector('.story-controls');
   const toggle = controls.querySelector('.story-toggle');
+  const track = stories.querySelector('.story-slides');
   const slides = [...stories.querySelectorAll('[data-story]')];
   if (slides.length < 2) return;
   const buttons = [...controls.querySelectorAll('[data-story-button]')];
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   let active = 0;
   let timer;
+  let scrollTimer;
   let paused = motion.matches;
   let inView = true;
 
-  function select(index) {
+  function slideOffset(slide) {
+    return track.scrollLeft + slide.getBoundingClientRect().left - track.getBoundingClientRect().left;
+  }
+
+  function select(index, scroll = true) {
     active = (index + slides.length) % slides.length;
     slides.forEach((slide, position) => {
       const selected = position === active;
@@ -23,6 +31,9 @@
       slide.inert = !selected;
       buttons[position].setAttribute('aria-pressed', String(selected));
     });
+    if (scroll && mobileLayout.matches) {
+      track.scrollTo({ left: slideOffset(slides[active]), behavior: motion.matches ? 'instant' : 'smooth' });
+    }
     schedule();
   }
 
@@ -42,6 +53,19 @@
     arrow.addEventListener('click', () => select(active + Number(arrow.dataset.storyStep)));
   });
   buttons.forEach((button, index) => button.addEventListener('click', () => select(index)));
+  track.addEventListener('scroll', () => {
+    if (!mobileLayout.matches) return;
+    clearTimeout(timer);
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => {
+      const distances = slides.map(slide => Math.abs(slideOffset(slide) - track.scrollLeft));
+      select(distances.indexOf(Math.min(...distances)), false);
+    }, 140);
+  }, { passive: true });
+  mobileLayout.addEventListener('change', () => {
+    clearTimeout(scrollTimer);
+    select(active);
+  });
   toggle.addEventListener('click', () => {
     paused = !paused;
     schedule();
@@ -138,7 +162,6 @@ document.querySelectorAll('[data-card-preview]').forEach(preview => {
   const toggle = preview.querySelector('.preview-toggle');
   const name = toggle.dataset.previewName;
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
-  const mobileLayout = matchMedia('(max-width: 42rem), (max-width: 56rem) and (hover: none) and (pointer: coarse)');
   let current = 0;
   let visible = !('IntersectionObserver' in window);
   let hovered = false;

@@ -510,6 +510,7 @@ section[id], figure[id] { scroll-margin-top: 1.5rem; }
 .catalog-copy p:not(.kicker) { color: #d2d6e8; }
 .catalog-copy .catalog-lede { margin-bottom: .25rem; color: var(--text); font-weight: 700; }
 .catalog-footer { display: flex; flex-wrap: wrap; align-items: flex-end; gap: .7rem; margin-top: 1.3rem; }
+.catalog-mobile-action { display: none; }
 .repo-stars {
   display: inline-flex;
   align-items: center;
@@ -860,8 +861,15 @@ section[id], figure[id] { scroll-margin-top: 1.5rem; }
 }
 @media (max-width: 42rem), (max-width: 56rem) and (hover: none) and (pointer: coarse) {
   .shell { width: calc(100% - 2rem); }
-  .header-inner { column-gap: .45rem; }
-  .header-inner .brand { white-space: normal; }
+  .header-inner { grid-template-columns: auto minmax(0, 1fr); column-gap: .45rem; }
+  .header-inner .brand {
+    grid-column: 2;
+    grid-row: 1;
+    flex-direction: row-reverse;
+    justify-self: end;
+    text-align: right;
+    white-space: normal;
+  }
   .header-actions { display: contents; }
   .site-nav, .header-source { display: none; }
   .site-search { grid-column: 1 / -1; grid-row: 2; width: 100%; }
@@ -870,9 +878,9 @@ section[id], figure[id] { scroll-margin-top: 1.5rem; }
     display: block;
     position: relative;
     z-index: 5;
-    grid-column: 2;
+    grid-column: 1;
     grid-row: 1;
-    justify-self: end;
+    justify-self: start;
   }
   .mobile-menu summary {
     display: grid;
@@ -891,7 +899,7 @@ section[id], figure[id] { scroll-margin-top: 1.5rem; }
   .mobile-menu-links {
     position: absolute;
     inset-block-start: calc(100% + .5rem);
-    inset-inline-end: 0;
+    inset-inline-start: 0;
     display: grid;
     width: min(15rem, calc(100vw - 2rem));
     padding: .35rem;
@@ -913,31 +921,101 @@ section[id], figure[id] { scroll-margin-top: 1.5rem; }
   .mobile-menu-links a:is(:hover, :focus-visible) { background: var(--surface-strong); }
   .home, .project, .site-footer { text-align: center; }
   .home { padding-top: 1.1rem; padding-bottom: 2.8rem; }
-  .hero-slide, .catalog-entry { grid-template-columns: minmax(0, 1fr); }
-  .hero-slide { grid-template-rows: 1fr auto auto; }
-  .hero-copy { align-items: center; padding: 1.65rem 1.2rem 1.45rem; }
-  .hero-slide.theme-dump .hero-copy { padding-top: 5rem; }
-  .story-arrow { top: auto; bottom: calc(11vw + 3rem); width: 2.25rem; height: 2.75rem; transform: none; }
-  .story-arrow.previous { left: -.45rem; }
-  .story-arrow.next { right: -.45rem; }
-  .hero-copy h2 { font-size: clamp(2.9rem, 11vw, 5.3rem); }
-  .theme-ps5 .hero-copy h2 { font-size: clamp(2.25rem, 9vw, 3.75rem); }
-  .hero-art { min-height: 0; aspect-ratio: 1.37; }
+  .story-slides {
+    display: flex;
+    gap: .7rem;
+    overflow: hidden;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    border: 0;
+    border-radius: 0;
+  }
+  .story-slides::-webkit-scrollbar { display: none; }
+  .story-slides .hero-slide {
+    position: relative;
+    flex: 0 0 calc(100% - 1.85rem);
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto 1fr auto;
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    opacity: 1;
+    visibility: visible;
+    scroll-snap-align: start;
+    transition: none;
+  }
+  .story-slides .hero-slide:only-child { flex-basis: 100%; }
+  .story-arrow { display: none; }
+  .hero-art { grid-area: 1 / 1; min-height: 0; aspect-ratio: 1.55; }
+  .hero-copy { grid-area: 2 / 1; align-items: center; justify-content: start; padding: 1.15rem 1rem; }
+  .hero-copy h2, .theme-ps5 .hero-copy h2 { margin-block: .25rem .6rem; font-size: clamp(2.15rem, 7.7vw, 3.6rem); line-height: .94; }
   .art-editor { bottom: 7%; }
   .print { border-width: .28rem; border-bottom-width: 1rem; }
-  .app-strip { justify-content: center; font-size: .82rem; }
+  .app-strip { grid-area: 3 / 1; justify-content: center; padding-block: .55rem; font-size: .79rem; }
   .app-strip > :last-child { display: none; }
   .home-catalog { margin-top: 2rem; }
   .catalog-heading, .catalog-filters, .tags { justify-content: center; }
   .catalog-search { width: 100%; }
   .catalog-filters button { gap: .28rem; padding-inline: .3rem; font-size: .84rem; }
   .catalog-filters button svg { width: .875rem; height: .875rem; }
-  .catalog-preview { min-height: 0; }
-  .catalog-image { position: relative; inset: auto; display: block; width: 100%; aspect-ratio: 16 / 9; }
-  .catalog-footer { flex-direction: column; align-items: center; }
-  .repo-stars { margin-inline: auto; }
+  .catalog-list { gap: 0; }
+  .catalog-list .catalog-entry {
+    position: relative;
+    grid-template-columns: 4rem minmax(0, 1fr);
+    align-items: start;
+    gap: .75rem;
+    padding: .9rem .2rem;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    border-radius: 0;
+    background: transparent;
+  }
+  .catalog-preview { min-height: 0; overflow: hidden; border: 1px solid var(--line); border-radius: .85rem; }
+  .catalog-image { position: relative; inset: auto; display: block; width: 100%; aspect-ratio: 1; }
+  .catalog-image::after, .catalog-play, .preview-toggle { display: none; }
+  .catalog-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    align-self: start;
+    padding: .1rem 3.45rem .1rem 0;
+    text-align: start;
+  }
+  .catalog-copy h3 { order: -1; margin: 0 0 .2rem; font-size: 1.08rem; letter-spacing: -.025em; }
+  .catalog-copy .kicker { color: var(--muted); font-size: .83rem; font-weight: 500; letter-spacing: normal; text-transform: none; }
+  .catalog-copy :is(.catalog-lede, .catalog-lede + p, .tags), .catalog-footer .actions { display: none; }
+  .catalog-footer { display: contents; }
+  .catalog-mobile-action {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.25rem;
+    margin-top: .4rem;
+    padding: .3rem .8rem;
+    border: 1px solid color-mix(in srgb, var(--accent) 27%, var(--line));
+    border-radius: 1rem;
+    background: var(--wash);
+    color: var(--accent);
+    font-size: .83rem;
+    font-weight: 700;
+  }
+  .repo-stars {
+    position: absolute;
+    inset-block-start: .8rem;
+    inset-inline-end: .2rem;
+    justify-content: center;
+    gap: .3rem;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    margin: 0;
+    padding: .3rem .4rem;
+    border-radius: .65rem;
+    background: var(--surface);
+    font-size: .79rem;
+  }
   .hero-copy .actions,
-  .catalog-footer .actions,
   .about-copy .actions,
   .install-copy .actions {
     flex-direction: column;

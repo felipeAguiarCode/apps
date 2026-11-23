@@ -27,13 +27,16 @@
     const element = document.createElement(video ? 'video' : 'img');
 
     if (video) {
-      element.src = video;
       element.poster = image;
       element.controls = true;
+      element.autoplay = true;
+      element.defaultMuted = true;
+      element.muted = true;
       element.loop = true;
       element.playsInline = true;
-      element.preload = 'none';
+      element.preload = 'metadata';
       element.setAttribute('aria-label', label);
+      element.src = video;
     } else {
       element.src = image;
       element.alt = label;

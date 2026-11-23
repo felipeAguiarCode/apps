@@ -213,6 +213,7 @@ function catalogCard({ project, tab }) {
           ${tagList(project.tags)}
           <div class="catalog-footer">
             ${homeActions(project)}
+            <a class="catalog-mobile-action" href="${destination}">Ver app</a>
             <a class="repo-stars" href="${project.repo}" ${external} data-repo-stars="${starsAPI}" aria-label="Dar uma estrela a ${name} no GitHub" title="Dar uma estrela no GitHub">${star}<span data-star-count hidden></span></a>
           </div>
         </div>
@@ -358,7 +359,7 @@ function gallery(project, base) {
   return `<figure class="gallery" data-gallery id="midia" aria-label="Galeria de ${project.name}">
       <div class="gallery-stage" data-stage>
         <div class="gallery-media" data-media>
-          <video src="${videoURL}" poster="${posterURL}" controls loop playsinline preload="none" aria-label="Vídeo de demonstração de ${project.name}"></video>
+          <video src="${videoURL}" poster="${posterURL}" controls autoplay muted loop playsinline preload="metadata" aria-label="Vídeo de demonstração de ${project.name}"></video>
         </div>
         <button class="gallery-nav previous" type="button" data-step="-1" aria-label="Mídia anterior" hidden>${chevron}</button>
         <button class="gallery-nav next" type="button" data-step="1" aria-label="Próxima mídia" hidden>${chevron}</button>
