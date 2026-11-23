@@ -8,7 +8,6 @@
       slug: 'dump-studio',
       name: 'My Dump Studio',
       category: 'Editor de fotos e carrosséis',
-      categoryId: 'edicao',
       platform: 'Windows',
       edition: 'Cherry Pie Version',
       headline: 'Do rolo de câmera ao carrossel.',
@@ -77,7 +76,6 @@
       slug: 'ps5-emushell',
       name: 'psEmuShell',
       category: 'Launcher de jogos',
-      categoryId: 'entretenimento',
       platform: 'Windows 10 / 11 · 64 bits',
       edition: 'Versão portátil',
       headline: 'Da biblioteca ao jogo, pelo controle.',
@@ -149,7 +147,6 @@
       slug: 'pixel-college-deluxe',
       name: 'Pixel College Deluxe',
       category: 'Futebol americano universitário',
-      categoryId: 'entretenimento',
       platform: 'Navegador',
       edition: 'Computador e celular',
       headline: 'Do primeiro snap à final universitária.',
@@ -166,7 +163,12 @@
         ['passe.png', 'Jogada de passe entre Florida State e Clemson'],
         ['corrida.png', 'Michigan e Michigan State disputam uma jogada de corrida na neve'],
         ['recepcao.png', 'Desafio de precisão na recepção entre Texas A&M e LSU'],
-        ['espx-tv.png', 'A ESPX TV comenta o intervalo de Georgia e Tennessee']
+        ['espx-tv.png', 'A ESPX TV comenta o intervalo de Georgia e Tennessee'],
+        ['field-goal.png', 'Tentativa de field goal na neve entre Ohio State e Penn State'],
+        ['cover-2.png', 'Notre Dame e Iowa alinhados para uma defesa Cover 2'],
+        ['defesa-passe.png', 'Desafio de defesa do passe entre Miami e Florida'],
+        ['uma-mao.png', 'Destaque de uma recepção com uma mão entre USC e UCLA'],
+        ['neblina.png', 'A neblina toma o campo na transmissão de Army e Navy']
       ],
       tags: ['Esportes', 'Pixel art', 'Carreira'],
       facts: [
@@ -179,12 +181,53 @@
       ],
       whatItDoes: 'Escolha seu time, chame as jogadas e execute passes, corridas e chutes. Você pode disputar uma partida rápida, jogar um campeonato ou cuidar do elenco e do recrutamento ao longo de várias temporadas.',
       aboutTitle: 'Cada descida muda a decisão',
-      about: 'Você tem quatro descidas para ganhar dez jardas. Leia a defesa antes do snap e escolha entre avançar aos poucos ou arriscar um passe longo. A chuva dificulta a recepção, a neve encurta os passes e o vento pode desviar o chute.',
+      about: 'Você tem quatro descidas para ganhar dez jardas e conquistar uma nova série. Um touchdown vale seis pontos e abre a escolha entre chutar o ponto extra ou tentar uma conversão de dois pontos. Se o placar estiver empatado no fim do tempo regulamentar, a partida vai para a prorrogação.',
+      mechanics: [
+        {
+          title: 'Leia as rotas antes do snap',
+          body: 'Use ← e → para percorrer o playbook e ↑ e ↓ para trocar as abas de ataque. Enter confirma a escolha. Antes de apertar Espaço para iniciar o lance, compare as rotas coloridas com a posição dos defensores e a barra de espaço sob cada recebedor.',
+          screen: 0
+        },
+        {
+          title: 'Coloque o passe onde há espaço',
+          body: 'Q, W, E, R e T miram nos recebedores marcados no campo. Y escolhe o mais livre. Toque e solte a tecla para um passe alto ou segure para lançar forte. Com o mouse, clique e arraste para escolher o ponto do passe e solte com Shift para aumentar a força.',
+          screen: 1
+        },
+        {
+          title: 'Acerte a janela da recepção',
+          body: 'Um recebedor livre tem uma faixa verde maior na barra de precisão. A marcação apertada diminui ou desloca essa janela. Acerte o trecho dourado, quando aparecer, para completar uma recepção com uma mão.',
+          screen: 8
+        },
+        {
+          title: 'Corra por fora ou escape da pressão',
+          body: 'Em uma jogada de corrida, o quarterback entrega a bola automaticamente ao running back. Para escapar do pocket com o quarterback, aperte C. Depois, use W e S ou ↑ e ↓ para desviar, Shift para acelerar e E ou Espaço para mergulhar.',
+          screen: 2
+        },
+        {
+          title: 'Escolha a cobertura pela situação',
+          body: 'Use Blitz para pressionar o quarterback. Cover 2 divide o fundo entre dois safeties e protege as laterais. Nickel coloca cinco defensive backs no campo, enquanto Goal Line reforça a linha quando faltam poucas jardas.',
+          screen: 6
+        },
+        {
+          title: 'Transforme a defesa em interceptação',
+          body: 'No desafio de defesa do passe, siga as teclas e setas indicadas. Uma sequência perfeita garante a interceptação. Com 80% ou mais de acerto, você derruba o recebedor depois da captura. Abaixo disso, ele escapa.',
+          screen: 7
+        },
+        {
+          title: 'Decida o que fazer na quarta descida',
+          body: 'Se o time estiver ao alcance, um field goal rende três pontos. Pressione Espaço quando o marcador entrar no verde. Fora do alcance, escolha entre devolver a bola com um punt ou arriscar as jardas que faltam.',
+          screen: 5
+        },
+        {
+          title: 'Adapte o plano ao clima',
+          body: 'Chuva e temporal reduzem a precisão dos passes e dificultam a recepção. A neve corta o alcance e dificulta as mudanças de direção. O vento desvia passes e chutes. Sob neblina, a visibilidade no campo cai.',
+          screen: 9
+        }
+      ],
       features: [
         {
           title: 'Aprenda o playbook em partidas rápidas',
-          body: 'Escolha os dois times, a dificuldade, o clima e a duração dos quartos. Observe as rotas e a cobertura antes de chamar o snap.',
-          screen: 0
+          body: 'Escolha os dois times, a dificuldade, o clima e a duração dos quartos. Use o Jogo Rápido para testar uma rivalidade ou treinar um playbook antes de entrar em um campeonato.'
         },
         {
           title: 'Construa uma carreira de treinador',

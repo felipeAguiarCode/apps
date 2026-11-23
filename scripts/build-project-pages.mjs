@@ -10,7 +10,44 @@ const github = 'https://github.com/felipeAguiarCode';
 const catalog = { window: {} };
 vm.runInNewContext(fs.readFileSync(path.join(root, 'assets/js/projects.js'), 'utf8'), catalog);
 const projects = catalog.window.PORTFOLIO_PROJECTS;
-const [dump, ps5] = projects;
+const projectsById = new Map(projects.map(project => [project.id, project]));
+const dump = projectsById.get('dump');
+const ps5 = projectsById.get('ps5');
+const homeConfig = JSON.parse(fs.readFileSync(path.join(root, 'home.config.json'), 'utf8'));
+const sectionLinks = {
+  featured: ['destaques', 'Destaques'],
+  catalog: ['projetos', 'Todos os apps'],
+  about: ['sobre', 'Sobre mim']
+};
+const tabIds = new Set(homeConfig.tabs.map(tab => tab.id));
+if (!tabIds.has('all') || tabIds.size !== homeConfig.tabs.length) {
+  throw new Error('As abas em home.config.json devem incluir o ID all e usar IDs únicos.');
+}
+
+function configuredProjects(entries) {
+  const seen = new Set();
+  return entries.map(({ id, ...settings }) => {
+    const project = projectsById.get(id);
+    if (!project || seen.has(id)) throw new Error(`Projeto desconhecido ou repetido em home.config.json: ${id}`);
+    seen.add(id);
+    return { project, ...settings };
+  });
+}
+
+const featuredProjects = configuredProjects(homeConfig.featured);
+for (const { project, durationMs } of featuredProjects) {
+  if (!Number.isFinite(durationMs) || durationMs <= 0) {
+    throw new Error(`Informe uma duração positiva em milissegundos para o destaque ${project.id}.`);
+  }
+}
+const catalogEntries = configuredProjects(homeConfig.catalog).filter(entry => entry.visible !== false);
+for (const { project, tab } of catalogEntries) {
+  if (tab === 'all' || !tabIds.has(tab)) throw new Error(`Aba inválida para ${project.id} em home.config.json: ${tab}`);
+}
+const homeSections = [...new Set(homeConfig.sections)].filter(section => section !== 'featured' || featuredProjects.length > 0);
+for (const section of homeSections) {
+  if (!Object.hasOwn(sectionLinks, section)) throw new Error(`Seção desconhecida em home.config.json: ${section}`);
+}
 
 const escape = value => String(value).replace(/[&<>"']/g, char => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
@@ -86,16 +123,17 @@ function layout({ title, description, canonical, image, project, content }) {
 <header class="site-header">
   <div class="shell header-inner">
     ${brand(base)}
-    <nav class="site-nav" aria-label="Menu principal">
-      <a href="${homePath}#destaques">Destaques</a>
-      <a href="${homePath}#projetos">Todos os apps</a>
-      <a href="${homePath}#sobre">Sobre mim</a>
-    </nav>
+    ${homeSections.length ? `<nav class="site-nav" aria-label="Menu principal">
+      ${homeSections.map(section => {
+        const [anchor, label] = sectionLinks[section];
+        return `<a href="${homePath}#${anchor}">${label}</a>`;
+      }).join('\n      ')}
+    </nav>` : ''}
     <div class="header-actions">
-      <form class="search-field site-search" role="search" aria-label="Busca principal" action="${base}index.html#projetos" method="get">
+      ${homeSections.includes('catalog') ? `<form class="search-field site-search" role="search" aria-label="Busca principal" action="${base}index.html#projetos" method="get">
         <input type="search" name="q" placeholder="Buscar apps" aria-label="Buscar apps" enterkeyhint="search">
         <button type="submit" aria-label="Pesquisar">${lineIcon(searchIcon, 18)}</button>
-      </form>
+      </form>` : ''}
       <a class="header-source" href="${github}" ${external}>${lineIcon(githubLogo, 17)}<span>Meu GitHub</span></a>
     </div>
   </div>
@@ -113,8 +151,8 @@ ${content}
       </div>
       <nav class="footer-col" aria-label="Catálogo">
         <h2>Catálogo</h2>
-        <a href="${homePath}#projetos">Todos meus Apps</a>
-        <a href="${homePath}#sobre">Quem faz</a>
+        ${homeSections.includes('catalog') ? `<a href="${homePath}#projetos">Todos meus Apps</a>` : ''}
+        ${homeSections.includes('about') ? `<a href="${homePath}#sobre">Quem faz</a>` : ''}
         <a href="mailto:felipeaguiar.social@gmail.com">Contato por e-mail</a>
       </nav>
       <nav class="footer-col" aria-label="Aplicativos">
@@ -140,8 +178,7 @@ ${content}
 `;
 }
 
-function catalogCard(project) {
-  const isDump = project === dump;
+function catalogCard({ project, tab }) {
   const { name } = project;
   const destination = route(project) + 'index.html';
   const starsAPI = project.repo.replace('https://github.com/', 'https://api.github.com/repos/');
@@ -149,10 +186,8 @@ function catalogCard(project) {
   const summary = project.summary ?? project.description;
   const frames = project.screens.map(([file]) => file);
   if (project.cover) frames.unshift(project.cover);
-  const detailLabel = project.playUrl ? 'Conhecer o jogo' : (isDump ? 'Conhecer o editor' : 'Conhecer o launcher');
-  const actionLabel = project.playUrl ? project.cta : (isDump ? 'Ver download' : 'Ver último release');
   const searchText = [name, project.repo.split('/').at(-1), project.slug, project.category, summary, ...project.tags].join(' ');
-  return `<article class="catalog-entry theme-${project.id}" data-category="${project.categoryId}" data-search-text="${escape(searchText)}">
+  return `<article class="catalog-entry theme-${project.id}" data-category="${escape(tab)}" data-search-text="${escape(searchText)}">
         <div class="catalog-preview" data-card-preview>
           <a class="catalog-image" href="${destination}#midia" aria-label="Ver o vídeo e as capturas de ${name}">
             ${frames.map((file, index) => `<img class="preview-image${index === 0 ? ' is-current' : ''}" src="${media(project, file)}" alt="" loading="lazy">`).join('\n            ')}
@@ -168,94 +203,87 @@ function catalogCard(project) {
           <p>${summary}</p>
           ${tagList(project.tags)}
           <div class="catalog-footer">
-            <div class="actions">
-              <a class="button primary" href="${destination}">${detailLabel}</a>
-              <a class="button secondary" href="${project.playUrl ?? project.download}" ${external}>${actionLabel}</a>
-            </div>
-            <a class="repo-stars" href="${project.repo}/stargazers" ${external} data-repo-stars="${starsAPI}" aria-label="Ver estrelas de ${name} no GitHub" title="Estrelas no GitHub">${star}<span data-star-count hidden></span></a>
+            ${homeActions(project)}
+            <a class="repo-stars" href="${project.repo}" ${external} data-repo-stars="${starsAPI}" aria-label="Dar uma estrela a ${name} no GitHub" title="Dar uma estrela no GitHub">${star}<span data-star-count hidden></span></a>
           </div>
         </div>
       </article>`;
 }
 
-function home() {
-  const filters = [
-    ['all', 'Todas', '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>'],
-    ['edicao', 'Edição', '<path d="m15 5 4 4M4 20l4.5-1 11-11a2.8 2.8 0 0 0-4-4l-11 11L4 20z"/>'],
-    ['entretenimento', 'Entretenimento', controllerIcon]
-  ];
+function homeActions(project, editorLabel = 'Conhecer o editor') {
+  const detailLabel = project.playUrl ? 'Conhecer o jogo' : (project === dump ? editorLabel : 'Conhecer o launcher');
+  const actionLabel = project.playUrl ? project.cta : (project === dump ? 'Ver download' : 'Ver último release');
+  return `<div class="actions">
+                <a class="button primary" href="${route(project)}index.html">${detailLabel}</a>
+                <a class="button secondary" href="${project.playUrl ?? project.download}" ${external}>${actionLabel}</a>
+              </div>`;
+}
 
-  return layout({
-    title: 'My App Store',
-    description: 'Explore editores, launchers e jogos de navegador criados por Felipe Aguiar. Veja os vídeos, as capturas e onde jogar ou baixar.',
-    canonical: siteURL,
-    image: media(dump, dump.screens[0][0]),
-    content: `  <main id="conteudo" class="shell home">
-  <h1 class="sr-only">Meus Aplicativos</h1>
-  <section class="home-featured" id="destaques" aria-labelledby="featured-section-title">
+function featuredSlide({ project, durationMs }, index) {
+  const isDump = project === dump;
+  const titleId = isDump ? 'featured-title' : (project === ps5 ? 'launcher-hero-title' : `featured-${project.id}-title`);
+  const cover = project.cover ?? project.screens[0][0];
+  const artwork = isDump
+    ? `<div class="hero-art" aria-hidden="true">
+              <div class="art-grid"></div>
+              <img class="print print-left" src="${media(project, 'cafe-moment.jpg')}" alt="" fetchpriority="high">
+              <img class="print print-right" src="${media(project, 'city-romance.jpg')}" alt="" fetchpriority="high">
+              <img class="print print-main" src="${media(project, 'city-muse.jpg')}" alt="" fetchpriority="high">
+              <span class="art-spark">✳</span>
+              <div class="art-editor"><img src="${media(project, project.screens[0][0])}" alt=""></div>
+            </div>`
+    : `<div class="hero-art launcher-art" aria-hidden="true"><img src="${media(project, cover)}" alt=""></div>`;
+  const platform = isDump ? 'Editor desktop para Windows' : project.platform;
+  const tags = isDump ? 'Colagens · Filtros · Carrosséis'
+    : (project === ps5 ? 'ROMs · Recompilações · Jogos de PC' : project.tags.join(' · '));
+
+  return `<article class="hero-slide theme-${project.id}${index === 0 ? ' is-current' : ''}" data-story data-duration="${durationMs}" aria-labelledby="${titleId}">${isDump ? `
+            <span class="featured-ribbon"><span>Destaque</span></span>` : ''}
+            <div class="hero-copy">${isDump ? '' : `
+              <p class="kicker">${project.category}</p>`}
+              <h2 id="${titleId}">${project.name}${isDump ? '<span class="title-period">.</span>' : ''}</h2>
+              <p class="hero-lede">${project.headline}</p>
+              <p class="hero-summary">${project.summary ?? project.description}</p>
+              ${homeActions(project, 'Conhecer o Editor')}
+            </div>
+            ${artwork}
+            <div class="app-strip">
+              <span class="strip-brand">${isDump ? `<img src="${media(project, 'app-icon.png')}" alt="" width="30" height="30"> ` : ''}${project.edition}</span>
+              <span>${platform}</span>
+              <span>${tags}</span>
+            </div>
+          </article>`;
+}
+
+function homeFeatured() {
+  return `  <section class="home-featured" id="destaques" aria-labelledby="featured-section-title">
     <div class="section-heading"><h2 id="featured-section-title">Destaques e recomendados</h2></div>
     <div class="home-hero" data-stories>
       <div class="story-stage">
         <div class="story-slides">
-          <article class="hero-slide theme-dump is-current" data-story data-duration="10500" aria-labelledby="featured-title">
-            <span class="featured-ribbon"><span>Destaque</span></span>
-            <div class="hero-copy">
-              <h2 id="featured-title">${dump.name}<span class="title-period">.</span></h2>
-              <p class="hero-lede">${dump.headline}</p>
-              <p class="hero-summary">${dump.summary}</p>
-              <div class="actions">
-                <a class="button primary" href="${route(dump)}index.html">Conhecer o Editor</a>
-                <a class="button secondary" href="${dump.download}" ${external}>Ver download</a>
-              </div>
-            </div>
-            <div class="hero-art" aria-hidden="true">
-              <div class="art-grid"></div>
-              <img class="print print-left" src="${media(dump, 'cafe-moment.jpg')}" alt="" fetchpriority="high">
-              <img class="print print-right" src="${media(dump, 'city-romance.jpg')}" alt="" fetchpriority="high">
-              <img class="print print-main" src="${media(dump, 'city-muse.jpg')}" alt="" fetchpriority="high">
-              <span class="art-spark">✳</span>
-              <div class="art-editor">
-                <img src="${media(dump, dump.screens[0][0])}" alt="">
-              </div>
-            </div>
-            <div class="app-strip">
-              <span class="strip-brand"><img src="${media(dump, 'app-icon.png')}" alt="" width="30" height="30"> ${dump.edition}</span>
-              <span>Editor desktop para Windows</span>
-              <span>Colagens · Filtros · Carrosséis</span>
-            </div>
-          </article>
-          <article class="hero-slide theme-ps5" data-story data-duration="8000" aria-labelledby="launcher-hero-title">
-            <div class="hero-copy">
-              <p class="kicker">${ps5.category}</p>
-              <h2 id="launcher-hero-title">${ps5.name}</h2>
-              <p class="hero-lede">${ps5.headline}</p>
-              <p class="hero-summary">${ps5.description}</p>
-              <div class="actions">
-                <a class="button primary" href="${route(ps5)}index.html">Conhecer o launcher</a>
-                <a class="button secondary" href="${ps5.download}" ${external}>Ver último release</a>
-              </div>
-            </div>
-            <div class="hero-art launcher-art" aria-hidden="true"><img src="${media(ps5, ps5.screens[0][0])}" alt=""></div>
-            <div class="app-strip">
-              <span class="strip-brand">${ps5.edition}</span>
-              <span>${ps5.platform}</span>
-              <span>ROMs · Recompilações · Jogos de PC</span>
-            </div>
-          </article>
+          ${featuredProjects.map(featuredSlide).join('\n          ')}
         </div>
         <button class="story-arrow previous" type="button" data-story-step="-1" aria-label="Destaque anterior" hidden>${chevron}</button>
         <button class="story-arrow next" type="button" data-story-step="1" aria-label="Próximo destaque" hidden>${chevron}</button>
       </div>
       <div class="story-controls" hidden>
         <div class="story-track" role="group" aria-label="Escolher app no banner">
-          ${projects.map((app, index) => `<button class="story-button" data-story-button type="button" aria-label="Mostrar ${app.name}" aria-pressed="${index === 0}"><span aria-hidden="true"></span></button>`).join('')}
+          ${featuredProjects.map(({ project }, index) => `<button class="story-button" data-story-button type="button" aria-label="Mostrar ${project.name}" aria-pressed="${index === 0}"><span aria-hidden="true"></span></button>`).join('\n          ')}
         </div>
         <button class="story-toggle" type="button" aria-label="Pausar rotação dos banners"><span aria-hidden="true"></span></button>
       </div>
     </div>
-  </section>
+  </section>`;
+}
 
-  <section class="home-catalog" id="projetos" aria-labelledby="catalog-title" data-catalog>
+function homeCatalog() {
+  const tabIcons = {
+    grid: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
+    edit: '<path d="m15 5 4 4M4 20l4.5-1 11-11a2.8 2.8 0 0 0-4-4l-11 11L4 20z"/>',
+    game: controllerIcon
+  };
+  const total = catalogEntries.length;
+  return `  <section class="home-catalog" id="projetos" aria-labelledby="catalog-title" data-catalog>
     <div class="section-heading catalog-heading">
       <h2 id="catalog-title">Todos meus Apps</h2>
       <form class="search-field catalog-search" role="search" aria-label="Busca no catálogo" action="index.html#projetos" method="get">
@@ -265,21 +293,24 @@ function home() {
     </div>
     <div class="catalog-toolbar">
       <div class="catalog-filters" role="group" aria-label="Filtrar aplicativos" hidden>
-        ${filters.map(([category, label, icon]) => {
-          const count = category === 'all' ? projects.length : projects.filter(project => project.categoryId === category).length;
-          return `<button type="button" data-filter="${category}" aria-pressed="${category === 'all'}" aria-controls="catalog-list">${lineIcon(icon, 17)}<span>${label}</span> <span class="catalog-tab-count" data-tab-count>${count}</span></button>`;
+        ${homeConfig.tabs.map(({ id, label, icon }) => {
+          const count = id === 'all' ? total : catalogEntries.filter(entry => entry.tab === id).length;
+          const glyph = Object.hasOwn(tabIcons, icon) ? tabIcons[icon] : tabIcons.grid;
+          return `<button type="button" data-filter="${escape(id)}" aria-pressed="${id === 'all'}" aria-controls="catalog-list">${lineIcon(glyph, 17)}<span>${escape(label)}</span> <span class="catalog-tab-count" data-tab-count>${count}</span></button>`;
         }).join('\n        ')}
       </div>
-      <p class="sr-only" data-catalog-count role="status">${projects.length} ${projects.length === 1 ? 'app' : 'apps'}</p>
+      <p class="sr-only" data-catalog-count role="status">${total} ${total === 1 ? 'app' : 'apps'}</p>
     </div>
     <p class="catalog-query" data-catalog-query hidden>Resultados para “<span></span>”. <a href="index.html#projetos">Limpar busca</a></p>
     <p class="catalog-empty" data-catalog-empty hidden>Nenhum app encontrado.</p>
     <div class="catalog-list" id="catalog-list">
-      ${[ps5, ...projects.filter(app => app !== ps5)].map(catalogCard).join('\n      ')}
+      ${catalogEntries.map(catalogCard).join('\n      ')}
     </div>
-  </section>
+  </section>`;
+}
 
-  <section class="about-me" id="sobre" aria-labelledby="about-me-title">
+function homeAbout() {
+  return `  <section class="about-me" id="sobre" aria-labelledby="about-me-title">
     <div class="about-avatar" data-avatar-ring>
       <img class="about-photo" src="assets/felipe-aguiar.jpg" width="192" height="192" loading="lazy" alt="Foto de Felipe Aguiar">
     </div>
@@ -292,7 +323,19 @@ function home() {
         ${socialLinks.map(([name, url, paths]) => `<a class="${name === 'YouTube' ? 'button secondary' : 'text-link'}" href="${url}" ${external}>${lineIcon(paths, 17)}${name === 'YouTube' ? 'Assistir ao Dev Águia' : name}</a>`).join('\n        ')}
       </div>
     </div>
-  </section>
+  </section>`;
+}
+
+function home() {
+  const sections = { featured: homeFeatured, catalog: homeCatalog, about: homeAbout };
+  return layout({
+    title: 'My App Store',
+    description: 'Explore editores, launchers e jogos de navegador criados por Felipe Aguiar. Veja os vídeos, as capturas e onde jogar ou baixar.',
+    canonical: siteURL,
+    image: media(dump, dump.screens[0][0]),
+    content: `  <main id="conteudo" class="shell home">
+  <h1 class="sr-only">Meus Aplicativos</h1>
+${homeSections.map(section => sections[section]()).join('\n\n')}
 </main>`
   });
 }
@@ -377,7 +420,7 @@ function projectPage(project) {
   </div>
 
   <nav class="section-nav" aria-label="Nesta página">
-    <a href="#o-que-ele-faz">O que ele faz</a><a href="#sobre">Sobre</a><a href="#recursos">Recursos</a><a href="#${setupSection}">${project.playUrl ? 'Como jogar' : 'Instalação'}</a><a href="#perguntas">Perguntas frequentes</a>
+    <a href="#o-que-ele-faz">O que ele faz</a><a href="#sobre">Sobre</a>${project.mechanics ? '<a href="#mecanicas">Mecânicas</a>' : ''}<a href="#recursos">Recursos</a><a href="#${setupSection}">${project.playUrl ? 'Como jogar' : 'Instalação'}</a><a href="#perguntas">Perguntas frequentes</a>
   </nav>
 
   <div class="project-body">
@@ -389,7 +432,19 @@ function projectPage(project) {
       <section class="story-intro" id="sobre">
         <h2>${project.aboutTitle}</h2>
         <p>${project.about}</p>
-      </section>
+      </section>${project.mechanics ? `
+      <section class="game-mechanics" id="mecanicas" aria-labelledby="mechanics-title">
+        <h2 id="mechanics-title">Mecânicas de jogo</h2>
+        <div class="mechanics-grid">
+          ${project.mechanics.map(({ title, body, screen }) => {
+            const [image, caption] = project.screens[screen];
+            return `<article class="mechanic-card">
+            <figure><img src="${base + media(project, image)}" width="1440" height="900" alt="" loading="lazy"><figcaption>${escape(caption)}</figcaption></figure>
+            <div class="mechanic-copy"><h3>${escape(title)}</h3><p>${escape(body)}</p></div>
+          </article>`;
+          }).join('\n          ')}
+        </div>
+      </section>` : ''}
       <section class="feature-list" id="recursos" aria-labelledby="features-title">
         <h2 id="features-title">Recursos</h2>
         ${project.features.map(({ title, body, screen }) => `<article class="feature${screen === undefined ? ' feature-text' : ''}">${screen === undefined ? '' : `

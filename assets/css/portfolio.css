@@ -10,10 +10,19 @@
   --accent: #ff9fae;
   --ink: #2d1018;
   --wash: #2a171f;
+  --scrollbar-thumb: #6b5b75;
+  --scrollbar-track: #15141d;
   --font: 'DM Sans', system-ui, sans-serif;
   --display: 'Space Grotesk', var(--font);
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
 }
-* { box-sizing: border-box; }
+* { box-sizing: border-box; scrollbar-width: thin; }
+@supports not (scrollbar-color: auto) {
+  ::-webkit-scrollbar { width: .65rem; height: .65rem; }
+  ::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+  ::-webkit-scrollbar-thumb { border: 2px solid var(--scrollbar-track); border-radius: 1rem; background: var(--scrollbar-thumb); }
+  ::-webkit-scrollbar-thumb:hover { background: #867193; }
+}
 html { scroll-behavior: smooth; }
 body { margin: 0; background: var(--bg); color: var(--text); font: 1rem/1.6 var(--font); }
 img, video { display: block; max-width: 100%; }
@@ -149,6 +158,7 @@ section[id], figure[id] { scroll-margin-top: 1.5rem; }
 .hero-slide.is-current { z-index: 1; opacity: 1; visibility: visible; transition-delay: 0s; }
 .hero-slide.theme-dump { position: relative; }
 .hero-slide.theme-ps5 { background: linear-gradient(125deg, #151826, #1a1d36 62%); }
+.hero-slide.theme-pixel { background: linear-gradient(125deg, #171619, #2d2419 62%); }
 .featured-ribbon {
   position: absolute;
   z-index: 2;
@@ -648,6 +658,14 @@ section[id], figure[id] { scroll-margin-top: 1.5rem; }
 .story-intro { padding-right: 1rem; }
 .story-intro + .story-intro { margin-top: 1.8rem; }
 .story-intro > p { max-width: 65ch; margin-top: .75rem; color: var(--muted); }
+.game-mechanics { margin-top: 2.25rem; }
+.game-mechanics > h2 { margin-bottom: 1rem; }
+.mechanics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(18.5rem, 100%), 1fr)); gap: 1rem; }
+.mechanic-card { overflow: hidden; min-width: 0; border: 1px solid var(--line); border-radius: .65rem; background: var(--surface); }
+.mechanic-card img { width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; background: #12141b; }
+.mechanic-card figcaption { padding: .5rem .9rem; border-bottom: 1px solid var(--line); color: var(--dim); font-size: .85rem; }
+.mechanic-copy { padding: .9rem; }
+.mechanic-copy p { margin-top: .5rem; color: var(--muted); }
 .feature-list { margin-top: 2.15rem; }
 .feature-list > h2 { margin-bottom: .9rem; font-size: 1.6rem; }
 .feature {

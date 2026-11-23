@@ -7,6 +7,7 @@
   const controls = stories.querySelector('.story-controls');
   const toggle = controls.querySelector('.story-toggle');
   const slides = [...stories.querySelectorAll('[data-story]')];
+  if (slides.length < 2) return;
   const buttons = [...controls.querySelectorAll('[data-story-button]')];
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   let active = 0;
@@ -78,7 +79,7 @@ if (appCatalog) {
   const queryLabel = summary.querySelector('span');
   const params = new URLSearchParams(location.search);
   const normalize = value => value.normalize('NFD').replace(/\p{M}/gu, '').toLocaleLowerCase('pt-BR');
-  let activeOption = options[0];
+  let activeOption = options.find(button => button.dataset.filter === 'all');
 
   function filterApps(option = activeOption) {
     activeOption = option;
@@ -225,7 +226,8 @@ document.querySelectorAll('[data-repo-stars]').forEach(async link => {
     const label = link.querySelector('[data-star-count]');
     label.textContent = formatted;
     label.hidden = false;
-    link.setAttribute('aria-label', formatted + (count === 1 ? ' estrela no GitHub' : ' estrelas no GitHub'));
+    const countLabel = formatted + (count === 1 ? ' estrela' : ' estrelas');
+    link.setAttribute('aria-label', `${link.getAttribute('aria-label')} (${countLabel})`);
   } catch {
     // Keep the link available if GitHub is temporarily unreachable.
   }

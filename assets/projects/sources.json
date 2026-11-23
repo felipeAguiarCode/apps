@@ -38,7 +38,12 @@
         "passe.png": ".demo/02-chuva-florida-state-clemson-passe.png",
         "corrida.png": ".demo/05-neve-michigan-michigan-state-handoff.png",
         "recepcao.png": ".demo/09-qte-texas-am-lsu-recepcao.png",
-        "espx-tv.png": ".demo/25-espx-tv-halftime-georgia-tennessee.png"
+        "espx-tv.png": ".demo/25-espx-tv-halftime-georgia-tennessee.png",
+        "field-goal.png": ".demo/06-neve-ohio-state-penn-state-field-goal.png",
+        "cover-2.png": ".demo/07-neve-notre-dame-iowa-cover-2.png",
+        "defesa-passe.png": ".demo/11-qte-miami-florida-defesa-do-passe.png",
+        "uma-mao.png": ".demo/13-especial-usc-ucla-recepcao-com-uma-mao.png",
+        "neblina.png": ".demo/18-fog-army-navy-watch-game.png"
       },
       "credits": "https://github.com/felipeAguiarCode/pixel-college-deluxe/blob/main/assets/docs/art-credits.md"
     }
