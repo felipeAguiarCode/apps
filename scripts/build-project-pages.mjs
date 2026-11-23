@@ -97,6 +97,10 @@ function brand(base) {
 function layout({ title, description, canonical, image, project, content }) {
   const base = project ? '../../' : '';
   const homePath = base ? base + 'index.html' : '';
+  const menuLinks = homeSections.map(section => {
+    const [anchor, label] = sectionLinks[section];
+    return `<a href="${homePath}#${anchor}">${label}</a>`;
+  }).join('\n      ');
   const creditLinks = project?.credits?.map(([name, url]) => `<a href="${url.startsWith('https://') ? url : base + url}" ${external}>${name}</a>`).join('') || '';
   return `<!doctype html>
 <html lang="pt-BR">
@@ -124,11 +128,15 @@ function layout({ title, description, canonical, image, project, content }) {
   <div class="shell header-inner">
     ${brand(base)}
     ${homeSections.length ? `<nav class="site-nav" aria-label="Menu principal">
-      ${homeSections.map(section => {
-        const [anchor, label] = sectionLinks[section];
-        return `<a href="${homePath}#${anchor}">${label}</a>`;
-      }).join('\n      ')}
+      ${menuLinks}
     </nav>` : ''}
+    <details class="mobile-menu">
+      <summary aria-label="Menu principal">${lineIcon('<path d="M4 6h16M4 12h16M4 18h16"/>', 23)}</summary>
+      <nav class="mobile-menu-links" aria-label="Navegação mobile">
+      ${menuLinks}
+        <a href="${github}" ${external}>${lineIcon(githubLogo, 17)}Meu GitHub</a>
+      </nav>
+    </details>
     <div class="header-actions">
       ${homeSections.includes('catalog') ? `<form class="search-field site-search" role="search" aria-label="Busca principal" action="${base}index.html#projetos" method="get">
         <input type="search" name="q" placeholder="Buscar apps" aria-label="Buscar apps" enterkeyhint="search">
@@ -172,6 +180,7 @@ ${content}
     </div>
   </div>
 </footer>
+<script src="${base}assets/js/site.js" defer></script>
 <script src="${base}assets/js/${project ? 'project' : 'home'}.js" defer></script>
 </body>
 </html>

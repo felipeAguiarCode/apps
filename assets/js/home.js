@@ -138,6 +138,7 @@ document.querySelectorAll('[data-card-preview]').forEach(preview => {
   const toggle = preview.querySelector('.preview-toggle');
   const name = toggle.dataset.previewName;
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  const mobileLayout = matchMedia('(max-width: 42rem), (max-width: 56rem) and (hover: none) and (pointer: coarse)');
   let current = 0;
   let visible = !('IntersectionObserver' in window);
   let hovered = false;
@@ -158,6 +159,7 @@ document.querySelectorAll('[data-card-preview]').forEach(preview => {
     const onScreen = visible && !document.hidden;
     const requested = onScreen && (hovered || manual);
     clearInterval(timer);
+    if (onScreen && mobileLayout.matches) frames.forEach(frame => { frame.loading = 'eager'; });
     if (onScreen && !requested && !motion.matches) timer = setInterval(nextFrame, 3000);
     if (playing === requested) return;
 
@@ -201,6 +203,7 @@ document.querySelectorAll('[data-card-preview]').forEach(preview => {
     if (motion.matches) hovered = false;
     syncPreview();
   });
+  mobileLayout.addEventListener('change', syncPreview);
   document.addEventListener('visibilitychange', syncPreview);
 
   if ('IntersectionObserver' in window) {
