@@ -214,10 +214,11 @@
       installTitle: 'Sua primeira partida',
       install: 'Abra o jogo no navegador e escolha dois times. Se jogar no celular, vire a tela na horizontal para enxergar melhor o campo.',
       questions: [
-        ['Dá para jogar no celular?', 'Sim. Escolha a jogada pelo cartão, toque no campo para o snap e toque ou arraste para passar a bola. Jogue na horizontal para ter uma visão mais ampla.'],
-        ['Onde o progresso fica salvo?', 'A carreira e o campeonato ficam no navegador. Use o mesmo perfil para continuar. Para guardar uma cópia da carreira, abra a opção de exportar o save nas configurações.'],
-        ['Posso só assistir à partida?', 'Sim. Em Assistir Partida, você escolhe os times e a IA joga os quatro quartos. A transmissão tem opções de velocidade de 1×, 2× e 4×.'],
-        ['Posso jogar offline?', 'Sim. Baixe o repositório, extraia os arquivos e abra index.html com a pasta assets no mesmo local.']
+        ['Como começo a jogar no PC?', 'Clique em Jogar no navegador, abra Quick Play (Jogo Rápido) e escolha seu time e o adversário. O jogo abre no navegador sem instalação.'],
+        ['Como escolho uma jogada e faço um passe?', 'Use as setas para navegar pelo playbook, Enter para confirmar e Espaço para iniciar o snap. Use a letra indicada sobre o recebedor ou clique e arraste no campo para mirar o passe.'],
+        ['Quais são os comandos para correr e chutar?', 'Durante a corrida, use W e S ou as setas para desviar e Shift para acelerar. Nos chutes, pressione Espaço quando o marcador chegar à faixa verde.'],
+        ['Como continuo minha carreira no PC?', 'Use o mesmo navegador e perfil para manter a carreira e o campeonato. Para guardar uma cópia da carreira ou levá-la para outro navegador, vá a Opções › Exportar save.'],
+        ['Dá para jogar offline no PC?', 'Baixe o ZIP do repositório e extraia todos os arquivos. Abra index.html no navegador e mantenha a pasta assets ao lado dele.']
       ],
       credits: [
         ['Créditos da arte', 'https://github.com/felipeAguiarCode/pixel-college-deluxe/blob/main/assets/docs/art-credits.md']
