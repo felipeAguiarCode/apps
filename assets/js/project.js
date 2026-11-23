@@ -8,7 +8,7 @@
   const media = gallery.querySelector('[data-media]');
   const caption = gallery.querySelector('[data-caption]');
   const strip = gallery.querySelector('[data-thumbs]');
-  const thumbs = [...strip.querySelectorAll('button')];
+  const thumbs = strip ? [...strip.querySelectorAll('button')] : [];
   const expand = gallery.querySelector('[data-expand]');
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   let activeIndex = 0;
@@ -27,7 +27,7 @@
     const element = document.createElement(video ? 'video' : 'img');
 
     if (video) {
-      element.poster = image;
+      if (image) element.poster = image;
       element.controls = true;
       element.autoplay = true;
       element.defaultMuted = true;
@@ -56,9 +56,9 @@
     button.addEventListener('click', () => select(activeIndex + Number(button.dataset.step)));
   });
 
-  strip.hidden = false;
+  if (strip) strip.hidden = false;
   thumbs.forEach((thumb, index) => thumb.addEventListener('click', () => select(index)));
-  strip.addEventListener('keydown', event => {
+  strip?.addEventListener('keydown', event => {
     const index = thumbs.indexOf(event.target);
     if (index < 0) return;
 

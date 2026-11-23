@@ -160,7 +160,9 @@ document.querySelectorAll('[data-card-preview]').forEach(preview => {
   const frames = [...preview.querySelectorAll('.preview-image')];
   const video = preview.querySelector('video');
   const toggle = preview.querySelector('.preview-toggle');
-  const name = toggle.dataset.previewName;
+  if (frames.length < 2 && !video) return;
+
+  const name = toggle?.dataset.previewName;
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   let current = 0;
   let visible = !('IntersectionObserver' in window);
@@ -179,11 +181,10 @@ document.querySelectorAll('[data-card-preview]').forEach(preview => {
   }
 
   function syncPreview() {
-    const onScreen = visible && !document.hidden;
-    const requested = onScreen && (hovered || manual);
+    const onScreen = visible && !document.hidden && !mobileLayout.matches;
+    const requested = Boolean(video && onScreen && (hovered || manual));
     clearInterval(timer);
-    if (onScreen && mobileLayout.matches) frames.forEach(frame => { frame.loading = 'eager'; });
-    if (onScreen && !requested && !motion.matches) timer = setInterval(nextFrame, 3000);
+    if (onScreen && !requested && frames.length > 1 && !motion.matches) timer = setInterval(nextFrame, 3000);
     if (playing === requested) return;
 
     playing = requested;
@@ -205,11 +206,11 @@ document.querySelectorAll('[data-card-preview]').forEach(preview => {
     }
   }
 
-  video.addEventListener('playing', () => {
+  video?.addEventListener('playing', () => {
     if (playing) preview.classList.add('is-playing');
   });
   preview.addEventListener('pointerenter', event => {
-    if (event.pointerType !== 'mouse' || motion.matches) return;
+    if (event.pointerType !== 'mouse' || motion.matches || mobileLayout.matches) return;
     hovered = true;
     syncPreview();
   });
@@ -217,7 +218,7 @@ document.querySelectorAll('[data-card-preview]').forEach(preview => {
     hovered = false;
     syncPreview();
   });
-  toggle.addEventListener('click', () => {
+  toggle?.addEventListener('click', () => {
     manual = !playing;
     if (playing) hovered = false;
     syncPreview();
@@ -226,7 +227,11 @@ document.querySelectorAll('[data-card-preview]').forEach(preview => {
     if (motion.matches) hovered = false;
     syncPreview();
   });
-  mobileLayout.addEventListener('change', syncPreview);
+  mobileLayout.addEventListener('change', () => {
+    hovered = false;
+    manual = false;
+    syncPreview();
+  });
   document.addEventListener('visibilitychange', syncPreview);
 
   if ('IntersectionObserver' in window) {
@@ -235,8 +240,10 @@ document.querySelectorAll('[data-card-preview]').forEach(preview => {
       syncPreview();
     }, { threshold: .2 }).observe(preview);
   }
-  toggle.setAttribute('aria-pressed', 'false');
-  toggle.hidden = false;
+  if (toggle) {
+    toggle.setAttribute('aria-pressed', 'false');
+    toggle.hidden = false;
+  }
   syncPreview();
 });
 

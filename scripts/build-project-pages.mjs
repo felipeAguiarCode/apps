@@ -1,4 +1,6 @@
 // Gera o catálogo e as páginas estáticas para o GitHub Pages.
+import { projectAssets, syncProjectAssets } from './project-assets.mjs';
+
 const fs = await import('node:fs');
 const path = await import('node:path');
 const vm = await import('node:vm');
@@ -11,13 +13,23 @@ const catalog = { window: {} };
 vm.runInNewContext(fs.readFileSync(path.join(root, 'assets/js/projects.js'), 'utf8'), catalog);
 const projects = catalog.window.PORTFOLIO_PROJECTS;
 const projectsById = new Map(projects.map(project => [project.id, project]));
+const args = process.argv.slice(2);
+const check = args[0] === '--check';
+if (args[0] === '--sync' && args.length === 3 && projectsById.has(args[1])) {
+  syncProjectAssets(root, projectsById.get(args[1]), path.resolve(args[2]));
+} else if (args.length && !(check && args.length === 1)) {
+  throw new Error('Uso: node scripts/build-project-pages.mjs [--check | --sync <id-do-projeto> <checkout>]');
+}
+const assets = new Map(projects.map(project => [project, projectAssets(root, project)]));
 const dump = projectsById.get('dump');
 const ps5 = projectsById.get('ps5');
 const homeConfig = JSON.parse(fs.readFileSync(path.join(root, 'home.config.json'), 'utf8'));
+const gridIcon = '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>';
+const personIcon = '<circle cx="12" cy="8" r="3"/><path d="M5 20v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1"/>';
 const sectionLinks = {
-  featured: ['destaques', 'Destaques'],
-  catalog: ['projetos', 'Todos os apps'],
-  about: ['sobre', 'Sobre mim']
+  featured: ['destaques', 'Destaques', '<path d="m12 3 2.8 5.7 6.3.9-4.5 4.5 1.1 6.2-5.7-3-5.7 3 1.1-6.2-4.5-4.5 6.3-.9Z"/>'],
+  catalog: ['projetos', 'Todos os apps', gridIcon],
+  about: ['sobre', 'Sobre mim', personIcon]
 };
 const tabIds = new Set(homeConfig.tabs.map(tab => tab.id));
 if (!tabIds.has('all') || tabIds.size !== homeConfig.tabs.length) {
@@ -52,7 +64,6 @@ for (const section of homeSections) {
 const escape = value => String(value).replace(/[&<>"']/g, char => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
 })[char]);
-const media = (project, file) => `assets/projects/${project.id}/${file}`;
 const route = project => `projetos/${project.slug}/`;
 const tagList = tags => `<ul class="tags">${tags.map(tag => `<li>${escape(tag)}</li>`).join('')}</ul>`;
 const chevron = '<span class="chevron" aria-hidden="true"></span>';
@@ -88,7 +99,7 @@ const factIcons = {
   Progresso: '<path d="M5 4h12l2 2v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4Z"/><path d="M8 4v6h7V4m-6 16v-5h6v5"/>',
   Projetos: '<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z"/>',
   Exportação: '<path d="M12 4v11m-4-4 4 4 4-4M4 15v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"/>',
-  Desenvolvedor: '<circle cx="12" cy="8" r="3"/><path d="M5 20v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1"/>'
+  Desenvolvedor: personIcon
 };
 
 function lineIcon(paths, size = 19) {
@@ -106,10 +117,10 @@ function brand(base) {
 function layout({ title, description, canonical, image, project, content }) {
   const base = project ? '../../' : '';
   const homePath = base ? base + 'index.html' : '';
-  const menuLinks = homeSections.map(section => {
-    const [anchor, label] = sectionLinks[section];
-    return `<a href="${homePath}#${anchor}">${label}</a>`;
-  }).join('\n      ');
+  const menuLinks = (withIcons = false) => homeSections.map(section => {
+    const [anchor, label, icon] = sectionLinks[section];
+    return `<a href="${homePath}#${anchor}">${withIcons ? lineIcon(icon, 17) : ''}${label}</a>`;
+  }).join(withIcons ? '\n        ' : '\n      ');
   const creditLinks = project?.credits?.map(([name, url]) => `<a href="${url.startsWith('https://') ? url : base + url}" ${external}>${name}</a>`).join('') || '';
   return `<!doctype html>
 <html lang="pt-BR">
@@ -121,8 +132,8 @@ function layout({ title, description, canonical, image, project, content }) {
 <meta property="og:type" content="website">
 <meta property="og:title" content="${escape(title)}">
 <meta property="og:description" content="${escape(description)}">
-<meta property="og:url" content="${canonical}">
-<meta property="og:image" content="${new URL(image, siteURL)}">
+<meta property="og:url" content="${canonical}">${image ? `
+<meta property="og:image" content="${escape(new URL(image, siteURL))}">` : ''}
 <link rel="canonical" href="${canonical}">
 <link rel="icon" href="${base}assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -137,12 +148,12 @@ function layout({ title, description, canonical, image, project, content }) {
   <div class="shell header-inner">
     ${brand(base)}
     ${homeSections.length ? `<nav class="site-nav" aria-label="Menu principal">
-      ${menuLinks}
+      ${menuLinks()}
     </nav>` : ''}
     <details class="mobile-menu">
       <summary aria-label="Menu principal">${lineIcon('<path d="M4 6h16M4 12h16M4 18h16"/>', 23)}</summary>
       <nav class="mobile-menu-links" aria-label="Navegação mobile">
-      ${menuLinks}
+        ${menuLinks(true)}
         <a href="${github}" ${external}>${lineIcon(githubLogo, 17)}Meu GitHub</a>
       </nav>
     </details>
@@ -202,18 +213,22 @@ function catalogCard({ project, tab }) {
   const starsAPI = project.repo.replace('https://github.com/', 'https://api.github.com/repos/');
   const star = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.5 4.4 1 6.2L12 17.3l-5.6 2.9 1.1-6.2L3 9.6l6.2-.9L12 3Z"/></svg>';
   const summary = project.summary ?? project.description;
-  const frames = project.screens.map(([file]) => file);
-  if (project.cover) frames.unshift(project.cover);
+  const { icon, square, coverScreen, screens, featureScreens, videos: [video] } = assets.get(project);
+  const selectedScreens = featureScreens.filter(Boolean);
+  const frames = (selectedScreens.length ? selectedScreens : screens).map(({ image }) => image);
+  const previewImages = [...new Set([coverScreen, square, ...frames].filter(Boolean))];
+  const hasPreview = Boolean(previewImages.length || video);
   const searchText = [name, project.repo.split('/').at(-1), project.slug, project.category, summary, ...project.tags].join(' ');
-  return `<article class="catalog-entry theme-${project.id}" data-category="${escape(tab)}" data-search-text="${escape(searchText)}">
+  return `<article class="catalog-entry theme-${project.id}${hasPreview ? ' has-catalog-preview' : ''}${icon ? ' has-catalog-icon' : ''}" data-category="${escape(tab)}" data-search-text="${escape(searchText)}">${icon ? `
+        <a class="catalog-app-icon" href="${destination}" aria-label="Ver app ${escape(name)}"><img src="${icon}" width="64" height="64" alt="" loading="lazy"></a>` : ''}${hasPreview ? `
         <div class="catalog-preview" data-card-preview>
-          <a class="catalog-image" href="${destination}#midia" aria-label="Ver o vídeo e as capturas de ${name}">
-            ${frames.map((file, index) => `<img class="preview-image${index === 0 ? ' is-current' : ''}" src="${media(project, file)}" alt="" loading="lazy">`).join('\n            ')}
-            <video class="preview-video" src="${media(project, project.video)}" muted loop playsinline preload="none" aria-hidden="true"></video>
-            <span class="catalog-play">Ver galeria</span>
-          </a>
-          <button class="preview-toggle" type="button" data-preview-name="${name}" aria-label="Reproduzir prévia de ${name}" hidden><span aria-hidden="true"></span></button>
-        </div>
+          <a class="catalog-image" href="${destination}${screens.length || video ? '#midia' : ''}" aria-label="${screens.length || video ? 'Ver galeria de' : 'Ver app'} ${escape(name)}">${previewImages.map((image, index) => `
+            <img class="preview-image${index === 0 ? ' is-current' : ''}" src="${image}" alt="" loading="lazy">`).join('')}${video ? `
+            <video class="preview-video" src="${video}" muted loop playsinline preload="none" aria-hidden="true"></video>` : ''}
+            <span class="catalog-play">${screens.length || video ? 'Ver galeria' : 'Ver app'}</span>
+          </a>${video ? `
+          <button class="preview-toggle" type="button" data-preview-name="${escape(name)}" aria-label="Reproduzir prévia de ${escape(name)}" hidden><span aria-hidden="true"></span></button>` : ''}
+        </div>` : ''}
         <div class="catalog-copy">
           <p class="kicker">${project.category}</p>
           <h3>${name}</h3>
@@ -241,22 +256,14 @@ function homeActions(project, editorLabel = 'Conhecer o editor') {
 function featuredSlide({ project, durationMs }, index) {
   const isDump = project === dump;
   const titleId = isDump ? 'featured-title' : (project === ps5 ? 'launcher-hero-title' : `featured-${project.id}-title`);
-  const cover = project.cover ?? project.screens[0][0];
-  const artwork = isDump
-    ? `<div class="hero-art" aria-hidden="true">
-              <div class="art-grid"></div>
-              <img class="print print-left" src="${media(project, 'cafe-moment.jpg')}" alt="" fetchpriority="high">
-              <img class="print print-right" src="${media(project, 'city-romance.jpg')}" alt="" fetchpriority="high">
-              <img class="print print-main" src="${media(project, 'city-muse.jpg')}" alt="" fetchpriority="high">
-              <span class="art-spark">✳</span>
-              <div class="art-editor"><img src="${media(project, project.screens[0][0])}" alt=""></div>
-            </div>`
-    : `<div class="hero-art launcher-art" aria-hidden="true"><img src="${media(project, cover)}" alt=""></div>`;
+  const { banner, icon } = assets.get(project);
+  const artwork = banner ? `
+            <div class="hero-art" aria-hidden="true"><img src="${banner}" alt=""${index === 0 ? ' fetchpriority="high"' : ''}></div>` : '';
   const platform = isDump ? 'Editor desktop para Windows' : project.platform;
   const tags = isDump ? 'Colagens · Filtros · Carrosséis'
     : (project === ps5 ? 'ROMs · Recompilações · Jogos de PC' : project.tags.join(' · '));
 
-  return `<article class="hero-slide theme-${project.id}${index === 0 ? ' is-current' : ''}" data-story data-duration="${durationMs}" aria-labelledby="${titleId}">${isDump ? `
+  return `<article class="hero-slide theme-${project.id}${banner ? '' : ' hero-text-only'}${index === 0 ? ' is-current' : ''}" data-story data-duration="${durationMs}" aria-labelledby="${titleId}">${isDump ? `
             <span class="featured-ribbon"><span>Destaque</span></span>` : ''}
             <div class="hero-copy">${isDump ? '' : `
               <p class="kicker">${project.category}</p>`}
@@ -264,10 +271,9 @@ function featuredSlide({ project, durationMs }, index) {
               <p class="hero-lede">${project.headline}</p>
               <p class="hero-summary">${project.summary ?? project.description}</p>
               ${homeActions(project, 'Conhecer o Editor')}
-            </div>
-            ${artwork}
+            </div>${artwork}
             <div class="app-strip">
-              <span class="strip-brand">${isDump ? `<img src="${media(project, 'app-icon.png')}" alt="" width="30" height="30"> ` : ''}${project.edition}</span>
+              <span class="strip-brand">${icon ? `<img src="${icon}" alt="" width="30" height="30"> ` : ''}${project.edition}</span>
               <span>${platform}</span>
               <span>${tags}</span>
             </div>
@@ -297,7 +303,7 @@ function homeFeatured() {
 
 function homeCatalog() {
   const tabIcons = {
-    grid: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
+    grid: gridIcon,
     edit: '<path d="m15 5 4 4M4 20l4.5-1 11-11a2.8 2.8 0 0 0-4-4l-11 11L4 20z"/>',
     game: controllerIcon
   };
@@ -359,7 +365,7 @@ function home() {
     title: 'My App Store',
     description: 'Explore editores, launchers e jogos de navegador criados por Felipe Aguiar. Veja os vídeos, as capturas e onde jogar ou baixar.',
     canonical: siteURL,
-    image: media(dump, dump.screens[0][0]),
+    image: featuredProjects.map(({ project }) => assets.get(project).banner).find(Boolean),
     content: `  <main id="conteudo" class="shell home">
   <h1 class="sr-only">Meus Aplicativos</h1>
 ${homeSections.map(section => sections[section]()).join('\n\n')}
@@ -368,24 +374,29 @@ ${homeSections.map(section => sections[section]()).join('\n\n')}
 }
 
 function gallery(project, base) {
-  const [poster, ...screens] = project.screens;
-  const posterURL = base + media(project, poster[0]);
-  const videoURL = base + media(project, project.video);
-  const entries = [{ label: 'Vídeo de demonstração', image: posterURL, video: videoURL },
-    ...[poster, ...screens].map(([file, label]) => ({ label, image: base + media(project, file) }))];
+  const { screens, videos } = assets.get(project);
+  const poster = screens[0]?.image;
+  const entries = [...videos.map((video, index) => ({
+    label: videos.length > 1 ? `Vídeo de demonstração ${index + 1}` : 'Vídeo de demonstração', image: poster, video
+  })), ...screens];
+  if (!entries.length) return '';
+  const [first] = entries;
+  const firstMedia = first.video
+    ? `<video src="${base + first.video}"${first.image ? ` poster="${base + first.image}"` : ''} controls autoplay muted loop playsinline preload="metadata" aria-label="${escape(first.label)}"></video>`
+    : `<img src="${base + first.image}" alt="${escape(first.label)}">`;
   return `<figure class="gallery" data-gallery id="midia" aria-label="Galeria de ${project.name}">
       <div class="gallery-stage" data-stage>
         <div class="gallery-media" data-media>
-          <video src="${videoURL}" poster="${posterURL}" controls autoplay muted loop playsinline preload="metadata" aria-label="Vídeo de demonstração de ${project.name}"></video>
-        </div>
+          ${firstMedia}
+        </div>${entries.length > 1 ? `
         <button class="gallery-nav previous" type="button" data-step="-1" aria-label="Mídia anterior" hidden>${chevron}</button>
-        <button class="gallery-nav next" type="button" data-step="1" aria-label="Próxima mídia" hidden>${chevron}</button>
-      </div>
+        <button class="gallery-nav next" type="button" data-step="1" aria-label="Próxima mídia" hidden>${chevron}</button>` : ''}
+      </div>${entries.length > 1 ? `
       <div class="gallery-thumbs" data-thumbs role="group" aria-label="Vídeo e capturas" hidden>
-        ${entries.map(({ label, image, video }, index) => `<button type="button" class="gallery-thumb" data-image="${image}"${video ? ` data-video="${video}"` : ''} aria-label="${label}" aria-pressed="${index === 0}"><img src="${image}" alt="" loading="lazy">${video ? `<span class="thumb-play">${play}</span>` : ''}</button>`).join('\n          ')}
-      </div>
+        ${entries.map(({ label, image, video }, index) => `<button type="button" class="gallery-thumb"${image ? ` data-image="${base + image}"` : ''}${video ? ` data-video="${base + video}"` : ''} aria-label="${escape(label)}" aria-pressed="${index === 0}">${image ? `<img src="${base + image}" alt="" loading="lazy">` : ''}${video ? `<span class="thumb-play">${play}</span>` : ''}</button>`).join('\n          ')}
+      </div>` : ''}
       <figcaption class="gallery-caption">
-        <span data-caption aria-live="polite">Vídeo de demonstração</span>
+        <span data-caption aria-live="polite">${escape(first.label)}</span>
         <button class="text-button" type="button" data-expand hidden>Ampliar</button>
       </figcaption>
     </figure>`;
@@ -409,18 +420,20 @@ function projectPage(project) {
   const base = '../../';
   const other = projects.find(app => app !== project);
   const isDump = project === dump;
-  const coverFile = project.cover ?? project.screens[0][0];
-  const cover = base + media(project, coverFile);
+  const { banner, square, coverScreen, featureScreens } = assets.get(project);
+  const cover = coverScreen ?? square;
+  const backdrop = banner ?? coverScreen;
+  const galleryMarkup = gallery(project, base);
   const setupSection = project.playUrl ? 'como-jogar' : 'instalacao';
   return layout({
     title: `${project.name} | Apps de Felipe Aguiar`,
     description: project.description,
     canonical: new URL(route(project), siteURL),
-    image: media(project, coverFile),
+    image: coverScreen ?? banner ?? square,
     project,
     content: `  <main id="conteudo" class="shell project">
-  <div class="project-hero">
-      <img class="project-backdrop" src="${cover}" alt="">
+  <div class="project-hero">${backdrop ? `
+      <img class="project-backdrop" src="${base + backdrop}" alt="">` : ''}
     <nav class="breadcrumb" aria-label="Caminho da página"><a href="${base}index.html">Biblioteca</a>${chevron}<span aria-current="page">${project.name}</span></nav>
     <div class="project-heading">
       <div><p class="kicker">${project.category}</p><h1>${project.name}</h1></div>
@@ -428,18 +441,16 @@ function projectPage(project) {
     </div>
   </div>
 
-  <div class="showcase">
-    ${gallery(project, base)}
-    <aside class="summary" aria-label="Resumo de ${project.name}">
-      <div class="summary-art ${isDump ? 'summary-art-dump' : ''}">
-        ${isDump
-          ? `<img src="${base + media(project, 'city-muse.jpg')}" alt=""><span><img src="${base + media(project, 'app-icon.png')}" alt="" width="38" height="38"> Cherry Pie<br>Version</span>`
-          : `<img src="${cover}" alt=""><span>${project.name}</span>`}
-      </div>
+  <div class="showcase${galleryMarkup ? '' : ' showcase-text-only'}">${galleryMarkup ? `
+    ${galleryMarkup}` : ''}
+    <aside class="summary" aria-label="Resumo de ${project.name}">${cover ? `
+      <div class="summary-art${coverScreen ? ' summary-art-capture' : isDump ? ' summary-art-dump' : ''}">
+        <img src="${base + cover}" alt="">${coverScreen || isDump ? '' : `<span>${project.name}</span>`}
+      </div>` : ''}
       <div class="summary-copy">
         <p>${project.description}</p>
         ${tagList(project.tags)}
-        <p class="platform">${mobileInfoIcon(screenIcon)}<span>${project.platform} · ${isDump ? 'Edição local' : project.edition}</span></p>
+        <p class="platform">${mobileInfoIcon(screenIcon)}<span>${project.platform} · ${isDump ? 'Edição local · ' : ''}${project.edition}</span></p>
         ${projectAction(project)}
         <a class="text-link" href="${project.repo}" ${external}>Ver repositório no GitHub</a>
       </div>
@@ -464,9 +475,9 @@ function projectPage(project) {
         <h2 id="mechanics-title">Mecânicas de jogo</h2>
         <div class="mechanics-grid">
           ${project.mechanics.map(({ title, body, screen }) => {
-            const [image, caption] = project.screens[screen];
-            return `<article class="mechanic-card">
-            <figure><img src="${base + media(project, image)}" width="1440" height="900" alt="" loading="lazy"><figcaption>${escape(caption)}</figcaption></figure>
+            const capture = featureScreens[screen];
+            return `<article class="mechanic-card">${capture ? `
+            <figure><img src="${base + capture.image}" width="1440" height="900" alt="" loading="lazy"><figcaption>${escape(capture.label)}</figcaption></figure>` : ''}
             <div class="mechanic-copy"><h3>${escape(title)}</h3><p>${escape(body)}</p></div>
           </article>`;
           }).join('\n          ')}
@@ -474,10 +485,13 @@ function projectPage(project) {
       </section>` : ''}
       <section class="feature-list" id="recursos" aria-labelledby="features-title">
         <h2 id="features-title">Recursos</h2>
-        ${project.features.map(({ title, body, screen }) => `<article class="feature${screen === undefined ? ' feature-text' : ''}">${screen === undefined ? '' : `
-          <img src="${base + media(project, project.screens[screen][0])}" alt="${project.screens[screen][1]}" loading="lazy">`}
+        ${project.features.map(({ title, body, screen }) => {
+          const capture = featureScreens[screen];
+          return `<article class="feature${capture ? '' : ' feature-text'}">${capture ? `
+          <img src="${base + capture.image}" alt="${escape(capture.label)}" loading="lazy">` : ''}
           <div><h3>${title}</h3><p>${body}</p></div>
-        </article>`).join('\n          ')}
+        </article>`;
+        }).join('\n          ')}
       </section>
     </div>
     <aside class="project-facts" aria-label="Ficha técnica e documentação">
@@ -526,7 +540,6 @@ function projectPage(project) {
 const files = new Map([['index.html', home()], ...projects.map(project => [
   `${route(project)}index.html`, projectPage(project)
 ])]);
-const check = process.argv.includes('--check');
 const outdated = [];
 for (const [file, html] of files) {
   const destination = path.join(root, file);

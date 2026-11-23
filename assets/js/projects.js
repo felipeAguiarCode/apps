@@ -19,12 +19,18 @@
       cta: 'Ir para a página de download',
       demo: 'https://felipeaguiarcode.github.io/dump-studio/#play',
       demoLabel: 'Testar no navegador',
-      video: 'demo.mp4',
       screens: [
-        ['editor-filters.webp', 'Painel de filtros e camadas do editor'],
-        ['editor-layouts.webp', 'Layouts para colagens e carrosséis'],
-        ['presets.png', 'Biblioteca de presets no tema Noir'],
-        ['textures.png', 'Painel de texturas e efeitos']
+        ['01-filtros.png', 'Painel de filtros do editor'],
+        ['04-layout-de-colagem.png', 'Layouts para colagens'],
+        ['03-previa-de-preset.png', 'Prévia de um preset'],
+        ['02-ajustes-de-imagem.png', 'Ajustes de imagem'],
+        ['05-previa-do-carrossel.png', 'Prévia do carrossel'],
+        ['06-exportacao.png', 'Configurações de exportação'],
+        ['07-simulacoes-de-camera.png', 'Simulações de câmeras analógicas'],
+        ['08-texturas-de-filme.png', 'Grão e brilho de filme'],
+        ['09-recorte-e-proporcao.png', 'Recorte quadrado de uma foto'],
+        ['10-tipografia-em-camadas.png', 'Tipografia em uma composição de Lisboa'],
+        ['11-efeitos-de-sobreposicao.png', 'Vinheta aplicada como uma camada']
       ],
       tags: ['Photo dumps', 'Colagens', 'Carrosséis'],
       facts: [
@@ -67,8 +73,7 @@
         ['Quais formatos posso criar?', 'O editor oferece formatos quadrado, retrato, horizontal e Stories. Cada página pode ser exportada em JPG ou PNG.']
       ],
       credits: [
-        ['Créditos das fotos', 'https://felipeaguiarcode.github.io/dump-studio/credits.html'],
-        ['Créditos do vídeo', 'assets/projects/dump/credits.md']
+        ['Créditos das fotos', 'https://felipeaguiarcode.github.io/dump-studio/credits.html']
       ]
     },
     {
@@ -80,17 +85,18 @@
       edition: 'Versão portátil',
       headline: 'Da biblioteca ao jogo, pelo controle.',
       description: 'transforme seu notebook em um console de sofá com todos seus emuladores e recomps em um lugar só',
-      repo: 'https://github.com/felipeAguiarCode/PS5EmuShell',
-      docs: 'https://github.com/felipeAguiarCode/PS5EmuShell/blob/main/requisites.md',
+      repo: 'https://github.com/felipeAguiarCode/psEmuShell',
+      docs: 'https://github.com/felipeAguiarCode/psEmuShell/blob/main/requisites.md',
       docsLabel: 'Requisitos por emulador',
-      download: 'https://github.com/felipeAguiarCode/PS5EmuShell/releases/latest',
+      download: 'https://github.com/felipeAguiarCode/psEmuShell/releases/latest',
       cta: 'Baixar a versão mais recente',
-      video: 'demo.mp4',
       screens: [
-        ['library.jpg', 'Biblioteca de jogos com capas e arte de fundo'],
-        ['collections.jpg', 'Coleções de jogos no launcher'],
-        ['trophies.jpg', 'Tela de troféus do RetroAchievements'],
-        ['keyboard.jpg', 'Teclado virtual para buscar jogos pelo controle']
+        ['01-tela-de-jogos.png', 'Tela inicial de jogos do psEmuShell'],
+        ['02-biblioteca.png', 'Biblioteca de jogos com capas'],
+        ['03-colecoes.png', 'Coleções de jogos do launcher'],
+        ['04-teclado-virtual.png', 'Teclado virtual para buscar jogos pelo controle'],
+        ['05-trofeus-tema-claro.png', 'Tela de troféus do RetroAchievements no tema claro'],
+        ['06-avatares.png', 'Seleção de avatares']
       ],
       tags: ['Emulação', 'Controle', 'RetroAchievements'],
       facts: [
@@ -107,7 +113,7 @@
         {
           title: 'Encontre o jogo pela capa',
           body: 'O launcher busca capas para suas ROMs e exibe a arte do jogo na tela inicial. Separe sagas em coleções, marque favoritos e troque de console com L1 e R1.',
-          screen: 1
+          screen: 2
         },
         {
           title: 'Configure a sessão pelo controle',
@@ -117,7 +123,7 @@
         {
           title: 'Acompanhe a próxima conquista',
           body: 'Conecte sua conta do RetroAchievements, veja o progresso de cada jogo em lista ou grade e sincronize o login com os emuladores compatíveis.',
-          screen: 2
+          screen: 4
         }
       ],
       stepsTitle: 'Como instalar',
@@ -156,19 +162,19 @@
       docs: 'https://github.com/felipeAguiarCode/pixel-college-deluxe/blob/main/README.pt-BR.md',
       playUrl: 'https://felipeaguiarcode.github.io/pixel-college-deluxe/',
       cta: 'Jogar no navegador',
-      cover: 'cover.webp',
-      video: 'demo.mp4',
+      coverScreen: '28-espx-tv-leaders-texas-am-lsu.png',
       screens: [
-        ['pre-snap.png', 'Alabama e Auburn alinhados antes do snap na chuva'],
-        ['passe.png', 'Jogada de passe entre Florida State e Clemson'],
-        ['corrida.png', 'Michigan e Michigan State disputam uma jogada de corrida na neve'],
-        ['recepcao.png', 'Desafio de precisão na recepção entre Texas A&M e LSU'],
-        ['espx-tv.png', 'A ESPX TV comenta o intervalo de Georgia e Tennessee'],
-        ['field-goal.png', 'Tentativa de field goal na neve entre Ohio State e Penn State'],
-        ['cover-2.png', 'Notre Dame e Iowa alinhados para uma defesa Cover 2'],
-        ['defesa-passe.png', 'Desafio de defesa do passe entre Miami e Florida'],
-        ['uma-mao.png', 'Destaque de uma recepção com uma mão entre USC e UCLA'],
-        ['neblina.png', 'A neblina toma o campo na transmissão de Army e Navy']
+        ['01-chuva-alabama-auburn-pre-snap.png', 'Alabama e Auburn alinhados antes do snap na chuva'],
+        ['02-chuva-florida-state-clemson-passe.png', 'Jogada de passe entre Florida State e Clemson'],
+        ['05-neve-michigan-michigan-state-handoff.png', 'Michigan e Michigan State disputam uma jogada de corrida na neve'],
+        ['09-qte-texas-am-lsu-recepcao.png', 'Desafio de precisão na recepção entre Texas A&M e LSU'],
+        ['25-espx-tv-halftime-georgia-tennessee.png', 'A ESPX TV comenta o intervalo de Georgia e Tennessee'],
+        ['06-neve-ohio-state-penn-state-field-goal.png', 'Tentativa de field goal na neve entre Ohio State e Penn State'],
+        ['07-neve-notre-dame-iowa-cover-2.png', 'Notre Dame e Iowa alinhados para uma defesa Cover 2'],
+        ['11-qte-miami-florida-defesa-do-passe.png', 'Desafio de defesa do passe entre Miami e Florida'],
+        ['13-especial-usc-ucla-recepcao-com-uma-mao.png', 'Destaque de uma recepção com uma mão entre USC e UCLA'],
+        ['18-fog-army-navy-watch-game.png', 'A neblina toma o campo na transmissão de Army e Navy'],
+        ['28-espx-tv-leaders-texas-am-lsu.png', 'Team Leaders na transmissão da ESPX TV entre Texas A&M e LSU']
       ],
       tags: ['Esportes', 'Pixel art', 'Carreira'],
       facts: [
