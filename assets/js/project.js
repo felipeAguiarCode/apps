@@ -30,6 +30,7 @@
       element.src = video;
       element.poster = image;
       element.controls = true;
+      element.loop = true;
       element.playsInline = true;
       element.preload = 'none';
       element.setAttribute('aria-label', label);
