@@ -59,11 +59,13 @@ const chevron = '<span class="chevron" aria-hidden="true"></span>';
 const play = '<span class="play-icon" aria-hidden="true"></span>';
 const external = 'target="_blank" rel="noopener noreferrer"';
 const githubLogo = '<path d="M9 19c-4.3 1.3-4.3-2.2-6-2.7m12 5v-3.3a2.9 2.9 0 0 0-.8-2.2c2.7-.3 5.5-1.3 5.5-6a4.7 4.7 0 0 0-1.3-3.3 4.3 4.3 0 0 0-.1-3.3s-1-.3-3.4 1.3a12.6 12.6 0 0 0-6.2 0C6.3 2.9 5.3 3.2 5.3 3.2a4.3 4.3 0 0 0-.1 3.3A4.7 4.7 0 0 0 4 9.8c0 4.7 2.8 5.7 5.5 6a2.9 2.9 0 0 0-.8 2.2v3.3"/>';
+const instagramHandle = 'felipeaguiar.exe';
+const instagram = `https://www.instagram.com/${instagramHandle}/`;
 const socialLinks = [
   ['YouTube', 'https://www.youtube.com/@devaguia/videos', '<rect x="3" y="5" width="18" height="14" rx="4"/><path d="m10 9 5 3-5 3Z"/>'],
   ['GitHub', github, githubLogo],
   ['LinkedIn', 'https://www.linkedin.com/in/felipeaguiar-exe/', '<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 11v6m0-10v.1M12 17v-6m0 2a2 2 0 0 1 4 0v4"/>'],
-  ['Instagram', 'https://www.instagram.com/felipeaguiar.exe/', '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.6h.01"/>']
+  ['Instagram', instagram, '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.6h.01"/>']
 ];
 const searchIcon = '<circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 5 5"/>';
 const controllerIcon = '<path d="M7 7h10a4 4 0 0 1 3.9 3.3l1 5.3a2.6 2.6 0 0 1-4.4 2.3L15 15H9l-2.5 2.9a2.6 2.6 0 0 1-4.4-2.3l1-5.3A4 4 0 0 1 7 7Z"/><path d="M8 9.5v4M6 11.5h4M16 11.5h.01m2-2h.01"/>';
@@ -216,11 +218,11 @@ function catalogCard({ project, tab }) {
           <p class="kicker">${project.category}</p>
           <h3>${name}</h3>
           <p class="catalog-lede">${project.headline}</p>
-          <p>${summary}</p>
+          <p class="catalog-summary">${summary}</p>
           ${tagList(project.tags)}
           <div class="catalog-footer">
             ${homeActions(project)}
-            <a class="catalog-mobile-action" href="${destination}">Ver app</a>
+            <a class="catalog-mobile-action" href="${destination}" aria-label="Ver app ${name}">Ver app</a>
             <a class="repo-stars" href="${project.repo}" ${external} data-repo-stars="${starsAPI}" aria-label="Dar uma estrela a ${name} no GitHub" title="Dar uma estrela no GitHub">${star}<span data-star-count hidden></span></a>
           </div>
         </div>
@@ -334,11 +336,19 @@ function homeAbout() {
     <div class="about-copy">
       <p class="kicker">Quem faz</p>
       <h2 id="about-me-title">Felipe Aguiar</h2>
-      <p>Sou desenvolvedor full stack e instrutor de tecnologia. Trabalho com TypeScript, Node.js, interfaces web e IA aplicada. Gosto de entender o problema, pensar na arquitetura e transformar a solução em algo que as pessoas possam usar.</p>
-      <p>No GitHub e no YouTube, compartilho código, experimentos e conteúdo técnico. O objetivo é mostrar o que construí, explicar as escolhas e trocar conhecimento com outros desenvolvedores.</p>
-      <div class="actions">
-        ${socialLinks.map(([name, url, paths]) => `<a class="${name === 'YouTube' ? 'button secondary' : 'text-link'}" href="${url}" ${external}>${lineIcon(paths, 17)}${name === 'YouTube' ? 'Assistir ao Dev Águia' : name}</a>`).join('\n        ')}
+      <span class="about-handle">@${instagramHandle}</span>
+      <p>Sou desenvolvedor full stack e instrutor de tecnologia. Trabalho com TypeScript, Node.js, interfaces web e IA aplicada.<span class="about-bio-details"> Gosto de entender o problema, pensar na arquitetura e transformar a solução em algo que as pessoas possam usar.</span></p>
+      <p class="about-bio-details">No GitHub e no YouTube, compartilho código, experimentos e conteúdo técnico. O objetivo é mostrar o que construí, explicar as escolhas e trocar conhecimento com outros desenvolvedores.</p>
+      <div class="about-profile-actions">
+        <a class="button primary" href="${instagram}" ${external} aria-label="Seguir Felipe Aguiar no Instagram">Seguir</a>
+        ${homeSections.includes('catalog') ? '<a class="button secondary" href="#projetos">Ver apps</a>' : ''}
       </div>
+      <nav class="actions" aria-label="Redes sociais de Felipe Aguiar">
+        ${socialLinks.map(([name, url, paths]) => {
+          const isYouTube = name === 'YouTube';
+          return `<a class="${isYouTube ? 'button secondary' : 'text-link'}" href="${url}" ${external} aria-label="${isYouTube ? 'Assistir ao Dev Águia no YouTube' : name}">${lineIcon(paths, 17)}<span>${isYouTube ? 'Assistir ao Dev Águia' : name}</span></a>`;
+        }).join('\n        ')}
+      </nav>
     </div>
   </section>`;
 }
