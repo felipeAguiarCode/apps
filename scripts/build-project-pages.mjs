@@ -68,6 +68,9 @@ const socialLinks = [
 const searchIcon = '<circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 5 5"/>';
 const controllerIcon = '<path d="M7 7h10a4 4 0 0 1 3.9 3.3l1 5.3a2.6 2.6 0 0 1-4.4 2.3L15 15H9l-2.5 2.9a2.6 2.6 0 0 1-4.4-2.3l1-5.3A4 4 0 0 1 7 7Z"/><path d="M8 9.5v4M6 11.5h4M16 11.5h.01m2-2h.01"/>';
 const screenIcon = '<rect x="3" y="4" width="18" height="13" rx="2"/><path d="M12 17v3m-4 0h8"/>';
+const checklistIcon = '<rect x="4" y="3" width="16" height="18" rx="2"/><path d="m7 9 1 1 2-2m-3 7 1 1 2-2m3-5h4m-4 6h4"/>';
+const linkIcon = '<path d="M10 13a4 4 0 0 0 6 .5l3-3a4 4 0 0 0-5.7-5.7L12 6m2 5a4 4 0 0 0-6-.5l-3 3a4 4 0 0 0 5.7 5.7L12 18"/>';
+const alertIcon = '<circle cx="12" cy="12" r="9"/><path d="M12 8v4m0 4h.01"/>';
 const factIcons = {
   Plataforma: screenIcon,
   Distribuição: '<path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z"/><path d="m4 7.5 8 4.5 8-4.5M12 12v9m-4-15.75 8 4.5"/>',
@@ -88,6 +91,10 @@ const factIcons = {
 
 function lineIcon(paths, size = 19) {
   return `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
+}
+
+function mobileInfoIcon(paths) {
+  return `<span class="mobile-info-icon" aria-hidden="true">${lineIcon(paths, 16)}</span>`;
 }
 
 function brand(base) {
@@ -422,7 +429,7 @@ function projectPage(project) {
       <div class="summary-copy">
         <p>${project.description}</p>
         ${tagList(project.tags)}
-        <p class="platform">${project.platform} · ${isDump ? 'Edição local' : project.edition}</p>
+        <p class="platform">${mobileInfoIcon(screenIcon)}<span>${project.platform} · ${isDump ? 'Edição local' : project.edition}</span></p>
         ${projectAction(project)}
         <a class="text-link" href="${project.repo}" ${external}>Ver repositório no GitHub</a>
       </div>
@@ -465,27 +472,31 @@ function projectPage(project) {
     </div>
     <aside class="project-facts" aria-label="Ficha técnica e documentação">
       <section class="info-card">
-        <h2>Ficha técnica</h2>
+        <h2>${mobileInfoIcon(checklistIcon)}Ficha técnica</h2>
         ${factsList(project.facts, base)}
       </section>${project.requirements ? `
-      <section class="info-card"><h2>Requisitos do launcher</h2>${factsList(project.requirements, base)}<a class="text-link" href="${project.docs}" ${external}>${project.docsLabel}</a></section>` : ''}
       <section class="info-card">
-        <h2>Links do projeto</h2>
-        <a class="text-link" href="${project.repo}" ${external}>Código no GitHub</a>
-        <a class="text-link" href="${project.requirements ? project.repo + '#instalação' : project.docs}" ${external}>Documentação</a>
-        <a class="text-link" href="${project.repo}/issues" ${external}>Reportar um problema</a>
+        <h2>${mobileInfoIcon(factIcons.Processador)}Requisitos do launcher</h2>
+        ${factsList(project.requirements, base)}
+        <a class="text-link" href="${project.docs}" ${external}>${mobileInfoIcon(checklistIcon)}${project.docsLabel}</a>
+      </section>` : ''}
+      <section class="info-card">
+        <h2>${mobileInfoIcon(linkIcon)}Links do projeto</h2>
+        <a class="text-link" href="${project.repo}" ${external}>${mobileInfoIcon(githubLogo)}Código no GitHub</a>
+        <a class="text-link" href="${project.requirements ? project.repo + '#instalação' : project.docs}" ${external}>${mobileInfoIcon(checklistIcon)}Documentação</a>
+        <a class="text-link" href="${project.repo}/issues" ${external}>${mobileInfoIcon(alertIcon)}Reportar um problema</a>
       </section>
     </aside>
   </div>
 
   <section class="install" id="${setupSection}" aria-labelledby="install-title">
     <div class="install-copy">
-      <h2 id="install-title">${project.installTitle}</h2>
+      <h2 id="install-title">${mobileInfoIcon(project.playUrl ? controllerIcon : factIcons.Exportação)}${project.installTitle}</h2>
       <p>${project.install}</p>
       <div class="actions">${projectAction(project)}${project.demo ? `<a class="button secondary" href="${project.demo}" ${external}>${project.demoLabel}</a>` : ''}</div>
     </div>
     <div class="install-steps">
-      <h3>${project.stepsTitle || 'Da criação à exportação'}</h3>
+      <h3>${mobileInfoIcon(checklistIcon)}${project.stepsTitle || 'Da criação à exportação'}</h3>
       <ol>${project.steps.map(([title, body]) => `<li><strong>${title}</strong><p>${escape(body)}</p></li>`).join('')}</ol>
     </div>
   </section>
@@ -496,7 +507,7 @@ function projectPage(project) {
   </section>
 
   <nav class="other-project" aria-label="Outro app do portfólio">
-    <span>Veja também</span><a href="../${other.slug}/index.html">${other.name}</a>
+    <span>${mobileInfoIcon(linkIcon)}Veja também</span><a href="../${other.slug}/index.html">${other.name}</a>
   </nav>
 </main>`
   });

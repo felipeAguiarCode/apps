@@ -698,6 +698,7 @@ section[id], figure[id] { scroll-margin-top: 1.5rem; }
 .fact-person img { flex: none; width: 1.85rem; height: 1.85rem; object-fit: cover; border-radius: 50%; }
 .facts > div:has(.fact-person) { align-items: center; }
 .info-card .text-link { display: block; width: fit-content; padding: .26rem 0; font-size: .91rem; }
+.mobile-info-icon { display: none; }
 @container info-card (max-width: 16.5rem) {
   .facts > div { grid-template-columns: minmax(0, 1fr); gap: .2rem; }
   .facts dd { margin-inline-start: 1.45rem; }
@@ -728,7 +729,7 @@ section[id], figure[id] { scroll-margin-top: 1.5rem; }
 .faq summary::marker { color: var(--accent); }
 .faq p { color: var(--muted); padding: 0 0 .85rem 1.1rem; }
 .other-project { display: flex; justify-content: space-between; gap: 1rem; align-items: center; margin-top: 2.5rem; padding: .95rem 1.1rem; border: 1px solid var(--line); border-radius: .5rem; }
-.other-project span { color: var(--dim); }
+.other-project > span { color: var(--dim); }
 .other-project a { font-weight: 700; }
 .other-project a:hover { text-decoration: underline; text-underline-offset: .22rem; }
 
@@ -981,7 +982,7 @@ section[id], figure[id] { scroll-margin-top: 1.5rem; }
     flex-direction: column;
     align-items: flex-start;
     align-self: start;
-    padding: .1rem 3.45rem .1rem 0;
+    padding: .1rem 0;
     text-align: start;
   }
   .catalog-copy h3 { order: -1; margin: 0 0 .2rem; font-size: 1.08rem; letter-spacing: -.025em; }
@@ -1001,20 +1002,7 @@ section[id], figure[id] { scroll-margin-top: 1.5rem; }
     font-size: .83rem;
     font-weight: 700;
   }
-  .repo-stars {
-    position: absolute;
-    inset-block-start: .8rem;
-    inset-inline-end: .2rem;
-    justify-content: center;
-    gap: .3rem;
-    min-width: 2.75rem;
-    min-height: 2.75rem;
-    margin: 0;
-    padding: .3rem .4rem;
-    border-radius: .65rem;
-    background: var(--surface);
-    font-size: .79rem;
-  }
+  .catalog-list .repo-stars { display: none; }
   .hero-copy .actions,
   .about-copy .actions,
   .install-copy .actions {
@@ -1025,8 +1013,7 @@ section[id], figure[id] { scroll-margin-top: 1.5rem; }
     margin-inline: auto;
   }
   .summary-copy .button,
-  .summary-copy .text-link,
-  .info-card .text-link { width: min(100%, 22rem); margin-inline: auto; }
+  .summary-copy .text-link { width: min(100%, 22rem); margin-inline: auto; }
   .summary-copy .text-link,
   .info-card .text-link,
   .about-copy .actions .text-link {
@@ -1041,7 +1028,6 @@ section[id], figure[id] { scroll-margin-top: 1.5rem; }
     font-size: .94rem;
     line-height: 1.25;
   }
-  .info-card .text-link { margin-top: .55rem; }
   .project { padding-bottom: 2.8rem; }
   .project-hero { padding-top: 1rem; }
   .breadcrumb { justify-content: center; flex-wrap: wrap; }
@@ -1057,16 +1043,57 @@ section[id], figure[id] { scroll-margin-top: 1.5rem; }
   .summary .summary-art::after { background: linear-gradient(0deg, #101016e8, #10101622 82%); }
   .summary-art span { left: 50%; width: max-content; max-width: calc(100% - 2rem); transform: translateX(-50%); }
   .summary-art-dump span img { margin-inline: auto; }
+  .project :is(.summary-copy, .info-card, .feature, .mechanic-card, .install, .faq details, .other-project) { text-align: start; }
+  .summary-copy .tags { justify-content: flex-start; }
   .project-facts { grid-template-columns: minmax(0, 1fr); }
-  .facts > div { grid-template-columns: minmax(0, 1fr); justify-items: center; gap: .2rem; }
-  .facts dd { margin-inline-start: 0; }
+  .info-card { padding: .85rem; }
+  .info-card h2, .platform, .install h2, .install-steps h3, .other-project > span {
+    display: flex;
+    align-items: center;
+    gap: .55rem;
+  }
+  .mobile-info-icon, .facts dt svg {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: .25rem;
+    background: var(--wash);
+    color: var(--accent);
+  }
+  .facts > div, .info-card .text-link { border: 0; border-radius: .28rem; background: #ffffff07; }
+  .facts > div {
+    position: relative;
+    grid-template-columns: minmax(0, 1fr);
+    gap: .15rem;
+    padding: .5rem .6rem .5rem 2.9rem;
+  }
+  .facts > div + div, .info-card .text-link + .text-link { margin-top: .3rem; }
+  .facts dt { display: block; color: var(--text); font-weight: 600; }
+  .facts dt svg {
+    position: absolute;
+    inset-block-start: .5rem;
+    inset-inline-start: .55rem;
+    margin: 0;
+    padding: .38rem;
+    opacity: 1;
+  }
+  .facts dd { margin-inline-start: 0; color: var(--muted); }
+  .info-card .text-link {
+    justify-content: flex-start;
+    gap: .55rem;
+    width: 100%;
+    padding: .45rem .55rem;
+  }
+  .info-card .facts + .text-link { margin-top: .55rem; }
   .gallery-nav { width: 2.05rem; height: 2.05rem; }
   .feature { gap: .7rem; }
   .install-steps { border-left: 0; padding: .9rem 0 0; border-top: 1px solid #ffffff35; }
-  .install-steps ol { padding-left: 0; list-style-position: inside; }
+  .install-steps ol { padding-inline-start: 1.3rem; }
   .faq { gap: .75rem; }
-  .faq p { padding-inline: 0; }
-  .other-project { flex-direction: column; gap: .35rem; }
+  .other-project { flex-direction: column; align-items: flex-start; gap: .35rem; }
+  .other-project > a { margin-inline-start: 2.35rem; }
   .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); padding-block: 1.55rem 1.2rem; gap: 1.3rem 1.1rem; }
   .footer-brand, .footer-grid > .footer-col:last-child { grid-column: 1 / -1; }
   .footer-brand :is(.brand, p) { margin-inline: auto; }
@@ -1074,6 +1101,7 @@ section[id], figure[id] { scroll-margin-top: 1.5rem; }
   .site-footer .footer-col { justify-items: center; }
   .about-me { grid-template-columns: minmax(0, 1fr); gap: 1rem; margin-top: 1.9rem; }
   .about-avatar { --avatar-size: clamp(8rem, 28vw, 10rem); justify-self: center; }
+  .about-copy .kicker { justify-content: center; }
   .about-copy p { margin-inline: auto; }
   .launcher-art::after { background: linear-gradient(0deg, #151829bb, transparent 24%); }
 }
