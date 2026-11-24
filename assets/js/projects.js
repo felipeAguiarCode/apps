@@ -15,8 +15,8 @@
       description: 'Edite suas fotos, crie colagens e monte carrosséis contínuos em um estúdio desktop que guarda seus projetos no computador.',
       repo: 'https://github.com/felipeAguiarCode/dump-studio',
       docs: 'https://github.com/felipeAguiarCode/dump-studio/blob/main/README.pt-BR.md',
-      download: 'https://felipeaguiarcode.github.io/dump-studio/#download',
-      cta: 'Ir para a página de download',
+      download: 'https://github.com/felipeAguiarCode/dump-studio/releases/latest',
+      cta: 'Baixar pelo GitHub',
       demo: 'https://felipeaguiarcode.github.io/dump-studio/#play',
       demoLabel: 'Testar no navegador',
       screens: [
@@ -66,7 +66,7 @@
         ['Exporte as páginas', 'Gere JPG ou PNG nas dimensões do projeto.']
       ],
       installTitle: 'Monte seu primeiro dump',
-      install: 'A página oficial mostra o status do instalador para Windows. Quando ele estiver disponível, execute o arquivo .exe e abra o My Dump Studio pelo menu Iniciar. Enquanto isso, experimente filtros, layouts e exportação em PNG na demo.',
+      install: 'Baixe o instalador .exe da versão mais recente no GitHub. Execute o arquivo e abra o My Dump Studio pelo menu Iniciar.',
       questions: [
         ['Onde ficam meus projetos?', 'Os projetos ficam no computador e têm salvamento automático. Você pode começar a editar sem criar uma conta.'],
         ['O que consigo testar no navegador?', 'A demo usa fotos de exemplo para testar looks, intensidade, layouts e prévias em PNG. As ferramentas de camadas e a biblioteca de presets ficam no aplicativo desktop.'],
