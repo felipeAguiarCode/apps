@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#101016">
+<script src="assets/js/theme.js"></script>
 <meta name="description" content="Explore editores, launchers e jogos de navegador criados por Felipe Aguiar. Veja os vídeos, as capturas e onde jogar ou baixar.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="My App Store">
@@ -16,40 +17,45 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/portfolio.css">
+<link rel="stylesheet" href="assets/css/light-theme.css">
 <title>My App Store</title>
 </head>
 <body>
-<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+<a class="skip-link" href="#main-content">Pular para o conteúdo</a>
 <header class="site-header">
   <div class="shell header-inner">
     <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">fa.</span><span>Felipe Aguiar <small>Meus Aplicativos</small></span></a>
     <nav class="site-nav" aria-label="Menu principal">
-      <a href="#destaques">Destaques</a>
-      <a href="#projetos">Todos os apps</a>
-      <a href="#sobre">Sobre mim</a>
+      <a href="#featured">Destaques</a>
+      <a href="#catalog">Todos os apps</a>
+      <a href="#about">Sobre mim</a>
     </nav>
     <details class="mobile-menu">
       <summary aria-label="Menu principal"><svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></summary>
       <nav class="mobile-menu-links" aria-label="Navegação mobile">
-        <a href="#destaques"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.5 4.5 1.1 6.2-5.7-3-5.7 3 1.1-6.2-4.5-4.5 6.3-.9Z"/></svg>Destaques</a>
-        <a href="#projetos"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Todos os apps</a>
-        <a href="#sobre"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3"/><path d="M5 20v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1"/></svg>Sobre mim</a>
+        <a href="#featured"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.5 4.5 1.1 6.2-5.7-3-5.7 3 1.1-6.2-4.5-4.5 6.3-.9Z"/></svg>Destaques</a>
+        <a href="#catalog"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Todos os apps</a>
+        <a href="#about"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3"/><path d="M5 20v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1"/></svg>Sobre mim</a>
         <a href="https://github.com/felipeAguiarCode" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-4.3 1.3-4.3-2.2-6-2.7m12 5v-3.3a2.9 2.9 0 0 0-.8-2.2c2.7-.3 5.5-1.3 5.5-6a4.7 4.7 0 0 0-1.3-3.3 4.3 4.3 0 0 0-.1-3.3s-1-.3-3.4 1.3a12.6 12.6 0 0 0-6.2 0C6.3 2.9 5.3 3.2 5.3 3.2a4.3 4.3 0 0 0-.1 3.3A4.7 4.7 0 0 0 4 9.8c0 4.7 2.8 5.7 5.5 6a2.9 2.9 0 0 0-.8 2.2v3.3"/></svg>Meu GitHub</a>
       </nav>
     </details>
     <div class="header-actions">
-      <form class="search-field site-search" role="search" aria-label="Busca principal" action="index.html#projetos" method="get">
+      <form class="search-field site-search" role="search" aria-label="Busca principal" action="index.html#catalog" method="get">
         <input type="search" name="q" placeholder="Buscar apps" aria-label="Buscar apps" enterkeyhint="search">
         <button type="submit" aria-label="Pesquisar"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 5 5"/></svg></button>
       </form>
-      <a class="header-source" href="https://github.com/felipeAguiarCode" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-4.3 1.3-4.3-2.2-6-2.7m12 5v-3.3a2.9 2.9 0 0 0-.8-2.2c2.7-.3 5.5-1.3 5.5-6a4.7 4.7 0 0 0-1.3-3.3 4.3 4.3 0 0 0-.1-3.3s-1-.3-3.4 1.3a12.6 12.6 0 0 0-6.2 0C6.3 2.9 5.3 3.2 5.3 3.2a4.3 4.3 0 0 0-.1 3.3A4.7 4.7 0 0 0 4 9.8c0 4.7 2.8 5.7 5.5 6a2.9 2.9 0 0 0-.8 2.2v3.3"/></svg><span>Meu GitHub</span></a>
+      <a class="header-source" href="https://github.com/felipeAguiarCode" target="_blank" rel="noopener noreferrer" aria-label="Meu GitHub"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-4.3 1.3-4.3-2.2-6-2.7m12 5v-3.3a2.9 2.9 0 0 0-.8-2.2c2.7-.3 5.5-1.3 5.5-6a4.7 4.7 0 0 0-1.3-3.3 4.3 4.3 0 0 0-.1-3.3s-1-.3-3.4 1.3a12.6 12.6 0 0 0-6.2 0C6.3 2.9 5.3 3.2 5.3 3.2a4.3 4.3 0 0 0-.1 3.3A4.7 4.7 0 0 0 4 9.8c0 4.7 2.8 5.7 5.5 6a2.9 2.9 0 0 0-.8 2.2v3.3"/></svg></a>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Ativar tema claro" hidden>
+        <span class="theme-icon-sun"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.4 1.4m11.2 11.2L19 19M19 5l-1.4 1.4M6.4 17.6 5 19"/></svg></span>
+        <span class="theme-icon-moon"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.9 13.5a9 9 0 0 1-10.4-10.4A9 9 0 1 0 20.9 13.5Z"/></svg></span>
+      </button>
     </div>
   </div>
 </header>
-  <main id="conteudo" class="shell home">
+  <main id="main-content" class="shell home">
   <h1 class="sr-only">Meus Aplicativos</h1>
-  <section class="home-featured" id="destaques" aria-labelledby="featured-section-title">
-    <div class="section-heading"><h2 id="featured-section-title">Destaques e recomendados</h2></div>
+  <section class="home-featured" id="featured" aria-labelledby="featured-section-title">
+    <div class="section-heading"><h2 id="featured-section-title">Destaques</h2></div>
     <div class="home-hero" data-stories>
       <div class="story-stage">
         <div class="story-slides">
@@ -60,7 +66,7 @@
               <p class="hero-lede">Do rolo de câmera ao carrossel.</p>
               <p class="hero-summary">Junte as fotos do fim de semana, encontre o seu look e monte um photo dump pronto para o feed.</p>
               <div class="actions">
-                <a class="button primary" href="projetos/dump-studio/index.html">Conhecer o Editor</a>
+                <a class="button primary" href="projects/dump-studio/index.html">Conhecer o Editor</a>
                 <a class="button secondary" href="https://github.com/felipeAguiarCode/dump-studio/releases/latest" target="_blank" rel="noopener noreferrer">Ver download</a>
               </div>
             </div>
@@ -71,22 +77,22 @@
               <span>Colagens · Filtros · Carrosséis</span>
             </div>
           </article>
-          <article class="hero-slide theme-ps5" data-story data-duration="8000" aria-labelledby="launcher-hero-title">
+          <article class="hero-slide theme-markdown" data-story data-duration="8000" aria-labelledby="featured-markdown-title">
             <div class="hero-copy">
-              <p class="kicker">Launcher de jogos</p>
-              <h2 id="launcher-hero-title">psEmuShell</h2>
-              <p class="hero-lede">Da biblioteca ao jogo, pelo controle.</p>
-              <p class="hero-summary">transforme seu notebook em um console de sofá com todos seus emuladores e recomps em um lugar só</p>
+              <p class="kicker">Editor de notas em Markdown</p>
+              <h2 id="featured-markdown-title">Markdown Live Editor</h2>
+              <p class="hero-lede">Escreva em blocos, organize em pastas.</p>
+              <p class="hero-summary">Crie notas, checklists e documentos de projeto em um editor que salva o trabalho no navegador.</p>
               <div class="actions">
-                <a class="button primary" href="projetos/ps5-emushell/index.html">Conhecer o launcher</a>
-                <a class="button secondary" href="https://github.com/felipeAguiarCode/psEmuShell/releases/latest" target="_blank" rel="noopener noreferrer">Ver último release</a>
+                <a class="button primary" href="projects/markdown-live-editor/index.html">Conhecer o editor</a>
+                <a class="button secondary" href="https://felipeaguiarcode.github.io/markdown-live-editor/" target="_blank" rel="noopener noreferrer">Usar Agorar</a>
               </div>
             </div>
-            <div class="hero-art" aria-hidden="true"><img src="assets/projects/ps5/banners/ps5-emu-shell-banner.png" alt=""></div>
+            <div class="hero-art" aria-hidden="true"><img src="assets/projects/markdown/banners/markdown-live-editor-banner-sem-texto.png" alt=""></div>
             <div class="app-strip">
-              <span class="strip-brand"><img src="assets/projects/ps5/icons/icon-128.png" alt="" width="30" height="30"> Versão portátil</span>
-              <span>Windows 10 / 11 · 64 bits</span>
-              <span>ROMs · Recompilações · Jogos de PC</span>
+              <span class="strip-brand"><img src="assets/projects/markdown/icons/icon-128.png" alt="" width="30" height="30"> Computador e celular</span>
+              <span>Navegador</span>
+              <span>Markdown · Notas · Modelos</span>
             </div>
           </article>
         </div>
@@ -96,36 +102,91 @@
       <div class="story-controls" hidden>
         <div class="story-track" role="group" aria-label="Escolher app no banner">
           <button class="story-button" data-story-button type="button" aria-label="Mostrar My Dump Studio" aria-pressed="true"><span aria-hidden="true"></span></button>
-          <button class="story-button" data-story-button type="button" aria-label="Mostrar psEmuShell" aria-pressed="false"><span aria-hidden="true"></span></button>
+          <button class="story-button" data-story-button type="button" aria-label="Mostrar Markdown Live Editor" aria-pressed="false"><span aria-hidden="true"></span></button>
         </div>
         <button class="story-toggle" type="button" aria-label="Pausar rotação dos banners"><span aria-hidden="true"></span></button>
       </div>
     </div>
   </section>
 
-  <section class="home-catalog" id="projetos" aria-labelledby="catalog-title" data-catalog>
+  <section class="home-offers" id="offers" aria-labelledby="offers-title" data-card-carousel>
+    <div class="section-heading offers-heading">
+      <h2 id="offers-title">Mais Procurados</h2>
+      <div class="offers-actions">
+        <div class="carousel-controls" data-carousel-controls role="group" aria-label="Navegação da seção Mais Procurados" hidden>
+          <button class="carousel-arrow previous" type="button" data-carousel-step="-1" aria-controls="offers-list" aria-label="Cartão anterior"><span class="chevron" aria-hidden="true"></span></button>
+          <button class="carousel-arrow next" type="button" data-carousel-step="1" aria-controls="offers-list" aria-label="Próximo cartão"><span class="chevron" aria-hidden="true"></span></button>
+        </div>
+        <a class="offer-more" href="#catalog">Ver catálogo<span class="chevron" aria-hidden="true"></span></a>
+      </div>
+    </div>
+    <ul class="offers-track" id="offers-list" data-carousel-track role="list">
+      <li class="offer-entry">
+        <a class="offer-card theme-dump has-offer-art" href="projects/dump-studio/index.html">
+          <div class="offer-art"><img src="assets/projects/dump/banners/my-dump-studio-banner.png" alt="" loading="lazy"></div>
+          <div class="offer-copy">
+            <p class="offer-label">Demo interativa</p>
+            <h3>My Dump Studio</h3>
+            <p class="offer-description">Experimente filtros e monte carrosséis com fotos de exemplo.</p>
+            <div class="offer-footer">
+              <span class="offer-action">Ver detalhes<span class="chevron" aria-hidden="true"></span></span>
+            </div>
+          </div>
+        </a>
+      </li>
+      <li class="offer-entry">
+        <a class="offer-card theme-pixel has-offer-art" href="projects/pixel-college-deluxe/index.html">
+          <div class="offer-art"><img src="assets/projects/pixel/squares/pixel-college-deluxe.png" alt="" loading="lazy"></div>
+          <div class="offer-copy">
+            <p class="offer-label">No navegador</p>
+            <h3>Pixel College Deluxe</h3>
+            <p class="offer-description">Escolha seu time e dispute uma partida rápida ou uma temporada de futebol americano universitário em pixel art.</p>
+            <div class="offer-footer">
+              <span class="offer-action">Ver detalhes<span class="chevron" aria-hidden="true"></span></span>
+            </div>
+          </div>
+        </a>
+      </li>
+      <li class="offer-entry">
+        <a class="offer-card theme-markdown has-offer-art" href="projects/markdown-live-editor/index.html">
+          <div class="offer-art"><img src="assets/projects/markdown/squares/markdown-live-editor-capa-quadrada.png" alt="" loading="lazy"></div>
+          <div class="offer-copy">
+            <p class="offer-label">Editor no navegador</p>
+            <h3>Markdown Live Editor</h3>
+            <p class="offer-description">Escreva em blocos, organize suas notas em pastas e comece projetos com modelos prontos.</p>
+            <div class="offer-footer">
+              <span class="offer-action">Ver detalhes<span class="chevron" aria-hidden="true"></span></span>
+            </div>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <section class="home-catalog" id="catalog" aria-labelledby="catalog-title" data-catalog>
     <div class="section-heading catalog-heading">
       <h2 id="catalog-title">Todos meus Apps</h2>
-      <form class="search-field catalog-search" role="search" aria-label="Busca no catálogo" action="index.html#projetos" method="get">
+      <form class="search-field catalog-search" role="search" aria-label="Busca no catálogo" action="index.html#catalog" method="get">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 5 5"/></svg>
         <input type="search" name="q" placeholder="Buscar no catálogo" aria-label="Buscar no catálogo" enterkeyhint="search" aria-controls="catalog-list">
       </form>
     </div>
     <div class="catalog-toolbar">
       <div class="catalog-filters" role="group" aria-label="Filtrar aplicativos" hidden>
-        <button type="button" data-filter="all" aria-pressed="true" aria-controls="catalog-list"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>Todas</span> <span class="catalog-tab-count" data-tab-count>3</span></button>
-        <button type="button" data-filter="edicao" aria-pressed="false" aria-controls="catalog-list"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5 4 4M4 20l4.5-1 11-11a2.8 2.8 0 0 0-4-4l-11 11L4 20z"/></svg><span>Edição</span> <span class="catalog-tab-count" data-tab-count>1</span></button>
-        <button type="button" data-filter="entretenimento" aria-pressed="false" aria-controls="catalog-list"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10a4 4 0 0 1 3.9 3.3l1 5.3a2.6 2.6 0 0 1-4.4 2.3L15 15H9l-2.5 2.9a2.6 2.6 0 0 1-4.4-2.3l1-5.3A4 4 0 0 1 7 7Z"/><path d="M8 9.5v4M6 11.5h4M16 11.5h.01m2-2h.01"/></svg><span>Entretenimento</span> <span class="catalog-tab-count" data-tab-count>2</span></button>
+        <button type="button" data-filter="all" aria-pressed="true" aria-controls="catalog-list"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>Todas</span> <span class="catalog-tab-count" data-tab-count>4</span></button>
+        <button type="button" data-filter="editing" aria-pressed="false" aria-controls="catalog-list"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5 4 4M4 20l4.5-1 11-11a2.8 2.8 0 0 0-4-4l-11 11L4 20z"/></svg><span>Edição</span> <span class="catalog-tab-count" data-tab-count>1</span></button>
+        <button type="button" data-filter="utilities" aria-pressed="false" aria-controls="catalog-list"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-7 7a2.1 2.1 0 0 1-3-3l7-7a6 6 0 0 1 7.9-7.9Z"/></svg><span>Utilitários</span> <span class="catalog-tab-count" data-tab-count>1</span></button>
+        <button type="button" data-filter="entertainment" aria-pressed="false" aria-controls="catalog-list"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10a4 4 0 0 1 3.9 3.3l1 5.3a2.6 2.6 0 0 1-4.4 2.3L15 15H9l-2.5 2.9a2.6 2.6 0 0 1-4.4-2.3l1-5.3A4 4 0 0 1 7 7Z"/><path d="M8 9.5v4M6 11.5h4M16 11.5h.01m2-2h.01"/></svg><span>Entretenimento</span> <span class="catalog-tab-count" data-tab-count>2</span></button>
       </div>
-      <p class="sr-only" data-catalog-count role="status">3 apps</p>
+      <p class="sr-only" data-catalog-count role="status">4 apps</p>
     </div>
-    <p class="catalog-query" data-catalog-query hidden>Resultados para “<span></span>”. <a href="index.html#projetos">Limpar busca</a></p>
+    <p class="catalog-query" data-catalog-query hidden>Resultados para “<span></span>”. <a href="index.html#catalog">Limpar busca</a></p>
     <p class="catalog-empty" data-catalog-empty hidden>Nenhum app encontrado.</p>
     <div class="catalog-list" id="catalog-list">
-      <article class="catalog-entry theme-dump has-catalog-preview has-catalog-icon" data-category="edicao" data-search-text="My Dump Studio dump-studio dump-studio Editor de fotos e carrosséis Junte as fotos do fim de semana, encontre o seu look e monte um photo dump pronto para o feed. Photo dumps Colagens Carrosséis">
-        <a class="catalog-app-icon" href="projetos/dump-studio/index.html" aria-label="Ver app My Dump Studio"><img src="assets/projects/dump/icons/icon-128.png" width="64" height="64" alt="" loading="lazy"></a>
+      <article class="catalog-entry theme-dump has-catalog-preview has-catalog-icon" data-category="editing" data-search-text="My Dump Studio dump-studio dump-studio Editor de fotos e carrosséis Junte as fotos do fim de semana, encontre o seu look e monte um photo dump pronto para o feed. Photo dumps Colagens Carrosséis">
+        <a class="catalog-app-icon" href="projects/dump-studio/index.html" aria-label="Ver app My Dump Studio"><img src="assets/projects/dump/icons/icon-128.png" width="64" height="64" alt="" loading="lazy"></a>
         <div class="catalog-preview" data-card-preview>
-          <a class="catalog-image" href="projetos/dump-studio/index.html#midia" aria-label="Ver galeria de My Dump Studio">
+          <a class="catalog-image" href="projects/dump-studio/index.html#media" aria-label="Ver galeria de My Dump Studio">
             <img class="preview-image is-current" src="assets/projects/dump/squares/my-dump-studio-square.png" alt="" loading="lazy">
             <img class="preview-image" src="assets/projects/dump/screenshots/01-filtros.png" alt="" loading="lazy">
             <img class="preview-image" src="assets/projects/dump/screenshots/04-layout-de-colagem.png" alt="" loading="lazy">
@@ -151,18 +212,55 @@
           <ul class="tags"><li>Photo dumps</li><li>Colagens</li><li>Carrosséis</li></ul>
           <div class="catalog-footer">
             <div class="actions">
-                <a class="button primary" href="projetos/dump-studio/index.html">Conhecer o editor</a>
+                <a class="button primary" href="projects/dump-studio/index.html">Conhecer o editor</a>
                 <a class="button secondary" href="https://github.com/felipeAguiarCode/dump-studio/releases/latest" target="_blank" rel="noopener noreferrer">Ver download</a>
               </div>
-            <a class="catalog-mobile-action" href="projetos/dump-studio/index.html" aria-label="Ver app My Dump Studio">Ver app</a>
+            <a class="catalog-mobile-action" href="projects/dump-studio/index.html" aria-label="Ver app My Dump Studio">Ver app</a>
             <a class="repo-stars" href="https://github.com/felipeAguiarCode/dump-studio" target="_blank" rel="noopener noreferrer" data-repo-stars="https://api.github.com/repos/felipeAguiarCode/dump-studio" aria-label="Dar uma estrela a My Dump Studio no GitHub" title="Dar uma estrela no GitHub"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.5 4.4 1 6.2L12 17.3l-5.6 2.9 1.1-6.2L3 9.6l6.2-.9L12 3Z"/></svg><span data-star-count hidden></span></a>
           </div>
         </div>
       </article>
-      <article class="catalog-entry theme-ps5 has-catalog-preview has-catalog-icon" data-category="entretenimento" data-search-text="psEmuShell psEmuShell ps5-emushell Launcher de jogos transforme seu notebook em um console de sofá com todos seus emuladores e recomps em um lugar só Emulação Controle RetroAchievements">
-        <a class="catalog-app-icon" href="projetos/ps5-emushell/index.html" aria-label="Ver app psEmuShell"><img src="assets/projects/ps5/icons/icon-128.png" width="64" height="64" alt="" loading="lazy"></a>
+      <article class="catalog-entry theme-markdown has-catalog-preview has-catalog-icon" data-category="utilities" data-search-text="Markdown Live Editor markdown-live-editor markdown-live-editor Editor de notas em Markdown Crie notas, checklists e documentos de projeto em um editor que salva o trabalho no navegador. Markdown Notas Modelos">
+        <a class="catalog-app-icon" href="projects/markdown-live-editor/index.html" aria-label="Ver app Markdown Live Editor"><img src="assets/projects/markdown/icons/icon-128.png" width="64" height="64" alt="" loading="lazy"></a>
         <div class="catalog-preview" data-card-preview>
-          <a class="catalog-image" href="projetos/ps5-emushell/index.html#midia" aria-label="Ver galeria de psEmuShell">
+          <a class="catalog-image" href="projects/markdown-live-editor/index.html#media" aria-label="Ver galeria de Markdown Live Editor">
+            <img class="preview-image is-current" src="assets/projects/markdown/squares/markdown-live-editor-capa-quadrada.png" alt="" loading="lazy">
+            <img class="preview-image" src="assets/projects/markdown/screenshots/01-organizacao.png" alt="" loading="lazy">
+            <img class="preview-image" src="assets/projects/markdown/screenshots/02-modelos-de-projeto.png" alt="" loading="lazy">
+            <img class="preview-image" src="assets/projects/markdown/screenshots/03-menu-do-editor.png" alt="" loading="lazy">
+            <img class="preview-image" src="assets/projects/markdown/screenshots/04-tabela-editavel.png" alt="" loading="lazy">
+            <img class="preview-image" src="assets/projects/markdown/screenshots/05-escrita-imersiva.png" alt="" loading="lazy">
+            <img class="preview-image" src="assets/projects/markdown/screenshots/06-editor-no-celular.png" alt="" loading="lazy">
+            <img class="preview-image" src="assets/projects/markdown/screenshots/07-seletor-de-modelos.png" alt="" loading="lazy">
+            <img class="preview-image" src="assets/projects/markdown/screenshots/08-modelos-de-prompt.png" alt="" loading="lazy">
+            <img class="preview-image" src="assets/projects/markdown/screenshots/09-modelos-de-spec-de-api.png" alt="" loading="lazy">
+            <img class="preview-image" src="assets/projects/markdown/screenshots/10-spec-gerada-a-partir-de-modelo.png" alt="" loading="lazy">
+            <img class="preview-image" src="assets/projects/markdown/screenshots/11-modelos-no-celular.png" alt="" loading="lazy">
+            <video class="preview-video" src="assets/projects/markdown/videos/markdown-live-editor-demonstracao.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
+            <span class="catalog-play">Ver galeria</span>
+          </a>
+          <button class="preview-toggle" type="button" data-preview-name="Markdown Live Editor" aria-label="Reproduzir prévia de Markdown Live Editor" hidden><span aria-hidden="true"></span></button>
+        </div>
+        <div class="catalog-copy">
+          <p class="kicker">Editor de notas em Markdown</p>
+          <h3>Markdown Live Editor</h3>
+          <p class="catalog-lede">Escreva em blocos, organize em pastas.</p>
+          <p class="catalog-summary">Crie notas, checklists e documentos de projeto em um editor que salva o trabalho no navegador.</p>
+          <ul class="tags"><li>Markdown</li><li>Notas</li><li>Modelos</li></ul>
+          <div class="catalog-footer">
+            <div class="actions">
+                <a class="button primary" href="projects/markdown-live-editor/index.html">Conhecer o editor</a>
+                <a class="button secondary" href="https://felipeaguiarcode.github.io/markdown-live-editor/" target="_blank" rel="noopener noreferrer">Abrir editor no navegador</a>
+              </div>
+            <a class="catalog-mobile-action" href="projects/markdown-live-editor/index.html" aria-label="Ver app Markdown Live Editor">Ver app</a>
+            <a class="repo-stars" href="https://github.com/felipeAguiarCode/markdown-live-editor" target="_blank" rel="noopener noreferrer" data-repo-stars="https://api.github.com/repos/felipeAguiarCode/markdown-live-editor" aria-label="Dar uma estrela a Markdown Live Editor no GitHub" title="Dar uma estrela no GitHub"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.5 4.4 1 6.2L12 17.3l-5.6 2.9 1.1-6.2L3 9.6l6.2-.9L12 3Z"/></svg><span data-star-count hidden></span></a>
+          </div>
+        </div>
+      </article>
+      <article class="catalog-entry theme-ps5 has-catalog-preview has-catalog-icon" data-category="entertainment" data-search-text="psEmuShell psEmuShell ps5-emushell Launcher de jogos transforme seu notebook em um console de sofá com todos seus emuladores e recomps em um lugar só Emulação Controle RetroAchievements">
+        <a class="catalog-app-icon" href="projects/ps5-emushell/index.html" aria-label="Ver app psEmuShell"><img src="assets/projects/ps5/icons/icon-128.png" width="64" height="64" alt="" loading="lazy"></a>
+        <div class="catalog-preview" data-card-preview>
+          <a class="catalog-image" href="projects/ps5-emushell/index.html#media" aria-label="Ver galeria de psEmuShell">
             <img class="preview-image is-current" src="assets/projects/ps5/squares/ps5-emu-shell-capa.png" alt="" loading="lazy">
             <img class="preview-image" src="assets/projects/ps5/screenshots/01-tela-de-jogos.png" alt="" loading="lazy">
             <img class="preview-image" src="assets/projects/ps5/screenshots/02-biblioteca.png" alt="" loading="lazy">
@@ -183,18 +281,18 @@
           <ul class="tags"><li>Emulação</li><li>Controle</li><li>RetroAchievements</li></ul>
           <div class="catalog-footer">
             <div class="actions">
-                <a class="button primary" href="projetos/ps5-emushell/index.html">Conhecer o launcher</a>
+                <a class="button primary" href="projects/ps5-emushell/index.html">Conhecer o launcher</a>
                 <a class="button secondary" href="https://github.com/felipeAguiarCode/psEmuShell/releases/latest" target="_blank" rel="noopener noreferrer">Ver último release</a>
               </div>
-            <a class="catalog-mobile-action" href="projetos/ps5-emushell/index.html" aria-label="Ver app psEmuShell">Ver app</a>
+            <a class="catalog-mobile-action" href="projects/ps5-emushell/index.html" aria-label="Ver app psEmuShell">Ver app</a>
             <a class="repo-stars" href="https://github.com/felipeAguiarCode/psEmuShell" target="_blank" rel="noopener noreferrer" data-repo-stars="https://api.github.com/repos/felipeAguiarCode/psEmuShell" aria-label="Dar uma estrela a psEmuShell no GitHub" title="Dar uma estrela no GitHub"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.5 4.4 1 6.2L12 17.3l-5.6 2.9 1.1-6.2L3 9.6l6.2-.9L12 3Z"/></svg><span data-star-count hidden></span></a>
           </div>
         </div>
       </article>
-      <article class="catalog-entry theme-pixel has-catalog-preview has-catalog-icon" data-category="entretenimento" data-search-text="Pixel College Deluxe pixel-college-deluxe pixel-college-deluxe Futebol americano universitário Escolha entre 138 programas universitários, dispute partidas em pixel art e construa uma carreira de treinador. Esportes Pixel art Carreira">
-        <a class="catalog-app-icon" href="projetos/pixel-college-deluxe/index.html" aria-label="Ver app Pixel College Deluxe"><img src="assets/projects/pixel/icons/icon-128.png" width="64" height="64" alt="" loading="lazy"></a>
+      <article class="catalog-entry theme-pixel has-catalog-preview has-catalog-icon" data-category="entertainment" data-search-text="Pixel College Deluxe pixel-college-deluxe pixel-college-deluxe Futebol americano universitário Escolha entre 138 programas universitários, dispute partidas em pixel art e construa uma carreira de treinador. Esportes Pixel art Carreira">
+        <a class="catalog-app-icon" href="projects/pixel-college-deluxe/index.html" aria-label="Ver app Pixel College Deluxe"><img src="assets/projects/pixel/icons/icon-128.png" width="64" height="64" alt="" loading="lazy"></a>
         <div class="catalog-preview" data-card-preview>
-          <a class="catalog-image" href="projetos/pixel-college-deluxe/index.html#midia" aria-label="Ver galeria de Pixel College Deluxe">
+          <a class="catalog-image" href="projects/pixel-college-deluxe/index.html#media" aria-label="Ver galeria de Pixel College Deluxe">
             <img class="preview-image is-current" src="assets/projects/pixel/screenshots/28-espx-tv-leaders-texas-am-lsu.png" alt="" loading="lazy">
             <img class="preview-image" src="assets/projects/pixel/squares/pixel-college-deluxe.png" alt="" loading="lazy">
             <img class="preview-image" src="assets/projects/pixel/screenshots/01-chuva-alabama-auburn-pre-snap.png" alt="" loading="lazy">
@@ -220,10 +318,10 @@
           <ul class="tags"><li>Esportes</li><li>Pixel art</li><li>Carreira</li></ul>
           <div class="catalog-footer">
             <div class="actions">
-                <a class="button primary" href="projetos/pixel-college-deluxe/index.html">Conhecer o jogo</a>
+                <a class="button primary" href="projects/pixel-college-deluxe/index.html">Conhecer o jogo</a>
                 <a class="button secondary" href="https://felipeaguiarcode.github.io/pixel-college-deluxe/" target="_blank" rel="noopener noreferrer">Jogar no navegador</a>
               </div>
-            <a class="catalog-mobile-action" href="projetos/pixel-college-deluxe/index.html" aria-label="Ver app Pixel College Deluxe">Ver app</a>
+            <a class="catalog-mobile-action" href="projects/pixel-college-deluxe/index.html" aria-label="Ver app Pixel College Deluxe">Ver app</a>
             <a class="repo-stars" href="https://github.com/felipeAguiarCode/pixel-college-deluxe" target="_blank" rel="noopener noreferrer" data-repo-stars="https://api.github.com/repos/felipeAguiarCode/pixel-college-deluxe" aria-label="Dar uma estrela a Pixel College Deluxe no GitHub" title="Dar uma estrela no GitHub"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.5 4.4 1 6.2L12 17.3l-5.6 2.9 1.1-6.2L3 9.6l6.2-.9L12 3Z"/></svg><span data-star-count hidden></span></a>
           </div>
         </div>
@@ -231,7 +329,55 @@
     </div>
   </section>
 
-  <section class="about-me" id="sobre" aria-labelledby="about-me-title">
+  <section class="home-recommendations" id="recommendations" aria-labelledby="recommendations-title" data-card-carousel>
+    <div class="section-heading recommendations-heading">
+      <h2 id="recommendations-title">Recomendados para você</h2>
+      <div class="carousel-controls recommendations-controls" data-carousel-controls role="group" aria-label="Navegação dos recomendados" hidden>
+        <button class="carousel-arrow recommendation-arrow previous" type="button" data-carousel-step="-1" aria-controls="recommendations-list" aria-label="Recomendação anterior"><span class="chevron" aria-hidden="true"></span></button>
+        <button class="carousel-arrow recommendation-arrow next" type="button" data-carousel-step="1" aria-controls="recommendations-list" aria-label="Próxima recomendação"><span class="chevron" aria-hidden="true"></span></button>
+      </div>
+    </div>
+    <ul class="recommendations-track" id="recommendations-list" data-carousel-track role="list">
+      <li>
+        <a class="recommendation-card theme-pixel" href="projects/pixel-college-deluxe/index.html">
+          <img class="recommendation-art" src="assets/projects/pixel/banners/pixel-college-deluxe.png" alt="" loading="lazy">
+          <div class="recommendation-copy">
+            <img src="assets/projects/pixel/icons/icon-128.png" width="42" height="42" alt="" loading="lazy">
+            <div>
+              <h3>Pixel College Deluxe</h3>
+              <p>Futebol americano universitário</p>
+            </div>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a class="recommendation-card theme-dump" href="projects/dump-studio/index.html">
+          <img class="recommendation-art" src="assets/projects/dump/banners/my-dump-studio-banner.png" alt="" loading="lazy">
+          <div class="recommendation-copy">
+            <img src="assets/projects/dump/icons/icon-128.png" width="42" height="42" alt="" loading="lazy">
+            <div>
+              <h3>My Dump Studio</h3>
+              <p>Editor de fotos e carrosséis</p>
+            </div>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a class="recommendation-card theme-ps5" href="projects/ps5-emushell/index.html">
+          <img class="recommendation-art" src="assets/projects/ps5/banners/ps5-emu-shell-banner.png" alt="" loading="lazy">
+          <div class="recommendation-copy">
+            <img src="assets/projects/ps5/icons/icon-128.png" width="42" height="42" alt="" loading="lazy">
+            <div>
+              <h3>psEmuShell</h3>
+              <p>Launcher de jogos</p>
+            </div>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <section class="about-me" id="about" aria-labelledby="about-me-title">
     <div class="about-avatar" data-avatar-ring>
       <img class="about-photo" src="assets/felipe-aguiar.jpg" width="192" height="192" loading="lazy" alt="Foto de Felipe Aguiar">
     </div>
@@ -242,8 +388,8 @@
       <p>Sou desenvolvedor full stack e instrutor de tecnologia. Trabalho com TypeScript, Node.js, interfaces web e IA aplicada.<span class="about-bio-details"> Gosto de entender o problema, pensar na arquitetura e transformar a solução em algo que as pessoas possam usar.</span></p>
       <p class="about-bio-details">No GitHub e no YouTube, compartilho código, experimentos e conteúdo técnico. O objetivo é mostrar o que construí, explicar as escolhas e trocar conhecimento com outros desenvolvedores.</p>
       <div class="about-profile-actions">
-        <a class="button primary" href="https://www.instagram.com/felipeaguiar.exe/" target="_blank" rel="noopener noreferrer" aria-label="Seguir Felipe Aguiar no Instagram">Seguir</a>
-        <a class="button secondary" href="#projetos">Ver apps</a>
+        <a class="button primary about-apps-action" href="#catalog">Ver apps</a>
+        <a class="button secondary about-follow-action" href="https://www.instagram.com/felipeaguiar.exe/" target="_blank" rel="noopener noreferrer" aria-label="Seguir Felipe Aguiar no Instagram"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20v-1a5 5 0 0 1 5-5h2a5 5 0 0 1 5 5v1M19 8v6m-3-3h6"/></svg></a>
       </div>
       <nav class="actions" aria-label="Redes sociais de Felipe Aguiar">
         <a class="button secondary" href="https://www.youtube.com/@devaguia/videos" target="_blank" rel="noopener noreferrer" aria-label="Assistir ao Dev Águia no YouTube"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="4"/><path d="m10 9 5 3-5 3Z"/></svg><span>Assistir ao Dev Águia</span></a>
@@ -254,7 +400,7 @@
     </div>
   </section>
 </main>
-<footer class="site-footer" id="contato">
+<footer class="site-footer" id="contact">
   <div class="shell">
     <div class="footer-grid">
       <div class="footer-brand">
@@ -269,21 +415,23 @@
       </div>
       <nav class="footer-col" aria-label="Catálogo">
         <h2>Catálogo</h2>
-        <a href="#projetos">Todos meus Apps</a>
-        <a href="#sobre">Quem faz</a>
+        <a href="#catalog">Todos meus Apps</a>
+        <a href="#about">Quem faz</a>
         <a href="mailto:felipeaguiar.social@gmail.com">Contato por e-mail</a>
       </nav>
       <nav class="footer-col" aria-label="Aplicativos">
         <h2>Apps</h2>
-        <a href="projetos/dump-studio/index.html">My Dump Studio<small>Editor de fotos e carrosséis</small></a>
-        <a href="projetos/ps5-emushell/index.html">psEmuShell<small>Launcher de jogos</small></a>
-        <a href="projetos/pixel-college-deluxe/index.html">Pixel College Deluxe<small>Futebol americano universitário</small></a>
+        <a href="projects/dump-studio/index.html">My Dump Studio<small>Editor de fotos e carrosséis</small></a>
+        <a href="projects/ps5-emushell/index.html">psEmuShell<small>Launcher de jogos</small></a>
+        <a href="projects/pixel-college-deluxe/index.html">Pixel College Deluxe<small>Futebol americano universitário</small></a>
+        <a href="projects/markdown-live-editor/index.html">Markdown Live Editor<small>Editor de notas em Markdown</small></a>
       </nav>
       <nav class="footer-col" aria-label="Jogar e baixar">
         <h2>Jogar e baixar</h2>
         <a href="https://github.com/felipeAguiarCode/dump-studio/releases/latest" target="_blank" rel="noopener noreferrer">Download do My Dump Studio</a>
         <a href="https://github.com/felipeAguiarCode/psEmuShell/releases/latest" target="_blank" rel="noopener noreferrer">Último release do psEmuShell</a>
         <a href="https://felipeaguiarcode.github.io/pixel-college-deluxe/" target="_blank" rel="noopener noreferrer">Jogar Pixel College Deluxe</a>
+        <a href="https://felipeaguiarcode.github.io/markdown-live-editor/" target="_blank" rel="noopener noreferrer">Abrir Markdown Live Editor</a>
       </nav>
     </div>
     <div class="footer-bottom">

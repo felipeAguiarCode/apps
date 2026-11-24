@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Página não encontrada | My App Store</title>
+<script>
+  const projectSlugs = ["dump-studio","ps5-emushell","pixel-college-deluxe","markdown-live-editor"];
+  const destination = new URL(location.href);
+  const legacyProject = /\/projetos\/([^/]+)(?:\/(?:index\.html)?)?$/.exec(destination.pathname);
+  if (legacyProject && projectSlugs.includes(legacyProject[1])) {
+    destination.pathname = destination.pathname.slice(0, legacyProject.index) + '/projects/' + legacyProject[1] + '/';
+    location.replace(destination.href);
+  }
+</script>
+</head>
+<body>
+  <main>
+    <h1>Página não encontrada</h1>
+    <a href="https://felipeaguiarcode.github.io/apps/">Voltar aos aplicativos</a>
+  </main>
+</body>
+</html>

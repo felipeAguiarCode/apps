@@ -154,6 +154,47 @@ if (appCatalog) {
   filters.hidden = false;
 }
 
+document.querySelectorAll('[data-card-carousel]').forEach(carousel => {
+  'use strict';
+
+  const track = carousel.querySelector('[data-carousel-track]');
+  const controls = carousel.querySelector('[data-carousel-controls]');
+  const previous = controls.querySelector('.previous');
+  const next = controls.querySelector('.next');
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+
+  function updateControls() {
+    const maximum = track.scrollWidth - track.clientWidth;
+    controls.hidden = maximum <= 1;
+    previous.setAttribute('aria-disabled', String(track.scrollLeft <= 1));
+    next.setAttribute('aria-disabled', String(track.scrollLeft >= maximum - 1));
+  }
+
+  [previous, next].forEach(button => {
+    button.addEventListener('click', () => {
+      if (button.getAttribute('aria-disabled') === 'true') return;
+      const direction = Number(button.dataset.carouselStep);
+      const current = track.scrollLeft;
+      const maximum = track.scrollWidth - track.clientWidth;
+      const edge = track.getBoundingClientRect().left;
+      const offsets = Array.from(track.children, card => {
+        const offset = current + card.getBoundingClientRect().left - edge;
+        return Math.max(0, Math.min(maximum, offset));
+      });
+      const nearest = offsets.reduce((closest, offset) => (
+        Math.abs(offset - current) < Math.abs(closest - current) ? offset : closest
+      ));
+      if (direction < 0) offsets.reverse();
+      const left = offsets.find(offset => (offset - nearest) * direction > 1) ?? nearest;
+      track.scrollTo({ left, behavior: motion.matches ? 'instant' : 'smooth' });
+    });
+  });
+
+  track.addEventListener('scroll', updateControls, { passive: true });
+  new ResizeObserver(updateControls).observe(track);
+  updateControls();
+});
+
 document.querySelectorAll('[data-card-preview]').forEach(preview => {
   'use strict';
 

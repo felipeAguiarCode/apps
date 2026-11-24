@@ -13,10 +13,10 @@ const types = {
 function assetFiles(directory, type) {
   const stat = fs.lstatSync(directory, { throwIfNoEntry: false });
   if (!stat) return [];
-  if (!stat.isDirectory()) throw new Error(`Esperava uma pasta de mídia em ${directory}.`);
+  if (!stat.isDirectory()) throw new Error(`Expected a media directory at ${directory}.`);
 
   return fs.readdirSync(directory, { withFileTypes: true }).flatMap(entry => {
-    if (entry.isSymbolicLink()) throw new Error(`A mídia deve ser um arquivo da própria pasta: ${path.join(directory, entry.name)}`);
+    if (entry.isSymbolicLink()) throw new Error(`Media files cannot be symbolic links: ${path.join(directory, entry.name)}`);
     if (entry.isDirectory()) {
       return assetFiles(path.join(directory, entry.name), type).map(file => `${entry.name}/${file}`);
     }
@@ -26,15 +26,15 @@ function assetFiles(directory, type) {
 
 export function syncProjectAssets(root, project, checkout) {
   if (!fs.statSync(checkout, { throwIfNoEntry: false })?.isDirectory()) {
-    throw new Error(`Checkout de ${project.name} não encontrado em ${checkout}.`);
+    throw new Error(`Could not find a checkout of ${project.name} at ${checkout}.`);
   }
 
   const store = path.join(checkout, '.store');
   const source = fs.lstatSync(store, { throwIfNoEntry: false });
-  if (source && !source.isDirectory()) throw new Error(`Esperava uma pasta .store em ${checkout}.`);
+  if (source && !source.isDirectory()) throw new Error(`Expected a .store directory in ${checkout}.`);
   const destination = path.join(root, 'assets/projects', project.id);
   const target = fs.lstatSync(destination, { throwIfNoEntry: false });
-  if (target && !target.isDirectory()) throw new Error(`Esperava uma pasta de mídia em ${destination}.`);
+  if (target && !target.isDirectory()) throw new Error(`Expected a media directory at ${destination}.`);
   const plan = Object.keys(types).map(type => {
     const input = path.join(store, type);
     const output = path.join(destination, type);
@@ -52,7 +52,7 @@ export function syncProjectAssets(root, project, checkout) {
     }
   }
 
-  if (!source) console.log(`${project.name} está sem .store e será exibido sem mídia.`);
+  if (!source) console.log(`${project.name} has no .store directory and will be displayed without media.`);
 }
 
 export function projectAssets(root, project) {
